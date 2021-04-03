@@ -1,0 +1,37 @@
+import java.awt.Color;
+import java.awt.Graphics;
+
+
+public class Snake {
+	private Node head;
+	private Node tail;
+	private int size;
+	
+	Node n = new Node(20, 30, Dir.L);
+	
+	Snake(Node node) {
+		
+	}
+	
+	
+	private class Node {
+		int w = Yard.BLOCK_SIZE , h = Yard.BLOCK_SIZE;
+		int row, col;
+		Dir dir = Dir.L;
+		Node next = null;
+		public Node(int row, int col, Dir dir) {
+			this.row = row;
+			this.col = col;
+			this.dir = dir;
+		}
+		
+		public void draw(Graphics g) {
+			Color c = g.getColor();
+			g.setColor(Color.BLACK);
+			g.fillRect(row*Yard.BLOCK_SIZE, col*Yard.BLOCK_SIZE, w, h);
+			g.setColor(c);
+		}
+		
+		
+	}
+}

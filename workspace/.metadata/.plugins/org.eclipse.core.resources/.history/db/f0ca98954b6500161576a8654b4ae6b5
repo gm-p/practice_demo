@@ -1,0 +1,12 @@
+
+public class TankMoveMsg implements Msg{
+	int id;
+	Dir dir;
+	
+	public TankMoveMsg(int id, Dir dir) {
+		this.id = id;
+		this.dir = dir;
+	}
+	
+	
+}

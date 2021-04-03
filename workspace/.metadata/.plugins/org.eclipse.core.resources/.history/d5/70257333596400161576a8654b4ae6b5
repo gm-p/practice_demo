@@ -1,0 +1,12 @@
+import java.net.ServerSocket;
+
+
+public class TankServer {
+
+	public static final int TCP_PORT = 8888;
+	
+	public static void main(String[] args) {
+		ServerSocket ss = new ServerSocket(TCP_PORT);
+	}
+
+}

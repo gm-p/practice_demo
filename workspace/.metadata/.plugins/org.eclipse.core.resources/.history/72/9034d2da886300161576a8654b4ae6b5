@@ -1,0 +1,21 @@
+import java.awt.Color;
+import java.awt.Frame;
+
+import org.omg.CORBA.TCKind;
+
+
+public class TankClient extends Frame{
+
+	TankClient tc = new TankClient();
+	
+	public  void launchFrame() {
+		setBounds(200, 200, 800, 600);
+		setBackground(Color.GREEN);
+		setVisible(true);
+	}
+	
+	public static void main(String[] args) {
+		launch();
+	}
+
+}

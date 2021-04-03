@@ -1,0 +1,20 @@
+import java.awt.Frame;
+
+
+public class Yard extends Frame {
+	
+	private static final int ROWS = 100;
+	private static final int COLS = 100;
+	private static final int BLOCK_SIZE = 10;
+	
+	public void launch() {
+		this.setLocation(200, 200);
+		this.setSize(COLS*BLOCK_SIZE, COLS*BLOCK_SIZE);
+		setVisible(true);
+	}
+	
+	public static void main(String[] args) {
+		new Yard().launch();
+	}
+
+}

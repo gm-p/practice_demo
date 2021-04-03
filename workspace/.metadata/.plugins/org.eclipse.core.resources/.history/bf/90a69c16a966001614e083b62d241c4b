@@ -1,0 +1,32 @@
+import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.net.DatagramSocket;
+
+
+public class TankDeadMsg implements Msg {
+
+	int id;
+	TankClient tc;
+	
+	public TankDeadMsg(int id) {
+		this.id = id;
+	}
+	
+	public TankDeadMsg(TankClient tc) {
+		this.tc = tc;
+	}
+	
+	@Override
+	public void send(DatagramSocket ds, String IP, int udpPort) {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		DataOutputStream dos = new DataOutputStream(baos);
+		dos.writeInt(id);
+	}
+
+	@Override
+	public void parse(DataInputStream dis) {
+
+	}
+
+}

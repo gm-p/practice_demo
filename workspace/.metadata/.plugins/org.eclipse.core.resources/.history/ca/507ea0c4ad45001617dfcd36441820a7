@@ -1,0 +1,15 @@
+
+public class Snake {
+	private Node head;
+	private Node tail;
+	private int size;
+	
+	
+	private class Node {
+		int w, h;
+		int row, col;
+		Dir dir;
+		Node next;
+		
+	}
+}

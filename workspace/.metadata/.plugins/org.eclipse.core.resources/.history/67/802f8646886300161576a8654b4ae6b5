@@ -1,0 +1,19 @@
+import java.awt.Color;
+import java.awt.Frame;
+
+
+public class TankClient extends Frame{
+
+	TankClient tc;
+	
+	public void launch() {
+		setBounds(200, 200, 800, 600);
+		setBackground(Color.GREEN);
+		setVisible(true);
+	}
+	
+	public static void main(String[] args) {
+
+	}
+
+}

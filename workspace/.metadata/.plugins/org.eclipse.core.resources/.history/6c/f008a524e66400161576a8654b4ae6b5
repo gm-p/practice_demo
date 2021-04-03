@@ -1,0 +1,8 @@
+
+public class TankNewMsg {
+	Tank tank;
+	
+	public TankNewMsg(Tank tank) {
+		
+	}
+}

@@ -1,0 +1,21 @@
+import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+
+
+public class Tank {
+	int x, y;
+	
+	public Tank(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+
+	public void draw(Graphics g) {
+		
+	}
+	
+	public void keyPressed(KeyEvent e) {
+		
+	}
+	
+}

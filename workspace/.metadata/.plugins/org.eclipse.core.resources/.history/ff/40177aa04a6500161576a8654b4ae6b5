@@ -1,0 +1,13 @@
+
+public class TankMoveMsg {
+	int id;
+	Dir dir;
+	
+	public TankMoveMsg(int id, Dir dir) {
+		super();
+		this.id = id;
+		this.dir = dir;
+	}
+	
+	
+}

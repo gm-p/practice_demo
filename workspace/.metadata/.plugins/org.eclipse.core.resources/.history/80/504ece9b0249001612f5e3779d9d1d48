@@ -1,0 +1,19 @@
+import java.awt.Color;
+import java.awt.Graphics;
+
+
+public class Missle {
+
+	private int x, y;
+
+	public Missle(int x, int y) {
+		super();
+		this.x = x;
+		this.y = y;
+	}
+	
+	public void draw(Graphics g) {
+		Color c = g.getColor();
+		g.setColor(c);
+	}
+}

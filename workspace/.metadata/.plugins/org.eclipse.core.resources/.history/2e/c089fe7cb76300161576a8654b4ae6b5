@@ -1,0 +1,15 @@
+
+
+public class Missile {
+
+	
+	public Missile(int x, int y, Tank.Direction dir) {
+		super();
+		this.x = x;
+		this.y = y;
+		this.dir = dir;
+	}
+	private int x, y;
+	private Tank.Direction dir;
+	
+}

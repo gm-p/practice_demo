@@ -1,0 +1,15 @@
+
+public class Explode {
+
+	int x, y;
+	int step = 0;
+	private TankClient tc;
+	
+	int[] diameter = {4, 9, 14, 20, 29, 37, 49, 30, 16, 6};
+	
+	public Explode(int x, int y, TankClient tc) {
+		this.x = x;
+		this.y = y;
+		this.tc = tc;
+	}
+}

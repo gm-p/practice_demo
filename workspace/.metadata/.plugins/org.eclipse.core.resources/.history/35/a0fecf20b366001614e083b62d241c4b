@@ -1,0 +1,24 @@
+import java.io.DataInputStream;
+import java.net.DatagramSocket;
+
+
+public class MissileDeadMsg implements Msg {
+
+	int msgType = Msg.MISSILE_DEAD_MSG;
+	TankClient tc;
+	int tankId;
+	int id;
+	
+	@Override
+	public void send(DatagramSocket ds, String IP, int udpPort) {
+		// TODO 自动生成的方法存根
+
+	}
+
+	@Override
+	public void parse(DataInputStream dis) {
+		// TODO 自动生成的方法存根
+
+	}
+
+}

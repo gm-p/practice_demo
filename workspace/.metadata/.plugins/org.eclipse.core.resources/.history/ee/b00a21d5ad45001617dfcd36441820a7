@@ -1,0 +1,21 @@
+
+public class Snake {
+	private Node head;
+	private Node tail;
+	private int size;
+	
+	
+	private class Node {
+		int w, h;
+		int row, col;
+		Dir dir;
+		Node next;
+		public Node(int row, int col, Dir dir) {
+			this.row = row;
+			this.col = col;
+			this.dir = dir;
+		}
+		
+		
+	}
+}

@@ -1,0 +1,81 @@
+import java.awt.Color;
+import java.awt.Graphics;
+
+
+public class Snake {
+	private Node head;
+	private Node tail;
+	private int size;
+	
+	Node n = new Node(20, 30, Dir.L);
+	
+	Snake(Node node) {
+		head = node;
+		tail = node;
+		size = 1;
+	}
+	
+	public void addToTail() {
+		Node n = null;
+		switch(tail.dir) {
+		case L:
+			n = new Node(tail.row, tail.col+1, Dir.L);
+			break;
+		case R:
+			n = new Node(tail.row, tail.col-1, Dir.R);
+			break;
+		case U:
+			n = new Node(tail.row+1, tail.col, Dir.U);
+		case D:
+			n = new Node(tail.row-1, tail.col, Dir.D);
+			break;
+		}
+		tail.next = n;
+		tail = n;
+	}
+	
+	public void addToHead() {
+		Node n = null;
+		switch(head.dir) {
+		case L:
+			n = new Node(head.row, head.col-1, Dir.L);
+			break;
+		case R:
+			n = new Node(head.row, head.col+1, Dir.R);
+			break;
+		case U:
+			n = new Node(head.row-1, head.col, Dir.U);
+			break;
+		case D:
+			n = new Node(head.row+1, head.col, Dir.D);
+			break;
+		}
+		n.next = head;
+		head = n;
+	}
+	
+	public void draw(Graphics g) {
+		
+	}
+	
+	private class Node {
+		int w = Yard.BLOCK_SIZE , h = Yard.BLOCK_SIZE;
+		int row, col;
+		Dir dir = Dir.L;
+		Node next = null;
+		public Node(int row, int col, Dir dir) {
+			this.row = row;
+			this.col = col;
+			this.dir = dir;
+		}
+		
+		public void draw(Graphics g) {
+			Color c = g.getColor();
+			g.setColor(Color.BLACK);
+			g.fillRect(row*Yard.BLOCK_SIZE, col*Yard.BLOCK_SIZE, w, h);
+			g.setColor(c);
+		}
+		
+		
+	}
+}

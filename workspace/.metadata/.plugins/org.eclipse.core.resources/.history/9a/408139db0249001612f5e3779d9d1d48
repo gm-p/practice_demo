@@ -1,0 +1,21 @@
+import java.awt.Color;
+import java.awt.Graphics;
+
+
+public class Missile {
+
+	private int x, y;
+
+	public Missile(int x, int y) {
+		super();
+		this.x = x;
+		this.y = y;
+	}
+	
+	public void draw(Graphics g) {
+		Color c = g.getColor();
+		g.setColor(Color.GRAY);
+		g.fillRect(x, y, 5, 5);
+		g.setColor(c);
+	}
+}

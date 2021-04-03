@@ -1,0 +1,26 @@
+import java.io.DataInputStream;
+import java.net.DatagramSocket;
+
+
+public class TankMoveMsg implements Msg{
+	int msgTyep = Msg.TANK_MOVE_MSG;
+	int id;
+	Dir dir;
+	
+	public TankMoveMsg(int id, Dir dir) {
+		this.id = id;
+		this.dir = dir;
+	}
+
+	@Override
+	public void send(DatagramSocket ds, String IP, int udpPort) {
+		
+	}
+
+	@Override
+	public void parse(DataInputStream dis) {
+		
+	}
+	
+	
+}

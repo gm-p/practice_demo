@@ -1,0 +1,46 @@
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+
+
+public class Tank {
+	public static final int XSPEED = 5;
+	public static final int YSPEED = 5;
+	
+	private int x, y;
+	
+	private boolean bL=false, bU=false, bR=false, bD=false;
+	enum Direction {L, LU, U, RU, R, RD, D, LD, STOP};
+	private Direction dir = Direction.D;
+	
+	public Tank(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+
+	public void draw(Graphics g) {
+		Color c = g.getColor();
+		g.setColor(Color.RED);
+		g.fillOval(x, y, 30, 30);
+		g.setColor(c);
+		
+	}
+	
+	public void keyPressed(KeyEvent e) {
+		int key = e.getKeyCode();
+		switch(key) {
+		case KeyEvent.VK_LEFT:
+			bL = true;
+			break;
+		case KeyEvent.VK_UP:
+			bU = true;
+			break;
+		case KeyEvent.VK_RIGHT:
+			bR = true;
+			break;
+		case KeyEvent.VK_DOWN:
+			bD = true;
+			break;
+		}
+	}
+}
