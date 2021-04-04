@@ -1,0 +1,33 @@
+#include <iostream>  
+02#include <string>  
+03#include <fstream>  
+  
+04using namespace std;  
+  
+5void moveOne(string& str)  
+6{  
+7    int length=str.length();  
+8    for(int i=1;i<length; i++) str[i-1]=str[i];  
+9    str[length-1]='\0';  
+10}  
+11void CheckAndMove(string& str)  
+12{  
+13    while (str.size()>0&&'0'<=str[0]&&str[0]<='9')  
+14    {  
+15        moveOne(str);  
+16    }  
+17}  
+18  
+19int main()  
+20{  
+21    ifstream infile("D:/in.txt");  
+22    ofstream outfile("D:/out.txt");  
+23    string str;  
+24    while (getline(infile,str))  
+25    {  
+26        CheckAndMove(str);    
+27        for(int i=0; i<str.length(); i++) cout<<str[i];  
+28        cout<<endl;  
+29        outfile<<str<<endl;  
+30    }  
+} 
