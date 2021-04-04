@@ -1,0 +1,16 @@
+package com.gm.dp.iterator;
+
+public class LinkedList {
+
+	private Node head = null;
+	private Node tail = null;
+	private int size = 0;
+	
+	public void add(Object o) {
+		
+	}
+	
+	public int size() {
+		return 0;
+	}
+}

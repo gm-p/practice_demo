@@ -1,0 +1,11 @@
+package com.gm.dp.iterator;
+
+public class ArrayList {
+
+	Object[] objects = new Object[10];
+	int index = 0;
+	
+	public void add() {
+		if()
+	}
+}

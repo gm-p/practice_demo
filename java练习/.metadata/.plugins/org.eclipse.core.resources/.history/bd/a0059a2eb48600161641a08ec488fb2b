@@ -1,0 +1,5 @@
+package com.gm.dp.strategy;
+
+public class Dog implements Comparable{
+
+}

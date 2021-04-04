@@ -1,0 +1,26 @@
+package com.gm.dp.strategy;
+
+public class Test {
+
+	public static void main(String[] args) {
+		
+		int[] a = {9, 5, 3, 7, 1};
+		DataSorter.sort(a);
+		DataSorter.p(a);
+	}
+
+}
+
+class DataSorter {
+	
+	public static void sort(int[] a) {
+		int n = a.length;
+		for(int i=0)
+	}
+	
+	public static void p(int[] a) {
+		for(int i=0; i<a.length; i++) {
+			System.out.print(a[i] + " ");
+		}
+	}
+}

@@ -1,0 +1,23 @@
+package com.gm.dp.iterator;
+
+public class LinkedList {
+
+	private Node head = null;
+	private Node tail = null;
+	private int size = 0;
+	
+	public void add(Object o) {
+		Node n = new Node(o, null);
+		
+		if(head == null) {
+			head = n;
+			tail = n;
+		}
+		tail.setNext(n);
+		tail = n;
+	}
+	
+	public int size() {
+		return size;
+	}
+}

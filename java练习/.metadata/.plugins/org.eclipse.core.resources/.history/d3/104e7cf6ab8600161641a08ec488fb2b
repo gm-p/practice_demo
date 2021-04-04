@@ -1,0 +1,15 @@
+package com.gm.dp.strategy;
+
+public class Cat {
+
+	private int height;
+	private int weight;
+	
+	public Cat(int height, int weight) {
+		super();
+		this.height = height;
+		this.weight = weight;
+	}
+	
+	
+}

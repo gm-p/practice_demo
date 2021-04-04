@@ -1,0 +1,7 @@
+package com.gm.dp.iterator;
+
+import com.gm.dp.iterator.C
+public interface Collection {
+	void add(Object o);
+	int size();
+}

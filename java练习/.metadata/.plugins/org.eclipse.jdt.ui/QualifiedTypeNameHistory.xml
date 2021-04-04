@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="com.gm.dp.iterator.ArrayList"/>
+<fullyQualifiedTypeName name="com.gm.dp.iterator.LinkedList"/>
+<fullyQualifiedTypeName name="com.gm.dp.iterator.Cat"/>
+<fullyQualifiedTypeName name="com.gm.dp.iterator.Collection"/>
+<fullyQualifiedTypeName name="java.lang.Iterable"/>
+<fullyQualifiedTypeName name="com.gm.dp.iterator.Iterator"/>
+<fullyQualifiedTypeName name="com.gm.dp.strategy.Comparable"/>
+<fullyQualifiedTypeName name="com.gm.dp.strategy.Comparator"/>
+<fullyQualifiedTypeName name="com.gm.dp.strategy.CatHeightComparator"/>
+<fullyQualifiedTypeName name="com.gm.dp.strategy.CatWeightComparator"/>
+</qualifiedTypeNameHistroy>

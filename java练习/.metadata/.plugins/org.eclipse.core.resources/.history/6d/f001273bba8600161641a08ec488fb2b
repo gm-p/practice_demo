@@ -1,0 +1,6 @@
+package com.gm.dp.strategy;
+
+public interface Comparator {
+
+	
+}

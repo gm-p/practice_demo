@@ -1,0 +1,4 @@
+
+public class Vehicle {
+	public abstract void go(Address dest);
+}

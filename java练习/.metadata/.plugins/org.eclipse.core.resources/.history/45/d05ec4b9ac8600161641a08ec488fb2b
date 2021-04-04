@@ -1,0 +1,50 @@
+package com.gm.dp.strategy;
+
+public class DataSorter {
+
+	public static void sort(int[] a) {
+		int n = a.length;
+		//√∞≈›≈≈–Ú
+		/*for(int i=0; i<n-1; i++) {
+			for(int j=n-1; j>i; j--) {
+				if(a[j] < a[j-1]) {
+					int temp = a[j];
+					a[j] = a[j-1];
+					a[j-1] = temp;
+				}
+			}
+		}*/
+		
+		//—°‘Ò≈≈–Ú
+		for(int i=0; i<n-1; i++) {
+			int k=i;
+			for(int j=i+1; j<n; j++) {
+				if(a[k] > a[j])
+					k = j;
+			}
+			if(k != i) {
+				int temp = a[k];
+				a[k] = a[i];
+				a[i] = temp;
+			}
+		}
+	}
+	
+	public void sort(Cat[] c) {
+		int n = c.length;
+		for(int i=0; i<n-1; i++) 
+			for(int j=n-1; j>i; j--) {
+				if(c[j].getHeight() < c[j-1].getHeight()) {
+					swap(c, j, j-1);
+				}
+			}
+	}
+	
+	public static void p(int[] a) {
+		for(int i=0; i<a.length; i++) {
+			System.out.print(a[i] + " ");
+		}
+		System.out.println();
+	}
+
+}

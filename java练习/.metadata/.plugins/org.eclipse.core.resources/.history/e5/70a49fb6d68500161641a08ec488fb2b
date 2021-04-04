@@ -1,0 +1,8 @@
+package com.gm.dp.iterator;
+
+public class LinkedList {
+
+	public void add(Object o) {
+		
+	}
+}

@@ -1,0 +1,9 @@
+package com.gm.dp.strategy;
+
+public class Cat {
+
+	private int height;
+	private int weight;
+	
+	
+}

@@ -1,0 +1,10 @@
+
+public class Address {
+	String name;
+
+	public Address(String name) {
+		this.name = name;
+	}
+	
+	
+}
