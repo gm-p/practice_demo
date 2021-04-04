@@ -1,0 +1,42 @@
+﻿body
+{
+    font-family: 楷体;
+    font-size: 20px;
+    color: #FF0000;
+}
+h1{font-size:20pt;color:Red}
+ h2{font-size:15pt;color:Blue}
+/*table
+{
+    font-family: 楷体;
+    font-size: 20px;
+}
+h1.first
+{
+    color: #FF0000;
+    font-size: 32px;
+}*/
+
+.left
+{
+    background-color: #FFFF00;
+    width: 30%;
+    float: left;
+}
+
+.right
+{
+    background-color: #0000FF;
+    width: 70%;
+    float: left;
+}
+#ID
+{
+    font-family: 宋体;
+    font-size: 18px;
+}
+.left h1
+{
+    font-family: 幼圆;
+    font-size: 30px;
+}
