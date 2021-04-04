@@ -1,0 +1,87 @@
+116. 填充每个节点的下一个右侧节点指针
+给定一个完美二叉树，其所有叶子节点都在同一层，每个父节点都有两个子节点。二叉树定义如下：
+struct Node {
+  int val;
+  Node *left;
+  Node *right;
+  Node *next;
+}
+填充它的每个 next 指针，让这个指针指向其下一个右侧节点。如果找不到下一个右侧节点，则将 next 指针设置为 NULL。
+初始状态下，所有 next 指针都被设置为 NULL。
+提示：
+你只能使用常量级额外空间。
+使用递归解题也符合要求，本题中递归程序占用的栈空间不算做额外的空间复杂度。
+/*
+// Definition for a Node.
+class Node {
+public:
+    int val;
+    Node* left;
+    Node* right;
+    Node* next;
+
+    Node() {}
+
+    Node(int _val, Node* _left, Node* _right, Node* _next) {
+        val = _val;
+        left = _left;
+        right = _right;
+        next = _next;
+    }
+};
+*/
+class Solution {
+public:
+    Node* connect(Node* root) {
+        if(root == NULL)
+            return root;
+        if(root->left)
+        {
+            root->left->next = root->right;
+        }
+        if(root->right)
+        {
+            root->right->next = root->next ? root->next->left : NULL;
+        }
+        connect(root->left);
+        connect(root->right);
+        return root;
+    }
+};
+
+二叉树中序遍历的下一个结点
+给定一个二叉树和其中的一个结点，请找出中序遍历顺序的下一个结点并且返回。注意，树中的结点不仅包含左右子结点，同时包含指向父结点的指针。
+/*
+struct TreeLinkNode {
+    int val;
+    struct TreeLinkNode *left;
+    struct TreeLinkNode *right;
+    struct TreeLinkNode *next;
+    TreeLinkNode(int x) :val(x), left(NULL), right(NULL), next(NULL) {
+        
+    }
+};
+*/
+class Solution {
+public:
+    TreeLinkNode* GetNext(TreeLinkNode* pNode)
+    {
+        if(pNode == NULL)
+            return NULL;
+        if(pNode->right)
+        {
+            TreeLinkNode* p = pNode->right;
+            while(p->left)
+                p = p->left;
+            return p;
+        }
+        TreeLinkNode* parent = pNode->next;
+        TreeLinkNode* p = pNode;
+        while(parent && parent->left != p)
+        {
+            p = parent;
+            parent = parent->next;
+        }
+        return parent;
+    }
+};

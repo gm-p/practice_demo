@@ -1,0 +1,459 @@
+三种遍历（递归版）
+//前序遍历(根-左-右)
+void preOrder(TreeNode* root, vector<int>& path)
+{
+	if(root == NULL)
+		return ;
+	path.push_back(root->val);
+	preOrder(root->left, path);
+	preOrder(root->right, path);
+}
+
+//中序遍历(左-根-右)
+void inOrder(TreeNode* root, vector<int>& path)
+{
+	if(root == NULL)
+		return ;
+	inOrder(root->left, path);
+	path.push_back(root->val);
+	inOrder(root->right, path);
+}
+
+//后序遍历(左-右-根)
+void postOrder(TreeNode* root, vector<int>& path)
+{
+	if(root == NULL)
+		return;
+	postOrder(root->left, path);
+	postOrder(root->right, path);
+	path.push_back(root->val);
+}
+
+非递归遍历
+//前序遍历
+vector<int> preOrderTraversal(TreeNode* root)
+{
+	vector<int> path;
+	if(root == NULL)
+		return path;
+	TreeNode* p = root;
+	stack<TreeNode*> s;
+	while(p || !s.empty())
+	{
+		if(p)
+		{
+			path.push_back(p->val);
+			
+			s.push(p);
+			p = p->left;
+		}
+		else
+		{
+			p = s.top();
+			s.pop();
+			p = p->right;
+		}
+	}
+	return path;
+}
+//中序遍历
+vector<int> inOrderTraversal(TreeNode* root)
+{
+	vector<int> path;
+	if(root == NULL)
+		return path;
+	stack<TreeNode*> s;
+	TreeNode* p = root;
+	while(p || !s.empty())
+	{
+		if(p)
+		{
+			s.push(p);
+			
+			p = p->left;
+		}
+		else
+		{
+			p = s.top();
+			path.push_back(p->val);
+			s.pop();
+			
+			p = p->right;
+		}
+	}
+	return path;
+}
+//后序遍历
+vector<int> postOrderTraversal(TreeNode* root)
+{
+	vector<int> path;
+	if(root == NULL)
+		return path;
+	stack<TreeNode*> s;
+	s.push(root);
+	TreeNode* pre = NULL;
+	TreeNode* p = NULL;
+	while(!s.empty())
+	{
+		p = s.top();
+		bool flag1 = p->left == NULL && p->right == NULL;  // 无左右节点
+		bool flag2 = pre && (pre == p->left || pre == p->right);  // 左右节点已访问
+		if(!flag1 && !flag2)
+		{
+			if(p->right)
+				s.push(p->right);
+			if(p->left)
+				s.push(p->left);
+		}
+		else
+		{
+			path.push_back(p->val);
+			s.pop();
+			pre = p;  // 保存刚刚访问过的节点
+		}
+	}
+	return path;
+}
+
+102. 二叉树的层次遍历
+给定一个二叉树，返回其按层次遍历的节点值。 （即逐层地，从左到右访问所有节点）。
+例如:
+给定二叉树: [3,9,20,null,null,15,7],
+返回其层次遍历结果：
+[
+  [3],
+  [9,20],
+  [15,7]
+]
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        vector<vector<int>> res;
+        if(root == NULL)
+            return res;
+        vector<int> level;
+        TreeNode* p = root;
+        queue<TreeNode*> q;
+        q.push(p);
+        int curCnt = 1;
+        int nextCnt = 0;
+        while(!q.empty())
+        {
+            p = q.front();
+            q.pop();
+            level.push_back(p->val);
+            if(p->left)
+            {
+                q.push(p->left);
+                nextCnt++;
+            }
+            if(p->right)
+            {
+                q.push(p->right);
+                nextCnt++;
+            }
+            if(level.size() == curCnt)
+            {
+                res.push_back(level);
+                level.clear();
+                curCnt = nextCnt;
+                nextCnt = 0;
+            }
+        }
+        return res;
+    }
+};
+
+103. 二叉树的锯齿形层次遍历
+给定一个二叉树，返回其节点值的锯齿形层次遍历。（即先从左往右，再从右往左进行下一层遍历，以此类推，层与层之间交替进行）。
+例如：
+给定二叉树 [3,9,20,null,null,15,7],
+返回锯齿形层次遍历如下：
+[
+  [3],
+  [20,9],
+  [15,7]
+]
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+        vector<vector<int>> res;
+        if(root == NULL)
+            return res;
+        vector<int> level;
+        stack<TreeNode*> s1;
+        s1.push(root);
+        stack<TreeNode*> s2;
+        TreeNode* p = NULL;
+        bool flag = true;
+        int curCnt = 1;
+        int nextCnt = 0;
+        while(!s1.empty() || !s2.empty())
+        {
+            if(flag)
+            {
+                p = s1.top();
+                s1.pop();
+                level.push_back(p->val);
+                if(p->left)
+                {
+                    s2.push(p->left);
+                    nextCnt++;
+                }
+                if(p->right)
+                {
+                    s2.push(p->right);
+                    nextCnt++;
+                }
+            }
+            else
+            {
+                p = s2.top();
+                s2.pop();
+                level.push_back(p->val);
+                if(p->right)
+                {
+                    s1.push(p->right);
+                    nextCnt++;
+                }
+                if(p->left)
+                {
+                    s1.push(p->left);
+                    nextCnt++;
+                }
+            }
+            if(level.size() == curCnt)
+            {
+                res.push_back(level);
+                level.clear();
+                curCnt = nextCnt;
+                nextCnt = 0;
+                flag = !flag;
+            }
+        }
+        return res;
+    }
+};
+
+987. 二叉树的垂序遍历
+给定二叉树，按垂序遍历返回其结点值。
+
+对位于?(X, Y)?的每个结点而言，其左右子结点分别位于?(X-1, Y-1)?和?(X+1, Y-1)。
+
+把一条垂线从?X = -infinity?移动到?X = +infinity?，
+每当该垂线与结点接触时，我们按从上到下的顺序报告结点的值（ Y?坐标递减）。
+
+如果两个结点位置相同，则首先报告的结点值较小。
+
+按?X?坐标顺序返回非空报告的列表。每个报告都有一个结点值列表。
+
+
+示例 1：
+输入：[3,9,20,null,null,15,7]
+
+输出：[[9],[3,15],[20],[7]]
+
+解释： 
+在不丧失其普遍性的情况下，我们可以假设根结点位于 (0, 0)：
+然后，值为 9 的结点出现在 (-1, -1)；
+
+值为 3 和 15 的两个结点分别出现在 (0, 0) 和 (0, -2)；
+值为 20 的结点出现在 (1, -1)；
+值为 7 的结点出现在 (2, -2)。
+
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<vector<int>> verticalTraversal(TreeNode* root) {
+        vector<vector<int>> res;
+        if(root == NULL)
+            return res;
+        queue<pair<int, TreeNode*>> q;
+        q.push({0, root});
+        map<int, vector<int>> m;
+        int curCnt = 1;
+        int nextCnt = 0;
+        int cnt = 0;
+        map<int, vector<int>> tmp;
+        while(!q.empty())
+        {
+            auto p = q.front();
+            q.pop();
+            tmp[p.first].push_back(p.second->val);
+            cnt++;
+            //m[p.first].push_back(p.second->val);
+            if(p.second->left)
+            {
+                q.push({p.first-1, p.second->left});
+                nextCnt++;
+            }
+            if(p.second->right)
+            {
+                q.push({p.first+1, p.second->right});
+                nextCnt++;
+            }
+            if(cnt == curCnt)
+            {
+                cnt = 0;
+                curCnt = nextCnt;
+                nextCnt = 0;
+                for(auto mi : tmp)
+                {
+                    sort(mi.second.begin(), mi.second.end());
+                    m[mi.first].insert(m[mi.first].end(), mi.second.begin(), mi.second.end());
+                }
+                tmp.clear();
+            }
+        }
+        for(auto mi : m)
+        {
+            //sort(mi.second.begin(), mi.second.end());
+            res.push_back(mi.second);
+        }
+            
+        return res;
+    }
+};
+
+二叉查找树的查找、插入、删除
+1.查找节点
+typdedef struct Node{
+	int val;
+	Node* left;
+	Node* right;
+	Node* parent;
+	Node(int k): val(k), left(NULL), right(NULL), parent(NULL)
+	{}
+}BSTree;
+// 递归查找：返回指向包含关键字k的节点指针
+Node* BST_Search(BSTree* T, int k)
+{
+	if(T == NULL || T->val == k)
+		return T;
+	if(T->val > k)
+		return BST_Search(T->left, k);
+	return BST_Search(T->right, k);
+}
+
+2.插入节点
+int BST_Insert(BSTree*& T, int k, Node* parent)
+{
+	if(T == NULL)
+	{
+		T = new BSTree(k);
+		T->parent = parent;
+		return 1;  // 返回1表示成功
+	}
+	if(k == T->val)  // 存在相同关键字
+		return 0;   
+	if(k < T->val)
+		return BST_Insert(T->left, k);
+	return BST_Insert(T->right, k);
+}
+
+3.删除节点
+//后继：求二叉树中序遍历的下一个节点
+Node* BST_Successor(Node* node)
+{
+	if(node == NULL)
+		return node;
+	if(node->right)
+	{
+		Node* p = node->right;
+		while(p->left)
+			p = p->left;
+		return p;
+	}
+	else
+	{
+		Node* par = node->parent;  //父节点
+		while(par && par->left != node)
+		{
+			node = par;
+			par = par->parent;
+		}
+		return par;
+	}
+}
+
+void BST_Delete(BSTree*& T, Node* z)
+{
+	if(T == NULL)
+		return;
+	if(z->left == NULL && z->right == NULL)
+	{
+		if(z->parent)
+		{
+			if(z->parent->left == z)
+				z->parent->left = NULL;
+			else
+				z->parent->right = NULL;
+		}
+		else
+			T = NULL;
+		delete z;
+	}
+	else if(z->left && z->right == NULL)
+	{
+		z->left->parent = z->parent;
+		if(z->parent)
+		{
+			if(z->parent->left == z)
+				z->parent->left = z->left;
+			else
+				z->parent->right = z->left;
+		}
+		else
+			T = z-left;
+		delete z;
+	}
+	else if(z->left == NULL && z->right)
+	{
+		z->right->parent = z->parent;
+		if(z->parent)
+		{
+			if(z->parent->left == z)
+				z->parent->left = z->right;
+			else
+				z->parent->right = z->right;
+		}
+		else
+			T = z->right;
+		delete z;
+	}
+	else  // 既有左子树又有右子树
+	{
+		Node* next = BST_Successor(z);
+		swap(next->val, z->val);  //s的关键字替换z的关键字
+		BST_Delete(T, s);  // 转换为第一或第二种情况
+	}
+}
+
+

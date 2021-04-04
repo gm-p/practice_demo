@@ -1,0 +1,108 @@
+334.递增的三元子序列
+给定一个未排序的数组，判断这个数组中是否存在长度为 3 的递增子序列。
+
+数学表达式如下:
+
+如果存在这样的?i, j, k,且满足?0 ≤ i < j < k ≤ n-1，
+使得?arr[i] < arr[j] < arr[k] ，返回 true ;?
+否则返回 false 。
+
+说明: 要求算法的时间复杂度为 O(n)，空间复杂度为 O(1) 。
+
+判断是否存在增序排列的三元子序列（元素不用连续）
+用两个临时变量存储第一个数和第二个数，x当做第三个数
+能走到c3说明存在，但是c1，c2, c3存的数并不一定是符合要求的（顺序可能不对）
+class Solution {
+public:
+    bool increasingTriplet(vector<int>& nums) {
+        int n = nums.size();
+        if(n < 3)
+            return false;
+        int c1 = INT_MAX, c2 = INT_MAX;
+        for(int i=0; i<n; i++)
+        {
+            if(nums[i] <= c1)
+                c1 = nums[i];
+            else if(nums[i] <= c2)
+                c2 = nums[i];
+            else
+                return true;
+        }
+        return false;
+    }
+};
+
+66.加一
+给定一个由整数组成的非空数组所表示的非负整数，在该数的基础上加一。
+
+最高位数字存放在数组的首位， 数组中每个元素只存储一个数字。
+
+你可以假设除了整数 0 之外，这个整数不会以零开头。
+
+
+class Solution {
+public:
+    vector<int> plusOne(vector<int>& digits) {
+        int n = digits.size();
+        if(n < 1)
+            return digits;
+        int tmp = 0;
+        for(int i=n-1; i>=0; i--)
+        {
+            tmp = digits[i] + 1;
+            if(tmp > 9)
+            {
+                digits[i] = tmp % 10;
+            }
+            else
+            {
+                digits[i] = tmp;
+                break;
+            }
+        }
+        if(tmp > 9)
+            digits.insert(digits.begin(), 1);
+        return digits;
+    }
+};
+
+别人的解答：
+问题：数组加一，高位在前，低位在后
+要考虑进位情况
+*/
+
+class Solution
+{
+
+public:
+??? 
+vector<int> plusOne(vector<int>& digits)
+??? 
+{
+?????? 
+	for(int i = digits.size()-1; i>=0; i--) //从后往前扫描?
+?????? 
+	{
+?????????? 
+		if(digits[i] == 9) digits[i] = 0; //如果为9，置0，下次进位
+?????????? 
+		else
+?????????? 
+		{
+?????????????? 
+			digits[i]++;
+?????????????? 
+			return digits; //不为9就加一，退出
+?????????? 
+		}
+?????? 
+	}
+?
+????digits[0] = 1; //如果最高位有进位，置1
+?????? 
+	digits.push_back(0); //补充一位
+?????? 
+	return digits;
+???
+}
+};

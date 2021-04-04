@@ -1,0 +1,3145 @@
+冒泡
+class BubbleSort {
+public:
+    int* bubbleSort(int* A, int n) {
+        // write code here
+        for(int i=1; i<n; i++)
+        {
+            for(int j=0; j<n-i; j++)
+            {
+                if(A[j] > A[j+1])
+                    swap(A[j], A[j+1]);
+            }
+        }
+        return A;
+    }
+};
+
+选择
+class SelectionSort {
+public:
+    int* selectionSort(int* A, int n) {
+        // write code here
+        for(int i=1; i<n; i++)
+        {
+            int k = n-i;
+            for(int j=0; j<n-i; j++)
+            {
+                if(A[j] > A[k])
+                    k = j;
+            }
+            if(k != n-i)
+                swap(A[k], A[n-i]);
+        }
+        return A;
+    }
+};
+
+插入
+class InsertionSort {
+public:
+    int* insertionSort(int* A, int n) {
+        // write code here
+        for(int i=1; i<n; i++)
+        {
+            if(A[i] < A[i-1])
+            {
+                int j = i-1;
+                int tmp = A[i];
+                while(j >= 0 && A[j] > tmp)
+                {
+                    A[j+1] = A[j];
+                    j--;
+                }
+                A[j+1] = tmp;
+            }
+        }
+        return A;
+    }
+};
+
+希尔
+class ShellSort {
+public:
+    int* shellSort(int* A, int n) {
+        // write code here
+        int gap = n/2;
+        while(gap > 0)
+        {
+            for(int i=gap; i<n; i++)
+            {
+                int tmp = A[i];
+                int j = i - gap;
+                while(j >= 0 && A[j] > tmp)
+                {
+                    A[j+gap] = A[j];
+                    j = j - gap;
+                }
+                A[j+gap] = tmp;
+            }
+            gap /= 2;
+        }
+        return A;
+    }
+};
+
+快排
+class QuickSort {
+public:
+    int* quickSort(int* A, int n) {
+        // write code here
+        quickSortCore(A, 0, n-1);
+        return A;
+    }
+    
+    int partition(int* A, int start, int end)
+    {
+        int tmp = A[start];
+        while(start < end)
+        {
+            while(start < end && A[end] >= tmp)
+                end--;
+            A[start] = A[end];
+            while(start < end && A[start] <= tmp)
+                start++;
+            A[end] = A[start];
+        }
+        A[start] = tmp;
+        
+        return start;
+    }
+    
+    void quickSortCore(int* A, int start, int end)
+    {
+        if(start < end)
+        {
+            int mid = partition(A, start, end);
+            quickSortCore(A, start, mid);
+            quickSortCore(A, mid+1, end);
+        }
+        
+    }
+};
+
+归并
+class MergeSort {
+public:
+    int* mergeSort(int* A, int n) {
+        // write code here
+        mergeSortCore(A, 0, n-1);
+        return A;
+    }
+    
+    void merge(int* A, int left, int mid, int right)
+    {
+        int* B = new int[right-left+1];
+        int i = left, j = mid+1;
+        int k = 0; 
+        while(i <= mid && j <= right)
+        {
+            if(A[i] < A[j])
+                B[k++] = A[i++];
+            else
+                B[k++] = A[j++];
+        }
+        while(i <= mid)
+            B[k++] = A[i++];
+        while(j <= right)
+            B[k++] = A[j++];
+        for(i=left, k=0; i<=right; i++, k++)
+            A[i] = B[k];
+        delete[] B;
+    }
+    
+    void mergeSortCore(int* A, int start, int end)
+    {
+        if(start < end)
+        {
+            int mid = (start + end) / 2;
+            mergeSortCore(A, start, mid);
+            mergeSortCore(A, mid+1, end);
+            merge(A, start, mid, end);
+        }
+    }
+};
+
+堆排
+class HeapSort {
+public:
+    int* heapSort(int* A, int n) {
+        // write code here
+        for(int i=n/2; i>=0; i--)
+            heapAdjust(A, i, n-1);
+        for(int i=1; i<n; i++)
+        {
+            swap(A[0], A[n-i]);
+            heapAdjust(A, 0, n-i-1);
+        }
+        return A;
+    }
+    
+    void heapAdjust(int* A, int start, int end)
+    {
+        if(start < end)
+        {
+            int i = 2 * start + 1;
+            int tmp = A[start];
+            while(i <= end)
+            {
+                if(i+1 <= end && A[i+1] > A[i])
+                    i++;
+                if(A[i] <= tmp)
+                    break;
+                A[start] = A[i];
+                start = i;
+                i = 2 * i + 1;
+            }
+            A[start] = tmp;
+        }
+    }
+};
+
+计数排序
+对于一个int数组，请编写一个计数排序算法，对数组元素排序。
+给定一个int数组A及数组的大小n，请返回排序后的数组。
+class CountingSort {
+public:
+    int* countingSort(int* A, int n) {
+        // write code here
+        int minA = A[0];
+        int maxA = A[0];
+        for(int i=1; i<n; i++)
+        {
+            minA = min(minA, A[i]);
+            maxA = max(maxA, A[i]);
+        }
+        vector<int> B(maxA-minA+1, 0);
+        for(int i=0; i<n; i++)
+            B[A[i]-minA]++;
+        int k = 0;
+        for(int i=0; i<B.size(); i++)
+        {
+            for(int j=0; j<B[i]; j++)
+                A[k++] = i + minA;
+        }
+        return A;
+    }
+};
+
+基数排序
+对于一个int数组，请编写一个基数排序算法，对数组元素排序。
+给定一个int数组A及数组的大小n，请返回排序后的数组。保证元素均小于等于2000。
+class RadixSort {
+public:
+    int* radixSort(int* A, int n) {
+        // write code here
+        queue<int> q[10];
+        for(int i=0; i<4; i++)
+        {
+            for(int j=0; j<n; j++)
+            {
+                int digit = A[j];
+                for(int k=0; k<i; k++)
+                    digit /= 10;
+                digit %= 10;
+                q[digit].push(A[j]);
+            }
+            
+            int index = 0;
+            for(int j=0; j<10; j++)
+            {
+                while(!q[j].empty())
+                {
+                    A[index++] = q[j].front();
+                    q[j].pop();
+                }
+            }
+        }
+        return A;
+    }
+};
+
+已知一个几乎有序的数组，几乎有序是指，如果把数组排好顺序的话，每个元素移动的距离可以不超过k，并且k相对于数组来说比较小。请选择一个合适的排序算法针对这个数据进行排序。
+给定一个int数组A，同时给定A的大小n和题意中的k，请返回排序后的数组
+class ScaleSort {
+public:
+    vector<int> sortElement(vector<int> A, int n, int k) {
+        // write code here
+        if(A.empty() || n < k)
+            return A;
+        vector<int> maxHeap(k);
+        for(int i=0, j=n-k; i<k; i++, j++)
+            maxHeap[i] = A[j];
+        for(int i=k/2; i>=0; i--)
+            adjustHeap(maxHeap, i, k-1);
+        
+        for(int i=n-1; i>=k; i--)
+        {
+            A[i] = maxHeap[0];
+            maxHeap[0] = A[i-k];
+            adjustHeap(maxHeap, 0, k-1);
+        }
+        for(int i=k-1; i>=0; i--)
+        {
+            A[i] = maxHeap[0];
+            swap(maxHeap[0], maxHeap[i]);
+            adjustHeap(maxHeap, 0, i-1);
+        }
+        return A;
+    }
+    
+    void adjustHeap(vector<int>& maxHeap, int start, int end)
+    {
+        if(start < end)
+        {
+            int tmp = maxHeap[start];
+            int i = 2 * start + 1;
+            while(i <= end)
+            {
+                if(i + 1 <= end && maxHeap[i] < maxHeap[i+1])
+                    i++;
+                if(tmp >= maxHeap[i])
+                    break;
+                maxHeap[start] = maxHeap[i];
+                start = i;
+                i = 2 * i + 1;
+            }
+            maxHeap[start] = tmp;
+        }
+    }
+};
+
+请设计一个高效算法，判断数组中是否有重复值。必须保证额外空间复杂度为O(1)。
+
+给定一个int数组A及它的大小n，请返回它是否有重复值。
+class Checker {
+public:
+    bool checkDuplicate(vector<int> a, int n) {
+        // write code here
+        sort(a.begin(), a.end());
+        for(int i=1; i<n; i++)
+        {
+            if(a[i] == a[i-1])
+                return true;
+        }
+        return false;
+    }
+};
+
+有两个从小到大排序以后的数组A和B，其中A的末端有足够的缓冲空容纳B。请编写一个方法，将B合并入A并排序。
+
+给定两个有序int数组A和B，A中的缓冲空用0填充，同时给定A和B的真实大小int n和int m，请返回合并后的数组。
+class Merge {
+public:
+    int* mergeAB(int* A, int* B, int n, int m) {
+        // write code here
+        int i = n-1, j = m - 1;
+        int k = n+m-1;
+        while(i >= 0 && j >= 0)
+        {
+            if(A[i] > B[j])
+                A[k--] = A[i--];
+            else
+                A[k--] = B[j--];
+        }
+        while(j >= 0)
+            A[k--] = B[j--];
+        return A;
+    }
+};
+
+三角排序（荷兰国旗）
+有一个只由0，1，2三种元素构成的整数数组，请使用交换、原地排序而不是使用计数进行排序。
+给定一个只含0，1，2的整数数组A及它的大小，请返回排序后的数组。保证数组大小小于等于500。
+class ThreeColor {
+public:
+    vector<int> sortThreeColor(vector<int> A, int n) {
+        // write code here
+        int i = -1, j = n;
+        int k = 0;
+        while(k != j)
+        {
+            if(A[k] == 1)
+                k++;
+            else if(A[k] == 0)
+            {
+                swap(A[++i], A[k]);
+                k++;
+            }
+            else
+                swap(A[--j], A[k]);
+        }
+        return A;
+    }
+};
+
+有序矩阵查找
+现在有一个行和列都排好序的矩阵，请设计一个高效算法，快速查找矩阵中是否含有值x。
+给定一个int矩阵mat，同时给定矩阵大小nxm及待查找的数x，请返回一个bool值，代表矩阵中是否存在x。所有矩阵中数字及x均为int范围内整数。保证n和m均小于等于1000。
+class Finder {
+public:
+    bool findX(vector<vector<int> > mat, int n, int m, int x) {
+        // write code here
+        int row = 0, col = m-1;
+        while(row >= 0 && row < n && col >= 0 && col < m)
+        {
+            if(mat[row][col] == x)
+                return true;
+            else if(mat[row][col] > x)
+                col--;
+            else
+                row++;
+        }
+        return false;
+    }
+};
+
+最短子数组
+对于一个数组，请设计一个高效算法计算需要排序的最短子数组的长度。
+给定一个int数组A和数组的大小n，请返回一个二元组，代表所求序列的长度。(原序列位置从0开始标号,若原序列有序，返回0)。保证A中元素均为正整数。
+class Subsequence {
+public:
+    int shortestSubsequence(vector<int> A, int n) {
+        // write code here
+        int left = -1, maxL = A[0];
+        for(int i=1; i<n; i++)
+        {
+            if(A[i] > maxL)
+                maxL = A[i];
+            else if(A[i] < maxL)
+                left = i;
+        }
+        int right = -1, minR = A[n-1];
+        for(int i=n-2; i>=0; i--)
+        {
+            if(A[i] < minR)
+                minR = A[i];
+            else if(A[i] > minR)
+                right = i;
+        }
+        if(left == -1 && right == -1)
+            return 0;
+        return left - right + 1;
+    }
+};
+
+相邻两数最大差值
+有一个整形数组A，请设计一个复杂度为O(n)的算法，算出排序后相邻两数的最大差值。
+给定一个int数组A和A的大小n，请返回最大的差值。保证数组元素多于1个。
+class Gap {
+public:
+    int maxGap(vector<int> A, int n) {
+        // write code here
+        int maxA = A[0], minA = A[0];
+        for(int i=1; i<n; i++)
+        {
+            maxA = max(maxA, A[i]);
+            minA = min(minA, A[i]);
+        }
+        if(maxA == minA)
+            return 0;
+        
+        vector<bool> hasNum(n+1, 0);
+        vector<int> maxs(n+1, INT_MIN);
+        vector<int> mins(n+1, INT_MAX);
+        for(int i=0; i<n; i++)
+        {
+            int bid = bucket(A[i], n, maxA, minA);
+            maxs[bid] = hasNum[bid] ? max(maxs[bid], A[i]) : A[i];
+            mins[bid] = hasNum[bid] ? min(mins[bid], A[i]) : A[i];
+            hasNum[bid] = true;
+        }
+        int i = 0;
+        int lastMax;
+        int res = 0;
+        for( ; i<=n; i++)
+        {
+            if(hasNum[i])
+            {
+                lastMax = maxs[i];
+                break;
+            }
+        }
+        for( ; i<=n; i++)
+        {
+            if(hasNum[i])
+            {
+                res = max(res, mins[i] - lastMax);
+                lastMax = maxs[i];
+            }
+        }
+        return res;
+    }
+    
+    int bucket(long num, long len, long maxN, long minN)
+    {
+        return (int)((num - minN) * len / (maxN - minN));
+    }
+};
+
+拓扑结构相同的子树
+对于两棵彼此独立的二叉树A和B，请编写一个高效算法，检查A中是否存在一棵子树与B树的拓扑结构完全相同。
+给定两棵二叉树的头结点A和B，请返回一个bool值，代表A中是否存在一棵同构于B的子树。
+/*
+struct TreeNode {
+    int val;
+    struct TreeNode *left;
+    struct TreeNode *right;
+    TreeNode(int x) :
+            val(x), left(NULL), right(NULL) {
+    }
+};*/
+
+class IdenticalTree {
+public:
+    bool chkIdentical(TreeNode* A, TreeNode* B) {
+        // write code here
+        string strA = serial(A);
+        string strB = serial(B);
+        return KMP(strA, strB);
+    }
+    
+    string serial(TreeNode* A)
+    {
+        string str = "";
+        if(A == NULL)
+            return "#!";
+        str += serial(A->left);
+        str += to_string(A->val) + "!";
+        str += serial(A->right) + "!";
+        return str;
+    }
+    
+    bool KMP(const string& strA, const string& strB)
+    {
+        if(strA.empty() || strB.empty() || strB.length() < 1 || strA.length() < strB.length())
+            return false;
+        int lA = strA.length();
+        int lB = strB.length();
+        vector<int> next(lB, 0);
+        getNext(strB, next);
+        int i = 0, j = 0;
+        while(i < lA && j < lB)
+        {
+            if(strA[i] == strB[j])
+            {
+                i++;
+                j++;
+            }
+            else if(next[j] == -1)
+                i++;
+            else
+                j = next[j];
+        }
+        if(j == lB)
+            return true;
+        return false;
+    }
+    
+    void getNext(const string& match, vector<int>& next)
+    {
+        int n = next.size();
+        next[0] = -1;
+        int i = 0;
+        int k = -1;
+        while(i < n-1)
+        {
+            if(k == -1 || match[i] == match[k])
+                next[++i] = ++k;
+            else 
+                k = next[k];
+        }
+    }
+};
+
+词语变形
+对于两个字符串A和B，如果A和B中出现的字符种类相同且每种字符出现的次数相同，则A和B互为变形词，请设计一个高效算法，检查两给定串是否互为变形词。
+给定两个字符串A和B及他们的长度，请返回一个bool值，代表他们是否互为变形词
+class Transform {
+public:
+    bool chkTransform(string A, int lena, string B, int lenb) {
+        // write code here
+        if(A.empty() || B.empty() || lena != lenb)
+            return false;
+        vector<int> count(256, 0);
+        for(int i=0; i<lena; i++)
+            count[A[i]]++;
+        for(int i=0; i<lenb; i++)
+            count[B[i]]--;
+        for(int i=0; i<256; i++)
+            if(count[i] != 0)
+                return false;
+        return true;
+    }
+};
+
+两串旋转
+如果对于一个字符串A，将A的前面任意一部分挪到后边去形成的字符串称为A的旋转词。比如A="12345",A的旋转词有"12345","23451","34512","45123"和"51234"。对于两个字符串A和B，请判断A和B是否互为旋转词。
+给定两个字符串A和B及他们的长度lena，lenb，请返回一个bool值，代表他们是否互为旋转词
+class Rotation {
+public:
+    bool chkRotation(string A, int lena, string B, int lenb) {
+        // write code here
+        if(A.empty() || B.empty() || lena != lenb)
+            return false;
+        string s = A + A;
+        return KMP(s, B);
+    }
+    
+    bool KMP(const string& s, const string& B)
+    {
+        int ls = s.length();
+        int lB = B.length();
+        vector<int> next(lB, 0);
+        getNext(B, next);
+        int i = 0, j = 0;
+        while(i < ls && j <lB)
+        {
+            if(s[i] == B[j])
+            {
+                i++;
+                j++;
+            }
+            else if(next[j] == -1)
+                i++;
+            else
+                j = next[j];
+        }
+        if(j == lB)
+            return true;
+        return false;
+    }
+    
+    void getNext(const string& B, vector<int>& next)
+    {
+        int n = next.size();
+        next[0] = -1;
+        int i = 0;
+        int k = -1;
+        while(i < n-1)
+        {
+            if(k == -1 || B[k] == B[i])
+                next[++i] = ++k;
+            else
+                k = next[k];
+        }
+    }
+};
+
+句子的逆序
+对于一个字符串，请设计一个算法，只在字符串的单词间做逆序调整，也就是说，字符串由一些由空格分隔的部分组成，你需要将这些部分逆序。
+给定一个原字符串A和他的长度，请返回逆序后的字符串
+class Reverse {
+public:
+    string reverseSentence(string A, int n) {
+        // write code here
+        if(A.empty())
+            return A;
+        reverse(A, 0, n-1);
+        int i = 0, j = 0;
+        for(j=0; j<=n; j++)
+        {
+            if(A[j] == ' ' || A[j] == '\0')
+            {
+                reverse(A, i, j-1);
+                i = j+1;
+            }
+        }
+        return A;
+    }
+    
+    void reverse(string& s, int start, int end)
+    {
+        while(start < end)
+        {
+            swap(s[start], s[end]);
+            start++;
+            end--;
+        }
+    }
+};
+
+字符串移位
+对于一个字符串，请设计一个算法，将字符串的长度为len的前缀平移到字符串的最后。
+给定一个字符串A和它的长度，同时给定len，请返回平移后的字符串
+class Translation {
+public:
+    string stringTranslation(string A, int n, int len) {
+        // write code here
+        if(A.empty())
+            return A;
+        len = len % n;
+        reverse(A, 0, len-1);
+        reverse(A, len, n-1);
+        reverse(A, 0, n-1);
+        return A;
+    }
+    
+    void reverse(string& s, int start, int end)
+    {
+        while(start < end)
+        {
+            swap(s[start], s[end]);
+            start++;
+            end--;
+        }
+    }
+};
+
+拼接最小字典序
+对于一个给定的字符串数组，请找到一种拼接顺序，使所有小字符串拼接成的大字符串是所有可能的拼接中字典序最小的。
+给定一个字符串数组strs，同时给定它的大小，请返回拼接成的串
+class Prior {
+public:
+    static bool cmp(const string& s1, const string& s2)
+    {
+        string str1 = s1 + s2;
+        string str2 = s2 + s1;
+        return str1 < str2;
+    }
+    string findSmallest(vector<string> strs, int n) {
+        // write code here
+        if(strs.empty())
+            return "";
+        sort(strs.begin(), strs.end(), cmp);
+        string res = "";
+        for(int i=0; i<n; i++)
+            res += strs[i];
+        return res;
+    }
+};
+
+空格替换
+请编写一个方法，将字符串中的空格全部替换为“%20”。假定该字符串有足够的空间存放新增的字符，并且知道字符串的真实长度(小于等于1000)，同时保证字符串由大小写的英文字母组成。
+给定一个string iniString 为原始的串，以及串的长度 int len, 返回替换后的string
+class Replacement {
+public:
+    string replaceSpace(string iniString, int length) {
+        // write code here
+        if(iniString.empty())
+            return "";
+        int blank = 0;
+        for(int i=0; i<length; i++)
+        {
+            if(iniString[i] == ' ')
+                blank++;
+        }
+        int j = length + 2 * blank;
+        int i = length;
+        iniString.resize(j);
+        while(i < j)
+        {
+            if(iniString[i] == ' ')
+            {
+                iniString[j--] = '0';
+                iniString[j--] = '2';
+                iniString[j--] = '%';
+                i--;
+            }
+            else
+                iniString[j--] = iniString[i--];
+        }
+        return iniString;
+    }
+};
+
+合法括号序列判断
+对于一个字符串，请设计一个算法，判断其是否为一个合法的括号串。
+给定一个字符串A和它的长度n，请返回一个bool值代表它是否为一个合法的括号串
+class Parenthesis {
+public:
+    bool chkParenthesis(string A, int n) {
+        // write code here
+        if(A.empty())
+            return false;
+        int num = 0;
+        for(int i=0; i<n; i++)
+        {
+            if(A[i] == '(')
+                num++;
+            else if(A[i] == ')')
+                num--;
+            else
+                return false;
+            
+            if(num < 0)
+                return false;
+        }
+        if(num == 0)
+            return true;
+        return false;
+    }
+};
+
+最大无重复字符子串
+对于一个字符串,请设计一个高效算法，找到字符串的最长无重复字符的子串长度。
+给定一个字符串A及它的长度n，请返回它的最长无重复字符子串长度。保证A中字符全部为小写英文字符，且长度小于等于500
+class DistinctSubstring {
+public:
+    int longestSubstring(string A, int n) {
+        // write code here
+        if(A.empty())
+            return 0;
+        int pre = -1;
+        int cur = 0;
+        int len = 0;
+        vector<int> m(256, -1);
+        for(int i=0; i<n; i++)
+        {
+            pre = max(pre, m[A[i]]);
+            cur = i - pre;
+            len = max(len, cur);
+            m[A[i]] = i;
+        }
+        return len;
+    }
+};
+
+可查询最值的栈
+定义栈的数据结构，请在该类型中实现一个能够得到栈最小元素的min函数。
+class Solution {
+public:
+    stack<int> stackData;
+    stack<int> stackMin;
+    
+    void push(int value) {
+        stackData.push(value);
+        if(stackMin.empty())
+            stackMin.push(value);
+        else
+            stackMin.push(value < stackMin.top() ? value : stackMin.top());
+    }
+    void pop() {
+        stackData.pop();
+        stackMin.pop();
+    }
+    int top() {
+        return stackData.top();
+    }
+    int min() {
+        return stackMin.top();
+    }
+};
+
+双栈队列
+编写一个类,只能用两个栈结构实现队列,支持队列的基本操作(push，pop)。
+给定一个操作序列ope及它的长度n，其中元素为正数代表push操作，为0代表pop操作，保证操作序列合法且一定含pop操作，请返回pop的结果序列
+class TwoStack {
+public:
+    stack<int> s1;
+    stack<int> s2;
+    
+    vector<int> twoStack(vector<int> ope, int n) {
+        // write code here
+        vector<int> res;
+        for(int i=0; i<n; i++)
+        {
+            if(ope[i] == 0)
+            {
+                if(s2.empty())
+                {
+                    while(!s1.empty())
+                    {
+                        s2.push(s1.top());
+                        s1.pop();
+                    }
+                }
+                res.push_back(s2.top());
+                s2.pop();
+            }
+            else
+            {
+                s1.push(ope[i]);
+            }
+        }
+        return res;
+    }
+};
+
+栈的反转
+实现一个栈的逆序，但是只能用递归函数和这个栈本身的pop操作来实现，而不能自己申请另外的数据结构。
+给定一个整数数组A即为给定的栈，同时给定它的大小n，请返回逆序后的栈
+class StackReverse {
+public:
+    int get(vector<int>& A)
+    {
+        int result = A.back();
+        A.pop_back();
+        if(A.size() == 0)
+            return result;
+        else
+        {
+            int last = get(A);
+            A.push_back(result);
+            return last;
+        }
+    }
+    
+    void reverse(vector<int>& A)
+    {
+        if(A.size() == 0)
+            return ;
+        int last = get(A);
+        reverse(A);
+        A.push_back(last);
+    }
+    
+    vector<int> reverseStack(vector<int> A, int n) {
+        // write code here
+        reverse(A);
+        return A;
+    }
+};
+
+双栈排序
+请编写一个程序，按升序对栈进行排序（即最大元素位于栈顶），要求最多只能使用一个额外的栈存放临时数据，但不得将元素复制到别的数据结构中。
+给定一个int[] numbers(C++中为vector&ltint>)，其中第一个元素为栈顶，请返回排序后的栈。请注意这是一个栈，意味着排序过程中你只能访问到第一个元素。
+class TwoStacks {
+public:
+    vector<int> twoStacksSort(vector<int> numbers) {
+        // write code here
+        if(numbers.size() == 0)
+            return numbers;
+        int n = numbers.size();
+        int cur = numbers.back();
+        numbers.pop_back();
+        stack<int> help;
+        while(numbers.size() < n)
+        {
+            if(help.empty() || cur >= help.top())
+                help.push(cur);
+            else
+            {
+                while(!help.empty() && cur < help.top())
+                {
+                    numbers.push_back(help.top());
+                    help.pop();
+                }  
+                help.push(cur);
+            }
+            if(help.size() == n)
+            {
+                while(!help.empty())
+                {
+                    numbers.push_back(help.top());
+                    help.pop();
+                }
+            }
+            if(numbers.size() == n)
+                break;
+            cur = numbers.back();
+            numbers.pop_back();
+        }
+        return numbers;
+    }
+};
+
+滑动窗口
+有一个整型数组 arr 和一个大小为 w 的窗口从数组的最左边滑到最右边,窗口每次向右边滑一个位置。 返回一个长度为n-w+1的数组res，res[i]表示每一种窗口状态下的最大值。 以数组为[4,3,5,4,3,3,6,7]，w=3为例。因为第一个窗口[4,3,5]的最大值为5，第二个窗口[3,5,4]的最大值为5，第三个窗口[5,4,3]的最大值为5。第四个窗口[4,3,3]的最大值为4。第五个窗口[3,3,6]的最大值为6。第六个窗口[3,6,7]的最大值为7。所以最终返回[5,5,5,4,6,7]。
+给定整形数组arr及它的大小n，同时给定w，请返回res数组。保证w小于等于n，同时保证数组大小小于等于500。
+class SlideWindow {
+public:
+    vector<int> slide(vector<int> arr, int n, int w) {
+        // write code here
+        vector<int> res;
+        deque<int> dq;
+        int i;
+        for(i=0; i<w; i++)
+        {
+            if(dq.empty() || arr[i] < arr[dq.back()])
+                dq.push_back(i);
+            else
+            {
+                while(!dq.empty() && arr[i] >= arr[dq.back()])
+                    dq.pop_back();
+                dq.push_back(i);
+            }
+        }
+        res.push_back(arr[dq.front()]);
+        
+        for(i=w; i<n; i++)
+        {
+            if(dq.empty() || arr[i] < arr[dq.back()])
+                dq.push_back(i);
+            else
+            {
+                while(!dq.empty() && arr[i] >= arr[dq.back()])
+                    dq.pop_back();
+                dq.push_back(i);
+            }
+            if(i - dq.front() >= w)
+                dq.pop_front();
+            res.push_back(arr[dq.front()]);
+        }
+        return res;
+    }
+};
+
+数组变树
+对于一个没有重复元素的整数数组，请用其中元素构造一棵MaxTree，MaxTree定义为一棵二叉树，其中的节点与数组元素一一对应，同时对于MaxTree的每棵子树，它的根的元素值为子树的最大值。现有一建树方法，对于数组中的每个元素，其在树中的父亲为数组中它左边比它大的第一个数和右边比它大的第一个数中更小的一个。若两边都不存在比它大的数，那么它就是树根。请设计O(n)的算法实现这个方法。
+给定一个无重复元素的数组A和它的大小n，请返回一个数组，其中每个元素为原数组中对应位置元素在树中的父亲节点的编号，若为根则值为-1。
+class MaxTree {
+public:
+    vector<int> buildMaxTree(vector<int> A, int n) {
+        // write code here
+        vector<int> res(n);
+        stack<int> left, right;
+        vector<int> lMax(n), rMax(n);
+        for(int i=0; i<n; i++)
+        {
+            while(!left.empty() && A[left.top()] <= A[i])
+                left.pop();
+            if(left.empty())
+                lMax[i] = -1;
+            else
+                lMax[i] = left.top();
+            left.push(i);
+        }
+        for(int i=n-1; i>=0; i--)
+        {
+            while(!right.empty() && A[right.top()] <= A[i])
+                right.pop();
+            if(right.empty())
+                rMax[i] = -1;
+            else
+                rMax[i] = right.top();
+            right.push(i);
+        }
+        for(int i=0; i<n; i++)
+        {
+            if(lMax[i] == -1 && rMax[i] == -1)
+                res[i] = -1;
+            else if(lMax[i] == -1)
+                res[i] = rMax[i];
+            else if(rMax[i] == -1)
+                res[i] = lMax[i];
+            else 
+                res[i] = A[lMax[i]] < A[rMax[i]] ? lMax[i] : rMax[i];
+        }
+        return res;
+    }
+};
+
+环形链表插值
+有一个整数val，如何在节点值有序的环形链表中插入一个节点值为val的节点，并且保证这个环形单链表依然有序。
+给定链表的信息，及元素的值A及对应的nxt指向的元素编号同时给定val，请构造出这个环形链表，并插入该值
+/*
+struct ListNode {
+    int val;
+    struct ListNode *next;
+    ListNode(int x) : val(x), next(NULL) {}
+};*/
+class InsertValue {
+public:
+    ListNode* insert(vector<int> A, vector<int> nxt, int val) {
+        // write code here
+        if(A.size() == 0)
+        {
+            ListNode* head = new ListNode(val);
+            //head->next = head;
+            return head;
+        }
+        if(A[0] > val)
+        {
+            ListNode* head = new ListNode(val);
+            ListNode* pre = head;
+            for(int i=0; i<A.size(); i++)
+            {
+                ListNode* p = new ListNode(A[i]);
+                pre->next = p;
+                pre = p;
+            }
+           // pre->next = head;
+            return head;
+        }
+        else
+        {
+            ListNode* head = new ListNode(A[0]);
+            ListNode* pre = head;
+            int i = 1;
+            while(i < A.size() && A[i] < val)
+            {
+                ListNode* p = new ListNode(A[i]);
+                pre->next = p;
+                pre = p;
+                i++;
+            }
+            ListNode* p = new ListNode(val);
+            pre->next = p;
+            pre = p;
+            while(i < A.size())
+            {
+                ListNode* p = new ListNode(A[i]);
+                pre->next = p;
+                pre = p;
+                i++;
+            }
+            //pre->next = head;
+            return head;
+        }
+    }
+};
+
+访问单个节点的删除
+实现一个算法，删除单向链表中间的某个结点，假定你只能访问该结点。
+给定带删除的头节点和要删除的数字，请执行删除操作，返回删除后的头结点。链表中没有重复数字
+/*
+struct ListNode {
+    int val;
+    struct ListNode *next;
+    ListNode(int x) : val(x), next(NULL) {}
+};*/
+class Remove {
+public:
+    ListNode* removeNode(ListNode* pHead, int delVal) {
+        // write code here
+        if(pHead == NULL)
+            return NULL;
+        ListNode* pre = pHead;
+        ListNode* p = pHead->next;
+        if(pre->val == delVal)
+        {
+            delete pHead;
+            return p;
+        }
+        while(p != NULL && p->val != delVal)
+        {
+            pre = p;
+            p = p->next;
+        }
+        if(p->next == NULL)
+            pre->next = NULL;
+        else 
+            pre->next = p->next;
+        delete p;
+        return pHead;
+    }
+};
+
+链表的分化
+对于一个链表，我们需要用一个特定阈值完成对它的分化，使得小于等于这个值的结点移到前面，大于该值的结点在后面，同时保证两类结点内部的位置关系不变。
+给定一个链表的头结点head，同时给定阈值val，请返回一个链表，使小于等于它的结点在前，大于等于它的在后，保证结点值不重复。
+/*
+struct ListNode {
+    int val;
+    struct ListNode *next;
+    ListNode(int x) : val(x), next(NULL) {}
+};*/
+class Divide {
+public:
+    ListNode* listDivide(ListNode* head, int val) {
+        // write code here
+        if(head == NULL)
+            return NULL;
+        ListNode* h1 = NULL, *p1 = NULL;
+        ListNode* h2 = NULL, *p2 = NULL;
+        while(head != NULL)
+        {
+            if(head->val <= val)
+            {
+                if(h1 == NULL)
+                {
+                    h1 = head;
+                    p1 = head;
+                }
+                else
+                {
+                    p1->next = head;
+                    p1 = head;
+                }
+            }
+            else
+            {
+                if(h2 == NULL)
+                {
+                    h2 = head;
+                    p2 = head;
+                }
+                else
+                {
+                    p2->next = head;
+                    p2 = head;
+                }
+            }
+            head = head->next;
+        }
+        if(p1 == NULL)
+            return h2;
+        else
+        {
+            p1->next = h2;
+            if(p2 != NULL)
+                p2->next = NULL;
+            return h1;
+        }
+    }
+};
+
+打印两个链表的公共值
+现有两个升序链表，且链表中均无重复元素。请设计一个高效的算法，打印两个链表的公共值部分。
+给定两个链表的头指针headA和headB，请返回一个vector，元素为两个链表的公共部分。请保证返回数组的升序。两个链表的元素个数均小于等于500。保证一定有公共值
+/*
+struct ListNode {
+    int val;
+    struct ListNode *next;
+    ListNode(int x) : val(x), next(NULL) {}
+};*/
+class Common {
+public:
+    vector<int> findCommonParts(ListNode* headA, ListNode* headB) {
+        // write code here
+        vector<int> res;
+        if(headA == NULL || headB == NULL)
+            return res;
+        ListNode* pA = headA;
+        ListNode* pB = headB;
+        while(pA != NULL && pB != NULL)
+        {
+            if(pA->val == pB->val)
+            {
+                res.push_back(pA->val);
+                pA = pA->next;
+                pB = pB->next;
+            }
+            else if(pA->val < pB->val)
+                pA = pA->next;
+            else
+                pB = pB->next;
+        }
+        return res;
+    }
+};
+
+链表的k逆序
+有一个单链表，请设计一个算法，使得每K个节点之间逆序，如果最后不够K个节点一组，则不调整最后几个节点。例如链表1->2->3->4->5->6->7->8->null，K=3这个例子。调整后为，3->2->1->6->5->4->7->8->null。因为K==3，所以每三个节点之间逆序，但其中的7，8不调整，因为只有两个节点不够一组。
+给定一个单链表的头指针head,同时给定K值，返回逆序后的链表的头指针
+/*
+struct ListNode {
+    int val;
+    struct ListNode *next;
+    ListNode(int x) : val(x), next(NULL) {}
+};*/
+class KInverse {
+public:
+    ListNode* inverse(ListNode* head, int k) {
+        // write code here
+        if(head == NULL)
+            return NULL;
+        int n = 0;
+        ListNode* p = head;
+        while(p != NULL)
+        {
+            ++n;
+            p = p->next;
+        }
+        if(k > n || k < 2)
+            return head;
+        int count = n / k;
+        ListNode* newHead = NULL;
+        ListNode* start = NULL, *end = NULL;
+        p = head;
+        ListNode* pn = NULL;
+        for(int i=0; i<count; i++)
+        {
+            start = p;
+            for(int j=1; j<k; j++)
+                p = p->next;
+            pn = p->next;
+            reverseList(start, p);
+            if(newHead == NULL)
+            {
+                newHead = start;
+                end = p;
+            }   
+            else
+            {
+                end->next = start;
+                end = p;
+            }
+            p = pn;
+        }
+        
+        end->next = p;
+        return newHead;
+    }
+    
+    void reverseList(ListNode*& head, ListNode*& tail)
+    {
+        ListNode* p = head;
+        ListNode* pre = NULL;
+        ListNode* pn = NULL;
+        while(p != tail)
+        {
+            pn = p->next;
+            p->next = pre;
+            pre = p;
+            p = pn;
+        }
+        p->next = pre;
+        tail = head;
+        head = p;
+    }
+};
+
+链表指定值清除
+现在有一个单链表。链表中每个节点保存一个整数，再给定一个值val，把所有等于val的节点删掉。
+给定一个单链表的头结点head，同时给定一个值val，请返回清除后的链表的头结点，保证链表中有不等于该值的其它值。请保证其他元素的相对顺序
+/*
+struct ListNode {
+    int val;
+    struct ListNode *next;
+    ListNode(int x) : val(x), next(NULL) {}
+};*/
+class ClearValue {
+public:
+    ListNode* clear(ListNode* head, int val) {
+        // write code here
+        ListNode* p = head;
+        head = NULL;
+        ListNode* tail = NULL;
+        while(p != NULL)
+        {
+            if(p->val != val)
+            {
+                if(head == NULL)
+                {
+                    head = p;
+                    tail = p;
+                }
+                else
+                {
+                    tail->next = p;
+                    tail = p;
+                }
+            }
+            p = p->next;
+        }
+        tail->next = NULL;
+        return head;
+    }
+};
+
+链表的回文结构
+请编写一个函数，检查链表是否为回文。
+给定一个链表ListNode* pHead，请返回一个bool，代表链表是否为回文
+/*
+struct ListNode {
+    int val;
+    struct ListNode *next;
+    ListNode(int x) : val(x), next(NULL) {}
+};*/
+class Palindrome {
+public:
+    bool isPalindrome(ListNode* pHead) {
+        // write code here
+        if(pHead == NULL)
+            return false;
+        bool res = true;
+        ListNode* slow = pHead;
+        ListNode* fast = pHead;
+        while(fast->next != NULL && fast->next->next != NULL)
+        {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        if(fast->next != NULL)
+        {
+            fast = fast->next;
+            ListNode* start = slow->next;
+            ListNode* end = fast;
+            reverse(start, end);
+            ListNode* p = pHead;
+            while(p != slow->next)
+            {
+                if(p->val != fast->val)
+                {
+                    res = false;
+                    break;
+                }
+                p = p->next;
+                fast = fast->next;
+            }
+            reverse(start, end);
+        }
+        else
+        {
+            ListNode* start = slow;
+            ListNode* end = fast;
+            reverse(start, end);
+            ListNode* p = pHead;
+            while(p != slow)
+            {
+                if(p->val != fast->val)
+                {
+                    res = false;
+                    break;
+                }
+                p = p->next;
+                fast = fast->next;
+            }
+            reverse(start, end);
+        }
+        return res;
+    }
+    
+    void reverse(ListNode*& head, ListNode*& tail)
+    {
+        ListNode* p = head;
+        ListNode* pre = NULL;
+        ListNode* pn = NULL;
+        while(p != tail)
+        {
+            pn = p->next;
+            p->next = pre;
+            pre = p;
+            p = pn;
+        }
+        p->next = pre;
+        tail = head;
+        head = p;
+    }
+};
+
+复杂链表的复制
+输入一个复杂链表（每个节点中有节点值，以及两个指针，一个指向下一个节点，另一个特殊指针指向任意一个节点）
+/*
+struct RandomListNode {
+    int label;
+    struct RandomListNode *next, *random;
+    RandomListNode(int x) :
+            label(x), next(NULL), random(NULL) {
+    }
+};
+*/
+class Solution {
+public:
+    RandomListNode* Clone(RandomListNode* pHead)
+    {
+        if(pHead == NULL)
+            return NULL;
+        cloneNode(pHead);
+        copyRandom(pHead);
+        return splitList(pHead);
+    }
+    
+    void cloneNode(RandomListNode* pHead)
+    {
+        RandomListNode* p = pHead;
+        RandomListNode* pn = NULL;
+        while(p != NULL)
+        {
+            pn = p->next;
+            RandomListNode* cloned = new RandomListNode(p->label);
+            cloned->next = pn;
+            p->next = cloned;
+            p = pn;
+        }
+    }
+    
+    void copyRandom(RandomListNode* pHead)
+    {
+        RandomListNode* p = pHead;
+        RandomListNode* cloned = NULL;
+        while(p != NULL)
+        {
+            cloned = p->next;
+            if(p->random != NULL)
+                cloned->random = p->random->next;
+            p = cloned->next;
+        }
+    }
+    
+    RandomListNode* splitList(RandomListNode* pHead)
+    {
+        RandomListNode* newHead = pHead->next;
+        RandomListNode* pre = pHead;
+        RandomListNode* p = pHead->next->next;
+        RandomListNode* cloned_pre = newHead;
+        RandomListNode* cloned = NULL;
+        while(p != NULL)
+        {
+            cloned = p->next;
+            pre->next = p;
+            pre = p;
+            cloned_pre->next = cloned;
+            cloned_pre = cloned;
+            p = cloned->next;
+        }
+        pre->next = NULL;
+        cloned_pre->next = NULL;
+        return newHead;
+    }
+};
+
+链表判环
+如何判断一个单链表是否有环？有环的话返回进入环的第一个节点的值，无环的话返回-1。如果链表的长度为N，请做到时间复杂度O(N)，额外空间复杂度O(1)。
+给定一个单链表的头结点head（注意另一个参数adjust为加密后的数据调整参数，方便数据设置，与本题求解无关)，请返回所求值
+/*
+struct ListNode {
+    int val;
+    struct ListNode *next;
+    ListNode(int x) : val(x), next(NULL) {}
+};*/
+class ChkLoop {
+public:
+    int chkLoop(ListNode* head, int adjust) {
+        // write code here
+        int res = -1;
+        if(head == NULL)
+            return res;
+        ListNode* slow = head;
+        ListNode* fast = head;
+        while(fast->next != NULL && fast->next->next != NULL)
+        {
+            slow = slow->next;
+            fast = fast->next->next;
+            if(slow == fast)
+                break;
+        }
+        if(slow == fast)
+        {
+            fast = head;
+            while(fast != slow)
+            {
+                fast = fast->next;
+                slow = slow->next;
+            }
+            res = fast->val;
+        }
+        return res;
+    }
+};
+
+无环单链表判相交
+现在有两个无环单链表，若两个链表的长度分别为m和n，请设计一个时间复杂度为O(n + m)，额外空间复杂度为O(1)的算法，判断这两个链表是否相交。
+给定两个链表的头结点headA和headB，请返回一个bool值，代表这两个链表是否相交。保证两个链表长度小于等于500
+/*
+struct ListNode {
+    int val;
+    struct ListNode *next;
+    ListNode(int x) : val(x), next(NULL) {}
+};*/
+class CheckIntersect {
+public:
+    bool chkIntersect(ListNode* headA, ListNode* headB) {
+        // write code here
+        bool res = false;
+        if(headA == NULL || headB == NULL)
+            return res;
+        int m = listLength(headA);
+        int n = listLength(headB);
+        ListNode* pA = headA;
+        ListNode* pB = headB;
+        if(m > n)
+        {
+            for(int i=0; i<m-n; i++)
+                pA = pA->next;
+        }
+        else if(m < n)
+        {
+            for(int i=0; i<n-m; i++)
+                pB = pB->next;
+        }
+        while(pA != NULL && pB != NULL)
+        {
+            if(pA == pB)
+            {
+                res = true;
+                break;
+            }
+            pA = pA->next;
+            pB = pB->next;
+        }
+        return res;
+    }
+    
+    int listLength(ListNode* pHead)
+    {
+        int n = 0;
+        ListNode* p = pHead;
+        while(p != NULL)
+        {
+            ++n;
+            p = p->next;
+        }
+        return n;
+    }
+};
+
+有环单链表相交判断
+如何判断两个有环单链表是否相交？相交的话返回第一个相交的节点，不相交的话返回空。如果两个链表长度分别为N和M，请做到时间复杂度O(N+M)，额外空间复杂度O(1)。
+给定两个链表的头结点head1和head2(注意，另外两个参数adjust0和adjust1用于调整数据,与本题求解无关)。请返回一个bool值代表它们是否相交
+/*
+struct ListNode {
+    int val;
+    struct ListNode *next;
+    ListNode(int x) : val(x), next(NULL) {}
+};*/
+class ChkIntersection {
+public:
+    bool chkInter(ListNode* head1, ListNode* head2, int adjust0, int adjust1) {
+        // write code here
+        bool res = false;
+        if(head1 == NULL || head2 == NULL)
+            return false;
+        ListNode* e1 = getEntrance(head1);
+        ListNode* e2 = getEntrance(head2);
+        if(e1 == e2)
+            res = true;
+        else
+        {
+            ListNode* p = e1->next;
+            while(p != e1)
+            {
+                if(p == e2)
+                {
+                    res = true;
+                    break;
+                }
+                p = p->next;
+            }
+        }
+        return res;
+    }
+    
+    ListNode* getEntrance(ListNode* head)
+    {
+        ListNode* p = head;
+        ListNode* slow = head;
+        ListNode* fast = head;
+        while(fast->next != NULL && fast->next->next != NULL)
+        {
+            slow = slow->next;
+            fast = fast->next->next;
+            if(slow == fast)
+                break;
+        }
+        if(slow == fast)
+        {
+            fast = head;
+            while(fast != slow)
+            {
+                fast = fast->next;
+                slow = slow->next;
+            }
+            return fast;
+        }
+        return NULL;
+    }
+};
+
+单链表相交判断
+给定两个单链表的头节点head1和head2，如何判断两个链表是否相交？相交的话返回true，不想交的话返回false。
+给定两个链表的头结点head1和head2(注意，另外两个参数adjust0和adjust1用于调整数据,与本题求解无关)。请返回一个bool值代表它们是否相交
+/*
+struct ListNode {
+    int val;
+    struct ListNode *next;
+    ListNode(int x) : val(x), next(NULL) {}
+};*/
+class ChkIntersection {
+public:
+    bool chkInter(ListNode* head1, ListNode* head2, int adjust0, int adjust1) {
+        // write code here
+        bool res = false;
+        if(head1 == NULL || head2 == NULL)
+            return res;
+        ListNode* e1 = getEntrance(head1);
+        ListNode* e2 = getEntrance(head2);
+        if(e1 == NULL && e2 == NULL)
+            res = chkNoLoop2(head1, head2);
+        else if(e1 != NULL && e2 != NULL)
+            res = chkLoop(e1, e2);
+        return res;
+    }
+    
+    ListNode* getEntrance(ListNode* head)
+    {
+        ListNode* p = head;
+        ListNode* slow = head;
+        ListNode* fast = head;
+        while(fast->next != NULL && fast->next->next != NULL)
+        {
+            slow = slow->next;
+            fast = fast->next->next;
+            if(slow == fast)
+                break;
+        }
+        if(slow == fast)
+        {
+            fast = head;
+            while(fast != slow)
+            {
+                fast = fast->next;
+                slow = slow->next;
+            }
+            return fast;
+        }
+        return NULL;
+    }
+    
+    bool chkNoLoop(ListNode* head1, ListNode* head2)
+    {
+        ListNode* p1 = head1;
+        ListNode* p2 = head2;
+        while(p1->next != NULL)
+            p1 = p1->next;
+        while(p2->next != NULL)
+            p2 = p2->next;
+        if(p1 == p2)
+            return true;
+        return false;
+    }
+    
+     bool chkNoLoop2(ListNode* head1, ListNode* head2)
+    {
+        ListNode* p1 = head1;
+        ListNode* p2 = head2;
+         int m = 0, n = 0;
+        while(p1 != NULL)
+        {
+            ++m;
+            p1 = p1->next;
+        }
+        while(p2 != NULL)
+        {
+            ++n;
+            p2 = p2->next;
+        }
+        p1 = head1;
+        p2 = head2;
+        if(m > n)
+        {
+            for(int i=0; i<m-n; i++)
+                p1 = p1->next;
+        }
+        else if(m < n)
+        {
+            for(int i=0; i<n-m; i++)
+                p2 = p2->next;
+        }
+        while(p1 != NULL && p2 != NULL)
+        {
+            if(p1 == p2)
+                return true;
+            p1 = p1->next;
+            p2 = p2->next;
+        }
+        return false;
+    }
+    
+    bool chkLoop(ListNode* e1, ListNode* e2)
+    {
+        bool res = false;
+        if(e1 == e2)
+            res = true;
+        else
+        {
+            ListNode* p1 = e1->next;
+            while(p1 != e1)
+            {
+                if(p1 == e2)
+                {
+                    res = true;
+                    break;
+                }
+                p1 = p1->next;
+            }
+        }
+        return res;
+    }
+};
+
+局部最小值位置
+定义局部最小的概念。arr长度为1时，arr[0]是局部最小。arr的长度为N(N>1)时，如果arr[0]<arr[1]，那么arr[0]是局部最小；如果arr[N-1]<arr[N-2]，那么arr[N-1]是局部最小；如果0<i<N-1，既有arr[i]<arr[i-1]又有arr[i]<arr[i+1]，那么arr[i]是局部最小。 给定无序数组arr，已知arr中任意两个相邻的数都不相等，写一个函数，只需返回arr中任意一个局部最小出现的位置即可
+class Solution {
+public:
+    int getLessIndex(vector<int> arr) {
+        int n = arr.size();
+        if(n <= 0)
+            return -1;
+        if(n == 1 || arr[0] < arr[1])
+            return 0;
+        if(arr[n-1] < arr[n-2])
+            return n-1;
+        int left = 1, right = n-2;
+        int mid;
+        while(left < right)
+        {
+            mid = (left + right)/2;
+            if(arr[mid] > arr[mid-1])
+                right = mid - 1;
+            else if(arr[mid] > arr[mid+1])
+                left = mid + 1;
+            else
+                return mid;
+        }
+        return left;
+    }   
+};
+
+元素最左出现
+对于一个有序数组arr，再给定一个整数num，请在arr中找到num这个数出现的最左边的位置。
+给定一个数组arr及它的大小n，同时给定num。请返回所求位置。若该元素在数组中未出现，请返回-1
+class LeftMostAppearance {
+public:
+    int findPos(vector<int> arr, int n, int num) {
+        // write code here
+        int res = -1;
+        int left = 0, right = n-1;
+        int mid;
+        while(left <= right)
+        {
+            mid = (left + right)/2;
+            if(arr[mid] == num)
+            {
+                res = mid;
+                right = mid-1;
+            }
+            else if(arr[mid] > num)
+                right = mid - 1;
+            else
+                left = mid + 1;
+        }
+        return res;
+    }
+};
+
+循环有序数组最小值
+对于一个有序循环数组arr，返回arr中的最小值。有序循环数组是指，有序数组左边任意长度的部分放到右边去，右边的部分拿到左边来。比如数组[1,2,3,3,4]，是有序循环数组，[4,1,2,3,3]也是。
+给定数组arr及它的大小n，请返回最小值
+class MinValue {
+public:
+    int getMin(vector<int> arr, int n) {
+        // write code here
+        if(n <= 0)
+            return -1;
+        if(n == 1 || arr[0] < arr[n-1])
+            return arr[0];
+        int left = 0, right = n-1;
+        int mid;
+        while(arr[left] >= arr[right])
+        {
+            if(right - left == 1)
+                return arr[right];
+            mid = (left + right)/2;
+            if(arr[mid] < arr[left])
+                right = mid;
+            else if(arr[mid] > arr[right])
+                left = mid;
+            else if(arr[mid] == arr[left] && arr[mid] == arr[right])
+            {
+                int res = arr[left];
+                for(int i=left+1; i<=right; i++)
+                    if(arr[i] < res)
+                        res = arr[i];
+                return res;
+            }
+        }
+        return -1;
+    }
+};
+
+最左原位
+有一个有序数组arr，其中不含有重复元素，请找到满足arr[i]==i条件的最左的位置。如果所有位置上的数都不满足条件，返回-1。
+给定有序数组arr及它的大小n，请返回所求值
+class Find {
+public:
+    int findPos(vector<int> arr, int n) {
+        // write code here
+        if(n <= 0 || arr[0] > n-1 || arr[n-1] < 0)
+            return -1;
+        int left = 0, right = n-1;
+        int mid;
+        int res = -1;
+        while(left <= right)
+        {
+            mid = (left + right)/2;
+            if(arr[mid] == mid)
+            {
+                res = mid;
+                right = mid - 1;
+            }
+            else if(arr[mid] < mid)
+                left = mid + 1;
+            else
+                right = mid - 1;
+        }
+        return res;
+    }
+};
+
+完全二叉树计数
+给定一棵完全二叉树的根节点root，返回这棵树的节点个数。如果完全二叉树的节点数为N，请实现时间复杂度低于O(N)的解法。
+给定树的根结点root，请返回树的大小
+/*
+struct TreeNode {
+    int val;
+    struct TreeNode *left;
+    struct TreeNode *right;
+    TreeNode(int x) :
+            val(x), left(NULL), right(NULL) {
+    }
+};*/
+
+class CountNodes {
+public:
+    int count(TreeNode* root) {
+        // write code here
+        if(root == NULL)
+            return 0;
+       // if(root->left == NULL && root->right == NULL)
+            //return 1;
+        int h1 = getDepth(root->left);
+        int h2 = getDepth(root->right);
+        int res = 0;
+        if(h1 == h2)
+            res = (1<<h1) + count(root->right);   // pow(2, h1) + count(root->right);
+        else if(h1 > h2)
+            res = count(root->left) + 1<<h2;
+        return res;
+    }
+    
+    int getDepth(TreeNode* root)
+    {
+        int depth = 0;
+        TreeNode* p = root;
+        while(p != NULL)
+        {
+            ++depth;
+            p = p->left;
+        }
+        return depth;
+    }
+};
+
+快速N次方
+如果更快的求一个整数k的n次方。如果两个整数相乘并得到结果的时间复杂度为O(1)，得到整数k的N次方的过程请实现时间复杂度为O(logN)的方法。
+给定k和n，请返回k的n次方，为了防止溢出，请返回结果Mod 1000000007的值
+class QuickPower {
+public:
+    int getPower(int k, int N) {
+        // write code here
+        long res = 1;
+        long tmp = k;
+        while(N)
+        {
+            if(N & 1)
+                res = res * tmp;
+            res = res % 1000000007;
+            tmp = tmp * tmp % 1000000007;
+            N >>= 1;
+        }
+        return res % 1000000007;
+    }
+};
+
+递归二叉树的序列打印
+请用递归方式实现二叉树的先序、中序和后序的遍历打印。
+给定一个二叉树的根结点root，请依次返回二叉树的先序，中序和后续遍历(二维数组的形式)
+/*
+struct TreeNode {
+    int val;
+    struct TreeNode *left;
+    struct TreeNode *right;
+    TreeNode(int x) :
+            val(x), left(NULL), right(NULL) {
+    }
+};*/
+
+class TreeToSequence {
+public:
+    vector<vector<int> > convert(TreeNode* root) {
+        // write code here
+        vector<vector<int> > res(3, vector<int>()); 
+        if(root != NULL)
+        {
+            //vector<int> nodes[3];
+            preOrder(root, res[0]);
+            inOrder(root, res[1]);
+            postOrder(root, res[2]);
+            
+            //res.push_back(nodes[0]);
+            //res.push_back(nodes[1]);
+            //res.push_back(nodes[2]);
+        }
+        return res;
+    }
+    
+    void preOrder(TreeNode* root, vector<int>& nodes)
+    {
+        if(root != NULL)
+        {
+            nodes.push_back(root->val);
+            if(root->left != NULL)
+                preOrder(root->left, nodes);
+            if(root->right != NULL)
+                preOrder(root->right, nodes);
+        }
+    }
+    
+    void inOrder(TreeNode* root, vector<int>& nodes)
+    {
+        if(root != NULL)
+        {
+            if(root->left != NULL)
+                inOrder(root->left, nodes);
+            nodes.push_back(root->val);
+            if(root->right != NULL)
+                inOrder(root->right, nodes);
+        }
+    }
+    
+    void postOrder(TreeNode* root, vector<int>& nodes)
+    {
+        if(root != NULL)
+        {
+            if(root->left != NULL)
+                postOrder(root->left, nodes);
+            if(root->right != NULL)
+                postOrder(root->right, nodes);
+            nodes.push_back(root->val);
+        }
+    }
+};
+
+非递归二叉树遍历
+请用非递归方式实现二叉树的先序、中序和后序的遍历打印。
+给定一个二叉树的根结点root，请依次返回二叉树的先序，中序和后续遍历(二维数组的形式)
+/*
+struct TreeNode {
+    int val;
+    struct TreeNode *left;
+    struct TreeNode *right;
+    TreeNode(int x) :
+            val(x), left(NULL), right(NULL) {
+    }
+};*/
+
+class TreeToSequence {
+public:
+    vector<vector<int> > convert(TreeNode* root) {
+        // write code here
+        vector<vector<int> > res(3);
+        if(root != NULL)
+        {
+            //vector<int> nodes[3];
+            preOrder(root, res[0]);
+            inOrder(root, res[1]);
+            postOrder(root, res[2]);
+            //res.push_back(nodes[0]);
+            //res.push_back(nodes[1]);
+            //res.push_back(nodes[2]);
+        }
+        return res;
+    }
+    
+    void preOrder(TreeNode* root, vector<int>& nodes)
+    {
+        if(root != NULL)
+        {
+            stack<TreeNode*> s;
+            s.push(root);
+            TreeNode* node = NULL;
+            while(!s.empty())
+            {
+                node = s.top();
+                s.pop();
+                if(node->right != NULL)
+                    s.push(node->right);
+                if(node->left != NULL)
+                    s.push(node->left);
+                nodes.push_back(node->val);
+            }
+        }
+    }
+    
+    void inOrder(TreeNode* root, vector<int>& nodes)
+    {
+        if(root != NULL)
+        {
+            stack<pair<TreeNode*, int> > s;
+            s.push(make_pair(root, 0));
+            TreeNode* node = NULL;
+            int time = 0;
+            while(!s.empty())
+            {
+                node = s.top().first;
+                time = s.top().second;
+                s.pop(); 
+                if(time == 1)
+                    nodes.push_back(node->val);
+                else 
+                { 
+                    if(node->right != NULL)
+                        s.push(make_pair(node->right, 0));
+                    s.push(make_pair(node, 1));
+                    if(node->left != NULL)
+                        s.push(make_pair(node->left, 0));
+                }
+            }
+        }
+    }
+    
+    void postOrder(TreeNode* root, vector<int>& nodes)
+    {
+        if(root != NULL)
+        {
+            stack<pair<TreeNode*, int> > s;
+            s.push(make_pair(root, 0));
+            TreeNode* node = NULL;
+            int time = 0;
+            while(!s.empty())
+            {
+                node = s.top().first;
+                time = s.top().second;
+                s.pop();
+                if(time == 1)
+                    nodes.push_back(node->val);
+                else
+                {
+                    s.push(make_pair(node, 1));
+                
+                    if(node->right != NULL)
+                        s.push(make_pair(node->right, 0));
+                    if(node->left != NULL)
+                        s.push(make_pair(node->left, 0));
+                }
+            }
+        }
+    }
+};
+
+二叉树按层打印
+有一棵二叉树，请设计一个算法，按照层次打印这棵二叉树。
+给定二叉树的根结点root，请返回打印结果，结果按照每一层一个数组进行储存，所有数组的顺序按照层数从上往下，且每一层的数组内元素按照从左往右排列。保证结点数小于等于500
+/*
+struct TreeNode {
+    int val;
+    struct TreeNode *left;
+    struct TreeNode *right;
+    TreeNode(int x) :
+            val(x), left(NULL), right(NULL) {
+    }
+};*/
+
+class TreePrinter {
+public:
+    vector<vector<int> > printTree(TreeNode* root) {
+        // write code here
+        vector<vector<int> > res;
+        if(root != NULL)
+        {
+            queue<TreeNode*> q;
+            q.push(root);
+            TreeNode* last = root;
+            TreeNode* nlast = root;
+            vector<int> nodes;
+            TreeNode* p = NULL;
+            while(!q.empty())
+            {
+                p = q.front();
+                q.pop();
+                nodes.push_back(p->val);
+                
+                if(p->left != NULL)
+                {
+                    q.push(p->left);
+                    nlast = p->left;
+                }
+                if(p->right != NULL)
+                {
+                    q.push(p->right);
+                    nlast = p->right;
+                }
+                
+                if(p == last)
+                {
+                    last = nlast;
+                    res.push_back(nodes);
+                    nodes.clear();
+                }
+            }
+        }
+        return res;
+    }
+};
+
+二叉树的序列化
+首先我们介绍二叉树先序序列化的方式，假设序列化的结果字符串为str，初始时str等于空字符串。先序遍历二叉树，如果遇到空节点，就在str的末尾加上“#!”，“#”表示这个节点为空，节点值不存在，当然你也可以用其他的特殊字符，“!”表示一个值的结束。如果遇到不为空的节点，假设节点值为3，就在str的末尾加上“3!”。现在请你实现树的先序序列化。
+给定树的根结点root，请返回二叉树序列化后的字符串
+/*
+struct TreeNode {
+    int val;
+    struct TreeNode *left;
+    struct TreeNode *right;
+    TreeNode(int x) :
+            val(x), left(NULL), right(NULL) {
+    }
+};*/
+
+class TreeToString {
+public:
+    string toString(TreeNode* root) {
+        // write code here
+        string res = "";
+        if(root == NULL)
+            return "#!";
+        res += to_string(root->val) + "!" + toString(root->left) + toString(root->right);
+        return res;
+    }
+};
+
+平衡二叉树判断
+有一棵二叉树，请设计一个算法判断这棵二叉树是否为平衡二叉树。
+给定二叉树的根结点root，请返回一个bool值，代表这棵树是否为平衡二叉树
+/*
+struct TreeNode {
+    int val;
+    struct TreeNode *left;
+    struct TreeNode *right;
+    TreeNode(int x) :
+            val(x), left(NULL), right(NULL) {
+    }
+};*/
+
+class CheckBalance {
+public:
+    bool check(TreeNode* root) {
+        // write code here
+        if(root == NULL)
+            return true;
+        int h = 1;
+        if(checkCore(root, h))
+            return true;
+        return false;
+    }
+    
+    bool checkCore(TreeNode* root, int& h)
+    {
+        if(root != NULL)
+        {
+            int lh = 0;
+            bool left = checkCore(root->left, lh);
+            int rh = 0;
+            bool right = checkCore(root->right, rh);
+            
+            if(left && right && abs(lh - rh) < 2)
+            {
+                h = max(lh, rh) + 1;
+                return true;
+            }
+            else
+            {
+                h = 0;
+                return false;
+            }
+        }
+        return true;
+    }
+};
+
+完全二叉树判断
+有一棵二叉树,请设计一个算法判断它是否是完全二叉树。
+给定二叉树的根结点root，请返回一个bool值代表它是否为完全二叉树。树的结点个数小于等于500
+/*
+struct TreeNode {
+    int val;
+    struct TreeNode *left;
+    struct TreeNode *right;
+    TreeNode(int x) :
+            val(x), left(NULL), right(NULL) {
+    }
+};*/
+
+class CheckCompletion {
+public:
+    bool chk(TreeNode* root) {
+        // write code here
+        bool lt = false;
+        bool lf = false;
+        if(root != NULL)
+        {
+            queue<TreeNode*> q;
+            q.push(root);
+            TreeNode* node = NULL;
+            while(!q.empty())
+            {
+                node = q.front();
+                q.pop();
+                if(node->left == NULL && node->right != NULL)
+                    return false;
+                if(lf)
+                {
+                    if(node->left != NULL || node->right != NULL)
+                        return false;
+                }
+                else 
+                {
+                    if(node->right == NULL)
+                            lf = true;
+                }
+
+                if(node->left != NULL)
+                     q.push(node->left);
+                if(node->right != NULL)
+                     q.push(node->right);
+            }
+        }
+        return true;
+    }
+};
+
+折纸问题
+请把纸条竖着放在桌?上，然后从纸条的下边向上?对折，压出折痕后再展 开。此时有1条折痕，突起的?向指向纸条的背?，这条折痕叫做“下”折痕 ；突起的?向指向纸条正?的折痕叫做“上”折痕。如果每次都从下边向上? 对折，对折N次。请从上到下计算出所有折痕的?向。
+给定折的次数n,请返回从上到下的折痕的数组，若为下折痕则对应元素为"down",若为上折痕则为"up"
+class FoldPaper {
+public:
+    vector<string> foldPaper(int n) {
+        // write code here
+        vector<string> res;
+        foldPaperCore(1, n, "down", res);
+        return res;
+    }
+    
+    void foldPaperCore(int i, int n, string val, vector<string>& ans)
+    {
+        if(i > n)
+            return ;
+        else
+        {
+            foldPaperCore(i+1, n, "down", ans);
+            ans.push_back(val);
+            foldPaperCore(i+1, n, "up", ans);
+        }    
+    }
+};
+
+寻找错误结点
+一棵二叉树原本是搜索二叉树，但是其中有两个节点调换了位置，使得这棵二叉树不再是搜索二叉树，请找到这两个错误节点并返回他们的值。保证二叉树中结点的值各不相同。
+给定一棵树的根结点，请返回两个调换了位置的值，其中小的值在前
+/*
+struct TreeNode {
+    int val;
+    struct TreeNode *left;
+    struct TreeNode *right;
+    TreeNode(int x) :
+            val(x), left(NULL), right(NULL) {
+    }
+};*/
+
+class FindErrorNode {
+public:
+    vector<int> findError(TreeNode* root) {
+        // write code here
+        vector<int> res;
+        res.reserve(2);
+        if(root != NULL)
+        {
+            vector<int> nodes;
+            get(root, nodes);
+            int min = -1, max = -1;
+            for(int i=1; i<nodes.size(); i++)
+            {
+                if(nodes[i] < nodes[i-1])
+                {
+                    if(max == -1)
+                    {
+                        max = nodes[i-1];
+                        min = nodes[i];
+                    }
+                    else
+                        min = nodes[i];
+                }
+            }
+            res.push_back(min);
+            res.push_back(max);
+        }
+        return res;
+    }
+    
+    void get(TreeNode* root, vector<int>& nodes)
+    {
+        if(root != NULL)
+        {
+            get(root->left, nodes);
+            nodes.push_back(root->val);
+            get(root->right, nodes);
+        }
+    }
+};
+
+树上最远距离
+从二叉树的节点A出发，可以向上或者向下走，但沿途的节点只能经过一次，当到达节点B时，路径上的节点数叫作A到B的距离。对于给定的一棵二叉树，求整棵树上节点间的最大距离。
+给定一个二叉树的头结点root，请返回最大距离。保证点数大于等于2小于等于500
+/*
+struct TreeNode {
+    int val;
+    struct TreeNode *left;
+    struct TreeNode *right;
+    TreeNode(int x) :
+            val(x), left(NULL), right(NULL) {
+    }
+};*/
+
+class LongestDistance {
+public:
+    int findLongest(TreeNode* root) {
+        // write code here
+        int deep = 0;
+        return findLongestCore(root, deep);
+    }
+    
+    int findLongestCore(TreeNode* root, int& deep)
+    {
+        int dist = 0;
+        if(root != NULL)
+        {
+            int lmax1 = 0, lmax2 = 0;
+            lmax1 = findLongestCore(root->left, lmax2);
+            int rmax1 = 0, rmax2 = 0;
+            rmax1 = findLongestCore(root->right, rmax2);
+            deep = 1 + max(lmax2, rmax2);
+            dist = max(lmax1, rmax1);
+            dist = max(dist, lmax2 + rmax2 + 1);
+        }
+        return dist;
+    }
+};
+
+最大二叉搜索子树
+有一棵二叉树，其中所有节点的值都不一样,找到含有节点最多 的搜索二叉子树,并返回这棵子树的头节点.
+给定二叉树的头结点root，请返回所求的头结点,若出现多个节点最多的子树，返回头结点权值最大的
+/*
+struct TreeNode {
+    int val;
+    struct TreeNode *left;
+    struct TreeNode *right;
+    TreeNode(int x) :
+            val(x), left(NULL), right(NULL) {
+    }
+};*/
+class MaxSubtree {
+public:
+    TreeNode* getMax(TreeNode* root) {
+        // write code here
+        int count = 0, val_min = INT_MAX, val_max = INT_MIN;
+        return getMaxCore(root, count, val_min, val_max);
+    }
+    
+    TreeNode* getMaxCore(TreeNode* root, int& count, int& val_min, int& val_max)
+    {
+        TreeNode* res = NULL;
+        if(root != NULL)
+        {
+            int cnt_left = 0, lmin = INT_MAX, lmax = INT_MIN;
+            TreeNode* lt = getMaxCore(root->left, cnt_left, lmin, lmax);
+            int cnt_right = 0, rmin = INT_MAX, rmax = INT_MIN;
+            TreeNode* rt = getMaxCore(root->right, cnt_right, rmin, rmax);
+            val_min = min(lmin, root->val);
+            val_max = max(rmax, root->val);
+            if(lt == root->left && rt == root->right && lmax < root->val && root->val < rmin)
+            {
+                count = cnt_left + cnt_right + 1;
+                res = root;
+            }
+            else if(cnt_left > cnt_right)
+            {
+                count = cnt_left;
+                res = lt;
+            }
+            else
+            {
+                count = cnt_right;
+                res = rt;
+            }
+        }
+        return res;
+    }
+};
+
+交换练习
+请编写一个算法，不用任何额外变量交换两个整数的值。
+给定一个数组num，其中包含两个值，请不用任何额外变量交换这两个值，并将交换后的数组返回
+class Swap {
+public:
+    vector<int> getSwap(vector<int> num) {
+        // write code here
+        if(num.empty() || num[0] == num[1])
+            return num;
+        num[0] = num[0] ^ num[1];
+        num[1] = num[0] ^ num[1];
+        num[0] = num[0] ^ num[1];
+        return num;
+    }
+};
+
+比较练习
+对于两个32位整数a和b，请设计一个算法返回a和b中较大的。但是不能用任何比较判断。若两数相同，返回任意一个。
+给定两个整数a和b，请返回较大的数
+class Compare {
+public:
+    int getMax(int a, int b) {
+        // write code here
+        int c = a - b;
+        int as = sign(a);
+        int bs = sign(b);
+        int cs = sign(c);
+        int difab = as ^ bs;
+        int sameab = flip(difab);
+        int returnA = difab * as + sameab * cs;
+        int returnB = flip(returnA);
+        return a * returnA + b * returnB;
+    }
+    
+    int flip(int n)
+    {
+        return (n ^ 1);
+    }
+    
+    int sign(int n)
+    {
+        return flip((n >> 31) & 1);
+    }
+};
+
+寻找奇数次出现
+有一个整型数组A，其中只有一个数出现了奇数次，其他的数都出现了偶数次，请打印这个数。要求时间复杂度为O(N)，额外空间复杂度为O(1)。
+给定整形数组A及它的大小n，请返回题目所求数字
+class OddAppearance {
+public:
+    int findOdd(vector<int> A, int n) {
+        // write code here
+        int res = 0;
+        for(int i=0; i<n; i++)
+            res ^= A[i];
+        return res;
+    }
+};
+
+寻找奇数次出现的II
+给定一个整型数组arr，其中有两个数出现了奇数次，其他的数都出现了偶数次，找到这两个数。要求时间复杂度为O(N)，额外空间复杂度为O(1)。
+给定一个整形数组arr及它的大小n，请返回一个数组，其中两个元素为两个出现了奇数次的元素,请将他们按从小到大排列
+class OddAppearance {
+public:
+    vector<int> findOdds(vector<int> arr, int n) {
+        // write code here
+        vector<int> res;
+        res.reserve(2);
+        if(n < 2)
+            return res;
+        int e0 = 0;
+        for(int i=0; i<n; i++)
+            e0 ^= arr[i];
+        int cnt = firstNZ(e0);
+        int e1 = 0;
+        for(int i=0; i<n; i++)
+        {
+            if(isOne(arr[i], cnt))
+               e1 ^=arr[i];
+        }
+        int e2 = e0 ^ e1;
+        if(e1 < e2)
+        {
+            res.push_back(e1);
+            res.push_back(e2);
+        }
+        else
+        {
+            res.push_back(e2);
+            res.push_back(e1);
+        }
+        return res;
+    }
+    
+    int firstNZ(int n)
+    {
+        int cnt = 0;
+        while((n & 1) == 0)
+        {
+            ++cnt;
+            n >>= 1;
+        }
+        return cnt;
+    }
+                
+    bool isOne(int n, int cnt)
+    {
+        if((n >> cnt) & 1)
+            return true;
+        return false;
+    }
+};
+
+方格移动
+在XxY的方格中，以左上角格子为起点，右下角格子为终点，每次只能向下走或者向右走，请问一共有多少种不同的走法
+给定两个正整数int x,int y，请返回走法数目。保证x＋y小于等于12
+class Robot {
+public:
+    int countWays(int x, int y) {
+        // write code here
+        int res = 1;
+        --x;
+        --y;
+        int i = x + y;
+        for( ; i>y; i--)
+            res *= i;
+        for(i=x; i>0; i--)
+            res /= i;
+        return res;
+    }
+};
+
+站队问题
+n个人站队，他们的编号依次从1到n，要求编号为a的人必须在编号为b的人的左边，但不要求一定相邻，请问共有多少种排法？第二问如果要求a必须在b的左边，并且一定要相邻，请问一共有多少种排法？
+给定人数n及两个人的编号a和b，请返回一个两个元素的数组，其中两个元素依次为两个问题的答案。保证人数小于等于10
+class StandInLine {
+public:
+    vector<int> getWays(int n, int a, int b) {
+        // write code here
+        vector<int> res(2);
+        res[0] = 1;
+        for(int i=1; i<=n; i++)
+            res[0] *= i;
+        res[0] /= 2;
+        
+        --n;
+        res[1] = 1;
+        for(int i=1; i<=n; i++)
+            res[1] *= i;
+        return res;
+    }
+};
+
+孤傲的A
+A(A也是他的编号)是一个孤傲的人，在一个n个人(其中编号依次为1到n)的队列中，他于其中的标号为b和标号c的人都有矛盾，所以他不会和他们站在相邻的位置。现在问你满足A的要求的对列有多少种？
+给定人数n和三个人的标号A,b和c，请返回所求答案，保证人数小于等于11且大于等于3
+class LonelyA {
+public:
+    int getWays(int n, int A, int b, int c) {
+        // write code here
+        int res = 2 * (n-3) * permutation(n-2, n-2)
+                  + (n-2) * permutation(n-3, 2) * permutation(n-3, n-3);
+        return res;
+    }
+    
+    int permutation(int n, int m)
+    {
+        int res = 1;
+        for(int i=n; i>n-m; i--)
+            res *= i;
+        return res;
+    }
+};
+
+分糖果
+n颗相同的糖果，分给m个人，每人至少一颗，问有多少种分法。
+给定n和m，请返回方案数，保证n小于等于12，且m小于等于n
+class Distribution {
+public:
+    int getWays(int n, int m) {
+        // write code here
+        --n;
+        --m;
+        int res = 1;
+        int i = n;
+        for( ; i>n-m; i--)
+            res *= i;
+        for(i=m; i>0; i--)
+            res /= i;
+        return res;
+    }
+};
+
+括号序列
+假设有n对左右括号，请求出合法的排列有多少个？合法是指每一个括号都可以找到与之配对的括号，比如n=1时，()是合法的，但是)(为不合法。
+给定一个整数n，请返回所求的合法排列数。保证结果在int范围内
+class Parenthesis {
+public:
+    int countLegalWays(int n) {
+        // write code here
+        int res = 1;
+        int i = 2*n;
+        for( ; i>n; i--)
+            res *= i;
+        for(i=n; i>0; i--)
+            res /= i;
+        res /= (n+1);
+        return res;
+    }
+};
+
+进出栈
+n个数进出栈的顺序有多少种？假设栈的容量无限大。
+给定一个整数n，请返回所求的进出栈顺序个数。保证结果在int范围内
+class Stack {
+public:
+    int countWays(int n) {
+        // write code here
+        int res = 1;
+        int i = 2 * n;
+        for( ; i>n; i--)
+            res *= i;
+        for(i=n; i>0; i--)
+            res /= i;
+        res /= (n+1);
+        return res;
+    }
+};
+
+排队买票
+2n个人排队买票，n个人拿5块钱，n个人拿10块钱，票价是5块钱1张，每个人买一张票，售票员手里没有零钱，问有多少种排队方法让售票员可以顺利卖票。
+给定一个整数n，请返回所求的排队方案个数。保证结果在int范围内
+class BuyTickets {
+public:
+    int countWays(int n) {
+        // write code here
+        int res = 1;
+        int i = 2 * n;
+        for( ; i>n; i--)
+            res *= i;
+        for(i=n; i>0; i--)
+            res /= i;
+        res /= (n+1);
+        return res;
+    }
+};
+
+二叉树统计
+求n个无差别的节点构成的二叉树有多少种不同的结构？
+给定一个整数n，请返回不同结构的二叉树的个数。保证结果在int范围内
+class TreeCount {
+public:
+    int countWays(int n) {
+        // write code here
+        int res = 1;
+        int i = 2 * n;
+        for( ; i>n; i--)
+            res *= i;
+        for(i=n+1; i>1; i--)
+            res /= i;
+        return res;
+    }
+};
+
+高矮排列
+12个高矮不同的人，排成两排，每排必须是从矮到高排列，而且第二排比对应的第一排的人高，问排列方式有多少种？
+给定一个偶数n，请返回所求的排列方式个数。保证结果在int范围内
+class HighAndShort {
+public:
+    int countWays(int n) {
+        // write code here
+        int res = 1;
+        int i = n;    //2 * n;
+        for( ; i>n/2; i--)
+            res *= i;
+        for(i=n/2+1; i>1; i--)
+            res /= i;
+        return res;
+    }
+};
+
+错误信封
+有n个信封，包含n封信，现在把信拿出来，再装回去，要求每封信不能装回它原来的信封，问有多少种装法?
+给定一个整数n，请返回装发个数，为了防止溢出，请返回结果Mod 1000000007的值。保证n的大小小于等于300
+class CombineByMistake {
+public:
+    int countWays(int n) {
+        // write code here
+        if(n <= 1)
+            return 0;
+        else if(n == 2)
+            return 1;
+        else 
+        {
+            long long last = 0, res = 1;
+            for(int i=3; i<=n; i++)
+            {
+                int tmp = (i-1) * (last + res) % 1000000007;
+                last = res;
+                res = tmp;
+            }
+            return res % 1000000007;
+        }
+    }
+};
+
+足球比赛
+有2k只球队，有k-1个强队，其余都是弱队，随机把它们分成k组比赛，每组两个队，问两强相遇的概率是多大？
+给定一个数k，请返回一个数组，其中有两个元素，分别为最终结果的分子和分母，请化成最简分数
+class Championship {
+public:
+    vector<int> calc(int k) {
+        // write code here
+        vector<int> res(2);
+        res[1] = 1;
+        for(int i=k; i>0; i--)
+            res[1] *= (2 * i - 1);
+        int tmp = 1;
+        for(int i=k+1; i>2; i--)
+            tmp *= i;
+        res[0] = res[1] - tmp;
+        tmp = gcd(res[1], res[0]);
+        res[0] /= tmp;
+        res[1] /= tmp;
+        return res;
+    }
+    
+    int gcd(int a, int b)
+    {
+        if(a < b)
+            swap(a, b);
+        while(b > 0)
+        {
+            int temp = a % b;
+            a = b;
+            b = temp;
+        }
+        return a;
+    }
+};
+
+蚂蚁碰头
+n只蚂蚁从正n边形的n个定点沿着边移动，速度是相同的，问它们碰头的概率是多少？
+给定一个正整数n，请返回一个数组，其中两个元素分别为结果的分子和分母，请化为最简分数。
+class Ants {
+public:
+    vector<int> collision(int n) {
+        // write code here
+        vector<int> res(2);
+        res[1] = 1 << n;
+        res[0] = res[1] - 2;
+        int tmp = gcd(res[1], res[0]);
+        res[0] /= tmp;
+        res[1] /= tmp;
+        return res;
+    }
+    
+    int gcd(int a, int b)
+    {
+        if(a < b)
+            swap(a, b);
+        while(b > 0)
+        {
+            int tmp = a % b;
+            a = b;
+            b = tmp;
+        }
+        return a;
+    }
+};
+
+随机函数
+给定一个等概率随机产生1~5的随机函数，除此之外，不能使用任何额外的随机机制，请实现等概率随机产生1~7的随机函数。(给定一个可调用的Random5::random()方法,可以等概率地随机产生1～5的随机函数)
+// 以下内容请不要修改
+class Random5 {
+public:
+	static int randomNumber();
+};
+
+class Random7 {
+public:
+    int rand5() {
+        return Random5::randomNumber();
+    }
+    // 以上内容请不要修改
+    
+
+    int randomNumber() {
+        // 代码写这里,通过rand5函数随机产生[1,7]
+        int res = 5 * (rand5() - 1) + rand5() - 1;
+        while(res > 20)
+            res = 5 * (rand5() - 1) + rand5() - 1;
+        return res % 7 + 1;
+    }
+};
+
+随机01
+给定一个以p概率产生0，以1-p概率产生1的随机函数RandomP::f()，p是固定的值，但你并不知道是多少。除此之外也不能使用任何额外的随机机制，请用RandomP::f()实现等概率随机产生0和1的随机函数
+class RandomP {
+public:
+	static int f();
+};
+
+class Random01 {
+public:
+    // 用RandomP::f()实现等概率的01返回
+    int random01() {
+        int a = RandomP::f();
+        int b = RandomP::f();
+        while(a ^ b == 0)
+        {
+            a = RandomP::f();
+            b = RandomP::f();
+        }
+        if(a == 0 && b == 1)
+            return 0;
+        else
+            return 1;
+        //return 0;
+    }
+};
+
+随机区间
+假设函数f()等概率随机返回一个在[0,1)范围上的浮点数，那么我们知道，在[0,x)区间上的数出现的概率为x(0<x≤1)。给定一个大于0的整数k，并且可以使用f()函数，请实现一个函数依然返回在[0,1)范围上的数，但是在[0,x)区间上的数出现的概率为x的k次方
+class RandomSeg {
+public:
+    // 等概率返回[0,1)
+	double f() {
+	    return rand() * 1.0 / RAND_MAX;
+	}
+	// 通过调用f()来实现
+    double random(int k, double x) {
+        double res = -1;
+        for(int i=0; i<k; i++)
+        {
+            res = max(res, f());
+        }
+        return res;
+    }
+};
+
+随机数组
+给定一个长度为N且没有重复元素的数组arr和一个整数M，实现函数等概率随机打印arr中的M个数
+class RandomPrint {
+public:
+    vector<int> print(vector<int> arr, int N, int M) {
+        // write code here
+        vector<int> res;
+        if(N < M)
+            return res;
+        while(M > 0)
+        {
+            int i = rand() % N;
+            res.push_back(arr[i]);
+            --N;
+            swap(arr[i], arr[N]);
+            --M;
+        }
+        return res;
+    }
+};
+
+		int p;
+		vector<int> ret;
+		for(int i = 0;i < M;++ i){
+			p = rand() % (N - i);
+			ret.push_back(arr[p]);
+			swap(arr[p],arr[N - i - 1]);
+		}
+		return ret;
+
+机器吐球
+有一个机器按自然数序列的方式吐出球，1号球，2号球，3号球等等。你有一个袋子，袋子里最多只能装下K个球，并且除袋子以外，你没有更多的空间，一个球一旦扔掉，就再也不可拿回。设计一种选择方式，使得当机器吐出第N号球的时候，你袋子中的球数是K个，同时可以保证从1号球到N号球中的每一个，被选进袋子的概率都是K/N。举一个更具体的例子，有一个只能装下10个球的袋子，当吐出100个球时，袋子里有10 球，并且1~100号中的每一个球被选中的概率都是10/100。然后继续吐球，当吐出1000个球时，袋子里有 10 个球，并且1~1000号中的每一个球被选中的概率都是10/1000。继续吐球，当吐出i个球时，袋子里有10个球，并且1~i号中的每一个球被选中的概率都是10/i。也就是随着N的变化，1~N号球被选中的概率动态变化成k/N。请将吐出第N个球时袋子中的球的编号返回
+class Bag {
+public:
+	vector<int> ret;
+    // 每次拿一个球都会调用这个函数，N表示第i次调用
+    vector<int> carryBalls(int N, int k) {
+        if(ret.size() < k)
+            ret.push_back(N);
+        else
+        {
+            if(rand() % N < k)
+            {
+                int id = rand() % k;
+                ret[id] = N;
+            }
+        }
+        return ret;
+    }
+};
+
+找零钱
+有数组penny，penny中所有的值都为正数且不重复。每个值代表一种面值的货币，每种面值的货币可以使用任意张，再给定一个整数aim(小于等于1000)代表要找的钱数，求换钱有多少种方法。
+给定数组penny及它的大小(小于等于50)，同时给定一个整数aim，请返回有多少种方法可以凑成aim
+class Exchange {
+public:
+    int countWays(vector<int> penny, int n, int aim) {
+        // write code here
+        if(n <= 0 || aim < 0)
+            return 0;
+        vector<vector<int> > dp(n, vector<int>(aim+1, 0));
+        for(int i=0; i<n; i++)
+            dp[i][0] = 1;
+        for(int j=penny[0]; j<=aim; j+=penny[0])
+            dp[0][j] = 1;
+        for(int i=1; i<n; i++)
+        {
+            for(int j=1; j<=aim; j++)
+            {
+                if(j - penny[i] >= 0)
+                    dp[i][j] = dp[i-1][j] + dp[i][j-penny[i]];
+                else
+                    dp[i][j] = dp[i-1][j];
+            }
+        }
+        return dp[n-1][aim];
+    }
+};
+
+台阶问题
+有n级台阶，一个人每次上一级或者两级，问有多少种走完n级台阶的方法。为了防止溢出，请将结果Mod 1000000007
+给定一个正整数int n，请返回一个数，代表上楼的方式数。保证n小于等于100000
+class GoUpstairs {
+public:
+    int countWays(int n) {
+        // write code here
+        if(n == 1)
+            return 1;
+        else if(n == 2)
+            return 2;
+        int a = 1, b = 2;
+        int c;
+        for(int i=3; i<=n; i++)
+        {
+            c = (a + b) % 1000000007;
+            a = b;
+            b = c;
+        }
+        return c;
+    }
+};
+
+矩阵最小路径
+有一个矩阵map，它每个格子有一个权值。从左上角的格子开始每次只能向右或者向下走，最后到达右下角的位置，路径上所有的数字累加起来就是路径和，返回所有的路径中最小的路径和。
+给定一个矩阵map及它的行数n和列数m，请返回最小路径和。保证行列数均小于等于100.
+class MinimumPath {
+public:
+    int getMin(vector<vector<int> > map, int n, int m) {
+        // write code here
+        vector<vector<int> > dp(n, vector<int>(m, 0));
+        dp[0][0] = map[0][0];
+        for(int i=1; i<n; i++)
+            dp[i][0] = dp[i-1][0] + map[i][0];
+        for(int j=1; j<m; j++)
+            dp[0][j] = dp[0][j-1] + map[0][j];
+        for(int i=1; i<n; i++)
+        {
+            for(int j=1; j<m; j++)
+                dp[i][j] = map[i][j] + min(dp[i-1][j], dp[i][j-1]);
+        }
+        return dp[n-1][m-1];
+    }
+};
+
+LIS最长递增子序列
+这是一个经典的LIS(即最长上升子序列)问题，请设计一个尽量优的解法求出序列的最长上升子序列的长度。
+给定一个序列A及它的长度n(长度小于等于500)，请返回LIS的长度
+class LongestIncreasingSubsequence {
+public:
+    int getLIS(vector<int> A, int n) {
+        // write code here
+        vector<int> dp(n, 1);
+        for(int i=1; i<n; i++)
+        {
+            for(int j=0; j<i; j++)
+            {
+                if(A[j] < A[i])
+                    dp[i] = max(dp[i], dp[j] + 1);
+            }
+        }
+        int res = dp[0];
+        for(int i=1; i<n; i++)
+            if(dp[i] > res)
+                res = dp[i];
+        return res;
+    }
+};
+
+LCS最长公共子序列
+给定两个字符串A和B，返回两个字符串的最长公共子序列的长度。例如，A="1A2C3D4B56”，B="B1D23CA45B6A”，”123456"或者"12C4B6"都是最长公共子序列。
+给定两个字符串A和B，同时给定两个串的长度n和m，请返回最长公共子序列的长度。保证两串长度均小于等于300
+class LCS {
+public:
+    int findLCS(string A, int n, string B, int m) {
+        // write code here
+        if(n <= 0 || m <= 0)
+            return 0;
+        vector<vector<int> > dp(n, vector<int>(m, 0));
+        if(A[0] == B[0])
+            dp[0][0] = 1;
+        for(int i=1; i<n; i++)
+        {
+            if(A[i] == B[0] || dp[i-1][0] == 1)
+                dp[i][0] = 1;
+        }
+        for(int j=1; j<m; j++)
+        {
+            if(B[j] == A[0] || dp[0][j-1] == 1)
+                dp[0][j] = 1;
+        }
+        for(int i=1; i<n; i++)
+        {
+            for(int j=1; j<m; j++)
+            {
+                dp[i][j] = max(dp[i-1][j], dp[i][j-1]);
+                if(A[i] == B[j])
+                    dp[i][j] = max(dp[i][j], dp[i-1][j-1]+1);
+            }
+        }
+        return dp[n-1][m-1];
+    }
+};
+
+01背包
+一个背包有一定的承重cap，有N件物品，每件都有自己的价值，记录在数组v中，也都有自己的重量，记录在数组w中，每件物品只能选择要装入背包还是不装入背包，要求在不超过背包承重的前提下，选出物品的总价值最大。
+给定物品的重量w价值v及物品数n和承重cap。请返回最大总价值
+class Backpack {
+public:
+    int maxValue(vector<int> w, vector<int> v, int n, int cap) {
+        // write code here
+        /*vector<vector<int> > dp(n, vector<int>(cap+1, 0));
+        for(int j=w[0]; j<=cap; j++)
+            dp[0][j] = v[0];
+      
+        for(int i=1; i<n; i++)
+        {
+            for(int j=1; j<=cap; j++)
+            {
+                if(j - w[i] >= 0)
+                    dp[i][j] = max(dp[i-1][j-w[i]]+v[i], dp[i-1][j]);
+                else
+                    dp[i][j] = dp[i-1][j];
+            }
+        }
+        return dp[n-1][cap];*/
+        vector<int> dp(cap+1, 0);
+        for(int j=w[0]; j<=cap; j++)
+            dp[j] = v[0];
+        for(int i=1; i<n; i++)
+        {
+            for(int j=cap; j>=w[i]; j--) //for(int j=w[i]; j<=cap; j++)
+                dp[j] = max(dp[j-w[i]]+v[i], dp[j]);
+        }
+        return dp[cap];
+    }
+};
+
+最优编辑代价
+对于两个字符串A和B，我们需要进行插入、删除和修改操作将A串变为B串，定义c0，c1，c2分别为三种操作的代价，请设计一个高效算法，求出将A串变为B串所需要的最少代价。
+给定两个字符串A和B，及它们的长度和三种操作代价，请返回将A串变为B串所需要的最小代价。保证两串长度均小于等于300，且三种代价值均小于等于100
+class MinCost {
+public:
+    int findMinCost(string A, int n, string B, int m, int c0, int c1, int c2) {
+        // write code here
+        vector<vector<int> > dp(n+1, vector<int>(m+1, 0));
+        for(int i=1; i<=n; i++)
+            dp[i][0] = i * c1;
+        for(int j=1; j<=m; j++)
+            dp[0][j] = j * c0;
+        for(int i=1; i<=n; i++)
+        {
+            for(int j=1; j<=m; j++)
+            {
+                dp[i][j] = min(dp[i-1][j]+c1, dp[i][j-1]+c0);
+                if(A[i-1] == B[j-1])
+                    dp[i][j] = min(dp[i][j], dp[i-1][j-1]);
+                else
+                    dp[i][j] = min(dp[i][j], dp[i-1][j-1]+c2);
+            }
+        }
+        return dp[n][m];
+    }
+};
+

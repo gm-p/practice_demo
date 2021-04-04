@@ -1,0 +1,210 @@
+ 两个链表的第一个公共结点
+输入两个链表，找出它们的第一个公共结点
+/*
+struct ListNode {
+	int val;
+	struct ListNode *next;
+	ListNode(int x) :
+			val(x), next(NULL) {
+	}
+};*/
+class Solution {
+public:
+    ListNode* FindFirstCommonNode( ListNode* pHead1, ListNode* pHead2) {
+        int len1 = getLength(pHead1);
+        int len2 = getLength(pHead2);
+        if(len1 == 0 || len2 == 0)
+            return NULL;
+        ListNode* pfast = len1 > len2 ? pHead1: pHead2;
+        ListNode* pslow = len1 > len2 ? pHead2: pHead1;
+        int i = 0, dist = abs(len1 - len2);
+        while(i < dist)
+        {
+            pfast = pfast->next;
+            i++;
+        }
+        while(pfast != pslow && pfast && pslow)
+        {
+            pfast = pfast->next;
+            pslow = pslow->next;
+        }
+        return pslow;
+    }
+    int getLength(ListNode* head)
+    {
+        ListNode* p = head;
+        int len = 0;
+        while(p)
+        {
+            len++;
+            p = p->next;
+        }
+        return len;
+    }
+};
+
+160. 相交链表
+编写一个程序，找到两个单链表相交的起始节点。
+输入：intersectVal = 8, listA = [4,1,8,4,5], listB = [5,0,1,8,4,5], skipA = 2, skipB = 3
+
+输出：Reference of the node with value = 8
+
+输入解释：相交节点的值为 8 （注意，如果两个列表相交则不能为 0）。从各自的表头开始算起，链表 A 为 [4,1,8,4,5]，链表 B 为 [5,0,1,8,4,5]。在 A 中，相交节点前有 2 个节点；在 B 中，相交节点前有 3 个节点。
+
+
+注意：
+
+如果两个链表没有交点，返回 null.
+
+在返回结果后，两个链表仍须保持原有的结构。
+可假定整个链表结构中没有循环。
+程序尽量满足 O(n) 时间复杂度，且仅用 O(1) 内存。
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        int lenA = getLength(headA);
+        int lenB = getLength(headB);
+        if(lenA == 0 || lenB == 0)
+            return NULL;
+        ListNode* pFast = lenA > lenB ? headA: headB;
+        ListNode* pSlow = lenA > lenB ? headB: headA;
+        int i = 0, dist = abs(lenA - lenB);
+        for(int i=0; i<dist; i++)
+            pFast = pFast->next;
+        while(pFast != pSlow && pFast && pSlow)
+        {
+            pFast = pFast->next;
+            pSlow = pSlow->next;
+        }
+        return pFast;
+    }
+    
+    int getLength(ListNode* head)
+    {
+        int cnt = 0;
+        ListNode* p = head;
+        while(p)
+        {
+            cnt++;
+            p = p->next;
+        }
+        return cnt;
+    }
+};
+
+方法：双指针法
+
+(1) 如果有交汇点，p1扫描A，p2扫描B，扫描到结尾后，p1重定向到headB,p2重定向到headA,之后一定会在交汇点处相遇
+因为交汇点之后都是路径相同的，交汇点之前的路径差可以由互换的两次扫描中抵消
+
+(2) 如果没有交汇点，p1最后会到b末尾，p2会到a末尾，p1=p2=null，退出程序
+
+
+141. 环形链表
+给定一个链表，判断链表中是否有环。
+
+为了表示给定链表中的环，我们使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。 如果 pos 是 -1，则在该链表中没有环。
+
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+        if(head == NULL || head->next == NULL)
+            return false;
+        ListNode* pSlow = head->next;
+        ListNode* pFast = head->next;
+        if(pFast->next)
+        {
+            pFast = pFast->next;
+            while(pSlow && pFast && pSlow != pFast)
+            {
+                pSlow = pSlow->next;
+                pFast = pFast->next;
+                if(pFast == NULL)
+                    return false;
+                pFast = pFast->next;
+            }
+            if(pSlow && pFast)
+                return true;
+        }
+        return false;
+    }
+};
+class Solution
+  // 写法二
+public:
+??? bool hasCycle(ListNode *head)
+??? {
+??????? if (head == nullptr || head->next == nullptr) return false;
+??????? ListNode* fast,*slow;
+??????? slow = fast = head;
+???????
+??????? while(fast && fast->next) //如果有环，fast不可能为nullptr，无环时，fast会运行到末尾null,退出循环
+??????? {
+??????????? slow = slow->next;
+??????????? fast = fast->next->next;
+??????????? if(slow == fast)?
+??????????????? return true;??????????
+??????? }
+??????? return false;?????
+??? }
+};
+
+142. 环形链表 II
+给定一个链表，返回链表开始入环的第一个节点。?如果链表无环，则返回?null。
+
+为了表示给定链表中的环，我们使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。 如果 pos 是 -1，则在该链表中没有环。
+
+说明：不允许修改给定的链表。
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *detectCycle(ListNode *head) {
+        if(head == NULL || head->next == NULL)
+            return NULL;
+        ListNode* pSlow = head;
+        ListNode* pFast = head;
+        while(pFast && pFast->next)
+        {
+            pSlow = pSlow->next;
+            pFast = pFast->next->next;
+            if(pSlow == pFast)
+                break;
+        }
+        if(pSlow == pFast)
+        {
+            pFast = head;
+            while(pFast != pSlow)
+            {
+                pFast = pFast->next;
+                pSlow = pSlow->next;
+            }
+            return pFast;
+        }
+        return NULL;
+    }
+};

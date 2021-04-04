@@ -1,0 +1,102 @@
+231. 2的幂
+给定一个整数，编写一个函数来判断它是否是 2 的幂次方
+class Solution {
+public:
+    bool isPowerOfTwo(int n) {
+       /* if(n == 0)
+            return false;
+        if(n == 1)
+            return true;
+        while(n)
+        {
+            if(n != 1 && (n % 2))
+                return false;
+            n >>= 1;
+        }
+        return true;*/
+
+        if(n <= 0)
+            return false;
+        if((n & (n-1)) == 0)//若为2的幂，则二进制表示中只有一个1，减一做与运算之后就会变为0
+            return true;
+        return false;
+    }
+};
+
+326. 3的幂
+给定一个整数，写一个函数来判断它是否是 3 的幂次方。
+class Solution {
+public:
+    bool isPowerOfThree(int n) {
+        return fmod(log10(n)/log10(3), 1) == 0;
+    }
+};
+
+342. 4的幂
+给定一个整数 (32 位有符号整数)，请编写一个函数来判断它是否是 4 的幂次方。
+class Solution {
+public:
+    bool isPowerOfFour(int num) {
+        return fmod(log10(num) / log10(4), 1) == 0;
+    }
+};
+
+/*
+先判断是否为2的幂，再判断是否满足（num-1）为3的倍数（必要条件，不过不知道两个组合起来可不可以称为充分条件）
+ (1+X)^n = C(n,0) + C(n,1)*X + C(n,2)*X^2 + C(n,3)*X^3 +.........+ C(n,n)*X^n
+Put X=3, we get 4^n = 1 + C(n,1)*3 + C(n,2)*3^2 + C(n,3)*3^3 +.........+ C(n,n)*3^n
+
+by moving 1 left side, we get 4^n - 1 = C(n,1)*3 + C(n,2)*3^2 + C(n,3)*3^3 +.........+ C(n,n)*3^n
+i.e (4^n - 1)
+ = 3 * [ C(n,1) + C(n,2)*3 + C(n,3)*3^2 +.........+ C(n,n)*3^(n-1) ]
+
+This implies that (4^n - 1) is multiple of 3.
+*/
+
+class Solution
+{
+public:
+??? 
+bool isPowerOfFour(int num)
+??? {
+??????? 
+   if(num<=0) 
+      return false;
+??????? 
+   return ((num-1)&num) == 0 && (num-1)%3 == 0;
+??? }
+};
+
+412. Fizz Buzz
+写一个程序，输出从 1 到 n 数字的字符串表示。
+
+
+1. 如果?n?是3的倍数，输出“Fizz”；
+
+
+2. 如果?n?是5的倍数，输出“Buzz”；
+
+
+3.如果?n?同时是3和5的倍数，输出 “FizzBuzz”。
+
+
+class Solution {
+public:
+    vector<string> fizzBuzz(int n) {
+        vector<string> res;
+        if(n <= 0)
+            return res;
+        for(int i=1; i<=n; i++)
+        {
+            if(i % 5 == 0 && i % 3 == 0)
+                res.push_back("FizzBuzz");
+            else if(i % 5 == 0)
+                res.push_back("Buzz");
+            else if(i % 3 == 0)
+                res.push_back("Fizz");
+            else
+                res.push_back(to_string(i));
+        }
+        return res;
+    }
+};

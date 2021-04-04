@@ -1,0 +1,119 @@
+204. 计数质数
+统计所有小于非负整数 n 的质数的数量。
+class Solution {
+public:
+    int countPrimes(int n) {
+        int res = 0;
+        if(n < 2)
+            return res;
+        vector<bool> prime(n, true);
+        prime[0] = prime[1] = false;
+        int k = sqrt(n);
+        for(int i=2; i<=k; i++)
+        {
+            if(prime[i])
+            {
+                for(int j=i*i; j<n; j+=i) //j = i^2, i^2+i, i^2+2i, i^2+3i, ..., not exceeding n,均不是质数
+                    prime[j] = false;
+            }
+        }
+        for(int i=2; i<n; i++)
+            if(prime[i])
+                res++;
+        return res;
+    }
+    /*bool isPrime(int num)
+    {
+        if(num == 2)
+            return true;
+        int k = sqrt(num);
+        for(int i=2; i<=k; i++)
+        {
+            if(num % i == 0)
+                return false;
+        }
+        return true;
+    }*/
+};
+
+263.丑数
+编写一个程序判断给定的数是否为丑数。
+丑数就是只包含质因数 2, 3, 5 的正整数
+1 是丑数。
+输入不会超过 32 位有符号整数的范围: [?231,  231 ? 1]
+class Solution {
+public:
+    bool isUgly(int num) {
+        if(num <= 0)
+            return false;
+        while(num % 2 == 0)
+            num /= 2;
+        while(num % 3 == 0)
+            num /= 3;
+        while(num % 5 == 0)
+            num /= 5;
+        if(num == 1)
+            return true;
+        return false;
+    }
+};
+
+264. 丑数 II
+编写一个程序，找出第 n 个丑数。
+丑数就是只包含质因数 2, 3, 5 的正整数。
+说明:  
+1 是丑数。
+n 不超过1690。
+class Solution {
+public:
+    int nthUglyNumber(int n) {
+        vector<int> res(n);
+        res[0] = 1;
+        int p2 = 0, p3 = 0, p5 = 0;
+        for(int i=1; i<n; i++)
+        {
+            res[i] = min(2 * res[p2], min(3 * res[p3], 5 * res[p5]));
+            if(res[p2] * 2 == res[i])
+                p2++;
+            if(res[p3] * 3 == res[i])
+                p3++;
+            if(res[p5] * 5 == res[i])
+                p5++;
+        }
+        return res[n-1];
+    }
+};
+
+313. 超级丑数
+编写一段程序来查找第 n 个超级丑数。
+超级丑数是指其所有质因数都是长度为 k 的质数列表 primes 中的正整数。
+说明:
+
+1?是任何给定?primes?的超级丑数。
+?给定?primes?中的数字以升序排列。
+0 < k ≤ 100, 0 < n ≤ 106, 0 < primes[i] < 1000 。
+第?n?个超级丑数确保在 32 位有符整数范围内。
+class Solution {
+public:
+    int nthSuperUglyNumber(int n, vector<int>& primes) {
+        vector<int> ugly(n);
+        ugly[0] = 1;
+        int k = primes.size();
+        vector<int> index(k, 0);
+        for(int i=1; i<n; i++)
+        {
+            int tmp = INT_MAX;
+            for(int j=0; j<k; j++)
+            {
+                tmp = min(tmp, ugly[index[j]] * primes[j]);
+            }
+            for(int j=0; j<k; j++)
+            {
+                if(tmp == ugly[index[j]] * primes[j])
+                    index[j]++;
+            }
+            ugly[i] = tmp;
+        }
+        return ugly[n-1];
+    }
+};

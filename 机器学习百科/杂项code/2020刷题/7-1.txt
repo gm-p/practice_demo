@@ -1,0 +1,62 @@
+13.调整数组的顺序使奇数位于偶数前面
+输入一个整数数组，实现一个函数来调整该数组中数字的顺序，使得所有的奇数位于数组的前半部分，所有的偶数位于数组的后半部分，并保证奇数和奇数，偶数和偶数之间的相对位置不变。
+class Solution {
+public:
+    void reOrderArray(vector<int> &array) {
+        int n= array.size();
+        int i = 0, j;
+        while(i < n)
+        {
+            while(i < n && array[i] % 2 == 1)
+                i++;
+            j = i+1;
+            while(j < n && array[j] % 2 == 0)
+                j++;
+            if(j == n)
+                break;
+            int tmp = array[j];
+            for(int k=j-1; k>=i; k--)
+                array[k+1] = array[k];
+            array[i] = tmp;
+            i++;
+        }
+    }
+};
+
+61.扑克牌中的顺子
+从扑克牌中随机抽 5 张牌,判断是不是顺子,即这 5 张牌是不是连续的。 2-10 为数字本身,A 为 1,J 为 11,Q 为 12,K 为 13,而大小王可以看成任意的 数字。（大小王最多4张）
+思路：
+1、首先我们应该关注的是大小王等特殊字符，由于可以当成任意的数字，所有当成0处理。
+
+2、把数组排序，再统计数组中0的个数
+
+3、统计排序之后的数组中相邻数字之间的空缺总数。
+
+4、数组中的非0数字重复出现，则该数组是不连续的。
+
+5、如果空缺的总数小于或者等于0的个数，那么这个数组就是连续的，反之则不连续
+
+class Solution {
+public:
+    bool IsContinuous( vector<int> numbers ){
+        if(numbers.empty())
+            return false;
+        sort(numbers.begin(), numbers.end())
+        int numOfZero = numbers[0] == 0 ? 1 : 0;
+        int gap = 0;
+        for(int i=1; i<numbers.size(); i++)
+        {
+            if(numbers[i] == 0)
+            {
+                numOfZero++;
+                continue;
+            }
+            if(numbers[i] == numbers[i-1])
+                return false;
+            gap += numbers[i] - numbers[i-1] - 1;
+        }
+        if(gap <= numOfZero)
+            return true;
+        return false;
+    }
+};

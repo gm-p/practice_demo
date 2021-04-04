@@ -1,0 +1,31 @@
+228.汇总区间
+给定一个无重复元素的有序整数数组，返回数组区间范围的汇总
+class Solution {
+public:
+    vector<string> summaryRanges(vector<int>& nums) {
+        int n = nums.size();
+        vector<string> res;
+        if(n < 1)
+            return res;
+        int begin = 0, end = 0;
+        for(int i=1; i<n; i++)
+        {
+            if(nums[i-1] + 1 < nums[i])
+            {
+                end = i-1;
+                string s = to_string(nums[begin]);
+                if(begin != end)
+                    s += "->" + to_string(nums[end]);
+                res.push_back(s);
+                begin = i;
+            }
+        }
+        end = n-1;
+        string s = to_string(nums[begin]);
+        if(begin != end)
+            s += "->" + to_string(nums[end]);
+        res.push_back(s);
+        return res;
+    }
+};
+

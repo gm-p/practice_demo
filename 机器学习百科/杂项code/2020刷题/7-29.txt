@@ -1,0 +1,120 @@
+二叉树的镜像
+操作给定的二叉树，将其变换为源二叉树的镜像。
+/*
+struct TreeNode {
+	int val;
+	struct TreeNode *left;
+	struct TreeNode *right;
+	TreeNode(int x) :
+			val(x), left(NULL), right(NULL) {
+	}
+};*/
+class Solution {
+public:
+    void Mirror(TreeNode *pRoot) {
+        if(pRoot == NULL)
+            return ;
+        Mirror(pRoot->left);
+        Mirror(pRoot->right);
+        swap(pRoot->left, pRoot->right);
+    }
+};
+
+572. 另一个树的子树
+给定两个非空二叉树 s 和 t，检验?s 中是否包含和 t 具有相同结构和节点值的子树。s 的一个子树包括 s 的一个节点和这个节点的所有子孙。s 也可以看做它自身的一棵子树。
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool isSubtree(TreeNode* s, TreeNode* t) {
+        if(s == NULL)
+            return false;
+        if(isSame(s, t))
+            return true;
+        return isSubtree(s->left, t) || isSubtree(s->right, t);
+    }
+    bool isSame(TreeNode* s, TreeNode* t)
+    {
+        if(s == NULL && t == NULL)
+            return true;
+        if(s == NULL || t == NULL)
+            return false;
+        if(s->val == t->val)
+            return isSame(s->left, t->left) && isSame(s->right, t->right);
+        return false;
+    }
+};
+
+112. 路径总和
+给定一个二叉树和一个目标和，判断该树中是否存在根节点到叶子节点的路径，这条路径上所有节点值相加等于目标和。
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool hasPathSum(TreeNode* root, int sum) {
+        if(root == NULL)
+        {
+            //if(sum == 0)
+               // return true;
+            return false;
+        }
+        if(root->left == NULL && root->right == NULL)
+        {
+            if(root->val == sum)
+                return true;
+            return false;
+        }
+        return hasPathSum(root->left, sum - root->val) || hasPathSum(root->right, sum - root->val);
+    }
+};
+
+113. 路径总和 II
+给定一个二叉树和一个目标和，找到所有从根节点到叶子节点路径总和等于给定目标和的路径。
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<vector<int>> pathSum(TreeNode* root, int sum) {
+        vector<vector<int>> res;
+        vector<int> path;
+        getPaths(root, res, path, sum);
+        return res;
+    }
+    void getPaths(TreeNode* root, vector<vector<int>>& res, vector<int>& path, int gap)
+    {
+        if(root == NULL)
+            return;
+        else
+            path.push_back(root->val);
+        if(root->left == NULL && root->right == NULL)
+        {
+            if(gap == root->val)
+                res.push_back(path);
+        }
+        getPaths(root->left, res, path, gap - root->val);
+        getPaths(root->right, res, path, gap - root->val);
+        path.pop_back();
+    }
+};

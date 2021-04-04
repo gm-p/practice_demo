@@ -1,0 +1,135 @@
+5. 最长回文子串
+给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为 1000。
+示例 1：
+输入: "babad"
+输出: "bab"
+注意: "aba" 也是一个有效答案。
+示例 2：
+输入: "cbbd"
+输出: "bb"
+[参考思路]：https://leetcode-cn.com/problems/two-sum/solution/5-zui-chang-hui-wen-zi-chuan-cc-by-bian-bian-xiong/
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        if(s.empty())
+            return "";
+        int n = s.size();
+        string s1 = "";
+        for(int i=0; i<n; i++)
+        {
+            s1 += "#";
+            s1 += s[i];   //这个地方连着写会出错
+        }   
+        s1 += "#";
+        n = s1.size();
+        vector<int> RL(n, 0);
+        int maxRight = 0;  
+        int pos = 0;
+        int maxRL = 0;
+        int maxPos = 0;
+        for(int i=0; i<n; i++)
+        {
+            if(i < maxRight)
+                RL[i] = min(RL[2*pos - i], maxRight - i);
+            else
+                RL[i] = 1;
+            
+            while(i - RL[i] >= 0 && i + RL[i] < n && s1[i - RL[i]] == s1[i + RL[i]])
+                RL[i]++;
+            if(RL[i] + i - 1 > maxRight)
+            {
+                maxRight = RL[i] + i - 1;
+                pos = i;
+            }
+            if(maxRL <= RL[i])
+            {
+                maxRL = RL[i];
+                maxPos = i;
+            }
+        }
+        return s.substr((maxPos - maxRL + 1)/2, maxRL - 1);
+    }
+};
+
+242. 有效的字母异位词
+给定两个字符串 s 和 t ，编写一个函数来判断 t 是否是 s 的字母异位词。说明:你可以假设字符串只包含小写字母
+示例 1:
+输入: s = "anagram", t = "nagaram"
+输出: true
+示例 2:
+输入: s = "rat", t = "car"
+输出: false
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        int slen = s.size();
+        int tlen = t.size();
+        if(slen != tlen)
+            return false;
+        vector<int> cnt(26, 0);
+        for(int i=0; i<slen; i++)
+        {
+            cnt[s[i] - 'a']++;
+        }
+        for(int i=0; i<tlen; i++)
+            cnt[t[i] - 'a']--;
+        for(int i=0; i<26; i++)
+        {
+            if(cnt[i] != 0)
+                return false;
+        }
+        return true;
+    }
+};
+
+49. 字母异位词分组
+给定一个字符串数组，将字母异位词组合在一起。字母异位词指字母相同，但排列不同的字符串。
+说明：
+所有输入均为小写字母。不考虑答案输出的顺序。
+输入: ["eat", "tea", "tan", "ate", "nat", "bat"],
+输出:
+[
+  ["ate","eat","tea"],
+  ["nat","tan"],
+  ["bat"]
+]
+
+
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        if(strs.empty())
+            return vector<vector<string>>{};
+        int n = strs.size();
+        unordered_map<string, multiset<string>> mp;
+        for(int i=0; i<n; i++)
+        {
+            mp[orderedStr(strs[i])].insert(strs[i]);
+        }
+        vector<vector<string>> res;
+        for(auto m: mp)
+        {
+            vector<string> tmp(m.second.begin(), m.second.end());
+            res.push_back(tmp);
+        }
+        return res;
+    }
+    string orderedStr(string& str)
+    {
+        int n = str.size();
+        if(n < 1)
+            return "";
+        vector<int> cnt(26, 0);
+        for(int i=0; i<n; i++)
+        {
+            cnt[str[i] - 'a']++;
+        }
+        string s = "";
+        for(int i=0; i<26; i++)
+        {
+            for(int j=0; j<cnt[i]; j++)
+                s += (i + 'a');
+        }
+        return s;
+    }
+};

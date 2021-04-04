@@ -1,0 +1,152 @@
+15.三数之和
+给定一个包含 n 个整数的数组?nums，判断?nums?中是否存在三个元素 a，b，c ，使得?a + b + c = 0 ？找出所有满足条件且不重复的三元组
+
+
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        vector<vector<int>> res;
+        int n = nums.size();
+        if(n < 3)
+            return res;
+        sort(nums.begin(), nums.end());
+        for(int i=0; i<n && nums[i]<=0; i++)
+        {
+            int left = i + 1;
+            int right = n - 1;
+            while(left < right)
+            {
+                int sum = nums[left] + nums[right];
+                if(sum < -nums[i])
+                    left++;
+                else if(sum > -nums[i])
+                    right--;
+                else
+                {
+                    res.push_back({nums[i], nums[left], nums[right]});
+                    while(left < right && nums[left] == nums[left+1])
+                        left++;
+                    while(left < right && nums[right] == nums[right-1])
+                        right--;
+                    left++;
+                    right--;
+                }
+            }
+            while(i+1 < n && nums[i] == nums[i+1])
+                i++;
+        }
+        return res;
+    }
+};
+
+16.最接近的三数之和
+给定一个包括?n 个整数的数组?nums?和 一个目标值?target。找出?nums?中的三个整数，使得它们的和与?target?最接近。返回这三个数的和。假定每组输入只存在唯一答案。
+
+class Solution {
+public:
+    int threeSumClosest(vector<int>& nums, int target) {
+        int n = nums.size();
+        if(n < 3)
+            return 0;
+        int closest = nums[0] + nums[1] + nums[2];
+        int dif = abs(closest - target);
+        sort(nums.begin(), nums.end());
+        for(int i=0; i<n-2; i++)
+        {
+            int left = i + 1;
+            int right = n - 1;
+            while(left < right)
+            {
+                int sum = nums[i] + nums[left] + nums[right];
+                int newDif = abs(sum - target);
+                if(newDif < dif)
+                {
+                    dif = newDif;
+                    closest = sum;
+                }
+                if(sum < target)
+                    left++;
+                else
+                    right--;
+            }
+        }
+        return closest;
+    }
+};
+
+18.四数之和
+给定一个包含?n 个整数的数组?nums?和一个目标值?target，判断?nums?中是否存在四个元素 a，b，c?和 d?，使得?a + b + c + d?的值与?target?相等？找出所有满足条件且不重复的四元组。
+
+
+class Solution {
+public:
+    vector<vector<int>> fourSum(vector<int>& nums, int target) {
+        int n = nums.size();
+        if(n < 4)
+            return vector<vector<int>>();
+        set<vector<int>> res;
+        sort(nums.begin(), nums.end());
+        for(int i=0; i<n-3; i++)
+        {
+            for(int j=i+1; j<n-2; j++)
+            {
+                int left = j+1, right = n-1;
+                while(left < right)
+                {
+                    int sum = nums[i] + nums[j] + nums[left] + nums[right];
+                    if(sum == target)
+                    {
+                        res.emplace(vector<int>{nums[i], nums[j], nums[left], nums[right]});
+                        left++;
+                        right--;
+                    }
+                    else if(sum < target)
+                        left++;
+                    else
+                        right--;
+                }
+            }
+        }
+        return vector<vector<int>>(res.begin(), res.end());
+    }
+};
+
+217存在重复元素
+给定一个整数数组，判断是否存在重复元素。
+如果任何值在数组中出现至少两次，函数返回 true。如果数组中每个元素都不相同，则返回 false。
+class Solution {
+public:
+    bool containsDuplicate(vector<int>& nums) {
+        unordered_set<int> s; //set<int> s;
+        for(int i: nums)
+        {
+            if(s.find(i) != s.end())
+                return true;
+            s.emplace(i);
+        }
+        return false;
+    }
+};
+class Solution {  // 计数排序的思想
+public:
+    bool containsDuplicate(vector<int>& nums) {
+        int n = nums.size();
+        if(n < 2)
+            return false;
+        int minNum = nums[0];
+        int maxNum = nums[0];
+        for(int i=1; i<n; i++)
+        {
+            minNum = min(minNum, nums[i]);
+            maxNum = max(maxNum, nums[i]);
+        }
+        vector<int> count(maxNum - minNum + 1, 0);
+        for(int i=0; i<n; i++)
+        {
+            count[nums[i] - minNum]++;
+            if(count[nums[i] - minNum] == 2)
+                return true;
+        }
+        return false;
+    }
+};

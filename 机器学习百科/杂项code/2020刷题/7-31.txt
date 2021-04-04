@@ -1,0 +1,111 @@
+105. 从前序与中序遍历序列构造二叉树
+根据一棵树的前序遍历与中序遍历构造二叉树。
+注意:
+你可以假设树中没有重复的元素。
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        return buildTreeFromArray(preorder.begin(), preorder.end(), inorder.begin(), inorder.end());
+    }
+    
+    using iter = vector<int>::iterator;
+    TreeNode* buildTreeFromArray(iter preBegin, iter preEnd, iter inBegin, iter inEnd)
+    {
+        if(preBegin == preEnd || inBegin == inEnd)
+            return NULL;
+        TreeNode* root = new TreeNode(*preBegin);
+        iter inRootPos = find(inBegin, inEnd, root->val);
+        int leftLength = inRootPos - inBegin;
+        root->left = buildTreeFromArray(preBegin + 1, preBegin + leftLength + 1, inBegin, inRootPos);
+        root->right = buildTreeFromArray(preBegin + leftLength + 1, preEnd, inRootPos + 1, inEnd);
+        return root;
+    }
+};
+
+106. 从中序与后序遍历序列构造二叉树
+根据一棵树的中序遍历与后序遍历构造二叉树。
+注意:
+你可以假设树中没有重复的元素
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
+        return buildTreeFromArray(inorder.begin(), inorder.end(), postorder.begin(), postorder.end());
+    }
+    using iter = vector<int>::iterator;
+    TreeNode* buildTreeFromArray(iter inBegin, iter inEnd, iter postBegin, iter postEnd)
+    {
+        if(inBegin == inEnd || postBegin == postEnd)
+            return NULL;
+        TreeNode* root = new TreeNode(*(postEnd - 1));
+        iter inRootPos = find(inBegin, inEnd, root->val);
+        int leftLength = inRootPos - inBegin;
+        root->left = buildTreeFromArray(inBegin, inRootPos, postBegin, postBegin + leftLength);
+        root->right = buildTreeFromArray(inRootPos + 1, inEnd, postBegin + leftLength, postEnd - 1);
+        return root;
+    }
+};
+
+98. 验证二叉搜索树
+给定一个二叉树，判断其是否是一个有效的二叉搜索树。
+
+假设一个二叉搜索树具有如下特征：
+
+
+节点的左子树只包含小于当前节点的数。
+节点的右子树只包含大于当前节点的数。
+所有左子树和右子树自身必须也是二叉搜索树。
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool isValidBST(TreeNode* root) {
+        if(root == NULL)
+            return true;
+        stack<TreeNode*> s;
+        TreeNode* pre = NULL;
+        TreeNode* p = root;
+        while(!s.empty() || p)
+        {
+            if(p)
+            {
+                s.push(p);
+                p = p->left;
+            }
+            else
+            {
+                p = s.top();
+                s.pop();
+                if(pre && pre->val >= p->val)
+                    return false;
+                pre = p;
+                p = p->right;
+            }
+        }
+        return true;
+    }
+};

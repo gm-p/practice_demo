@@ -1,0 +1,44 @@
+1+2+3+...+n
+求1+2+3+...+n，要求不能使用乘除法、for、while、if、else、switch、case等关键字及条件判断语句（A?B:C）
+class Solution {
+public:
+    int Sum_Solution(int n) {
+        int res = n;
+        res && (res += Sum_Solution(n-1));   //使用&&逻辑与的短路特性，前面为假，后面的不计算
+        return res;
+    }
+};
+typedef int (*fun)(int);
+class Solution {
+public:
+   
+    static int Sum_Solution(int n) {
+        static fun f[2] = {terminer_solution, Sum_Solution};
+        return n + f[!!n](n-1);
+    }
+    static int terminer_solution(int n)
+    {
+        return 0;
+    }
+};
+
+
+不用加减乘除做加法
+写一个函数，求两个整数之和，要求在函数体内不得使用+、-、*、/四则运算符号
+class Solution {
+public:
+    int Add(int num1, int num2)
+    {
+        int sum = num1;
+        int carry = num2;
+        while(carry)
+        {
+            sum = num1 ^ num2;
+            carry = (num1 & num2) << 1;
+            
+            num1 = sum;
+            num2 = carry;
+        }
+        return sum;
+    }
+};

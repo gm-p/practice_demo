@@ -1,0 +1,58 @@
+75. 颜色分类
+给定一个包含红色、白色和蓝色，一共?n 个元素的数组，原地对它们进行排序，使得相同颜色的元素相邻，并按照红色、白色、蓝色顺序排列。
+
+此题中，我们使用整数 0、?1 和 2 分别表示红色、白色和蓝色。
+
+
+注意:
+不能使用代码库中的排序函数来解决这道题。
+
+
+class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+        if(nums.empty())
+            return;
+        int left = 0, right = nums.size() - 1;
+        for(int i=0; i<=right; i++)
+        {
+            if(nums[i] == 0)
+            {
+                swap(nums[i], nums[left]);
+                left++;
+            }
+            else if(nums[i] == 2)
+            {
+                swap(nums[i], nums[right]);
+                i--;
+                right--;
+            }
+        }
+    }
+};
+
+347. 前 K 个高频元素
+给定一个非空的整数数组，返回其中出现频率前 k 高的元素。
+说明：
+
+你可以假设给定的?k?总是合理的，且 1 ≤ k ≤ 数组中不相同的元素的个数。
+
+你的算法的时间复杂度必须优于 O(n log n) ,?n?是数组的大小。
+class Solution {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        unordered_map<int, int> counter;
+        priority_queue<pair<int, int>> q;
+        vector<int> res;
+        for(auto n : nums)
+            counter[n]++;
+        for(auto it : counter)
+            q.push({it.second, it.first});
+        for(int i=0; i<k; i++)
+        {
+            res.push_back(q.top().second);
+            q.pop();
+        }
+        return res;
+    }
+};

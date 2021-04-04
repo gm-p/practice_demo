@@ -1,0 +1,101 @@
+字符串的排列
+输入一个字符串,按字典序打印出该字符串中字符的所有排列。例如输入字符串abc,则打印出由字符a,b,c所能排列出来的所有字符串abc,acb,bac,bca,cab和cba。
+输入描述:
+输入一个字符串,长度不超过9(可能有字符重复),字符只包括大小写字母,例如ac
+输出描述:
+[ac, ca]
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void perm(string& str, int begin, vector<string>& res)
+{
+    int n = str.size();
+    if(begin >= n-1)
+    {
+        res.push_back(str);
+        return;
+    }
+    else
+    {
+        unordered_set<char> s;
+        for(int i=begin; i<n; i++)
+        {
+            if(s.find(str[i]) == s.end())
+            {
+                s.insert(str[i]);
+                swap(str[begin], str[i]);
+                perm(str, begin+1, res);
+                swap(str[begin], str[i]);
+            } 
+        }
+    }
+}
+
+vector<string> Permutation(string str)
+{
+    if(str.empty())
+        return vector<string>{};
+    vector<string> res;
+    perm(str, 0, res);
+    sort(res.begin(), res.end());
+    return res;
+}
+
+int main()
+{
+    string str;
+    cin>>str;
+    vector<string>  res = Permutation(str);
+    string s = "[";
+    for(string str: res)
+    {
+        if(str == *res.begin())
+            s += str;
+        else
+            s += ", " + str;
+    }
+        
+    s += "]";
+    cout<<s<<endl;
+    return 0;
+}
+
+14. 最长公共前缀
+编写一个函数来查找字符串数组中的最长公共前缀。如果不存在公共前缀，返回空字符串 ""
+说明:
+所有输入只包含小写字母 a-z 
+class Solution {
+public:
+    string longestCommonPrefix(vector<string>& strs) {
+        string res = "";
+        if(strs.empty())
+            return res;
+        int n = strs.size();
+        for(int k=0; k<strs[0].size(); k++)
+        {
+            int cnt = 0;
+            bool flag = false;
+            for(int i=1; i<n; i++)
+            {
+                if(k < strs[i].size())
+                {
+                    if(strs[i][k] != strs[0][k])
+                    {
+                        flag = true;
+                        break;
+                    }
+                    else
+                        cnt++;
+                }
+                else
+                    break;
+            }
+            if(flag)
+                break;
+            if(cnt == n-1)  // !flag && cnt == n-1
+                res += strs[0][k];
+        }
+        return res;
+    }
+};

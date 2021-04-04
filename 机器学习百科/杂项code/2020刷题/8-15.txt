@@ -1,0 +1,159 @@
+55. 跳跃游戏
+给定一个非负整数数组，你最初位于数组的第一个位置。
+数组中的每个元素代表你在该位置可以跳跃的最大长度。
+判断你是否能够到达最后一个位置。
+方法一：动态规划
+
+dp[i]表示到达位置i时，之前的跳力还可以走的步数
+
+状态转移方程：dp[i] = max(dp[i-1], nums[i-1]) - 1
+初始值dp[0] = 0, 
+nums[i-1]表示i-1位置处的跳力，dp[i]取决于前一个数num[i-1]，也取决于前一个数前面的数dp[i-1]
+
+如果当某一个时刻dp数组的值为负了，说明无法抵达当前位置，则直接返回false
+class Solution {
+public:
+    bool canJump(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> dp(n, 0);
+        for(int i=1; i<n; i++)
+        {
+            dp[i] = max(dp[i-1], nums[i-1]) - 1;
+            if(dp[i] < 0)
+                return false;
+        }
+        return true;
+    }
+};
+方法二：贪心算法
+
+这题最好的解法不是DP，而是贪婪算法Greedy Algorithm，因为我们并不是很关心每一个位置上的剩余步数，我们只希望知道能否到达末尾
+?
+
+维护一个变量maxreach，表示最远能到达的位置，初始化为0
+从索引为0的数开始扫描，
+计算最大maxreach(即i+nums[i]的最大值),如果最后的maxreach大于终点的索引，则说明可以从起始点跳到终点
+class Solution {
+public:
+    bool canJump(vector<int>& nums) {
+        int n = nums.size();
+        int maxReach = 0;
+        for(int i=0; i<n; i++)
+        {
+            maxReach = max(maxReach, i + nums[i]);
+            if(i + 1 < n && maxReach < i + 1)
+                return false;
+        }
+        return true;
+    }
+};
+
+45. 跳跃游戏 II
+给定一个非负整数数组，你最初位于数组的第一个位置。
+
+
+数组中的每个元素代表你在该位置可以跳跃的最大长度。
+
+
+你的目标是使用最少的跳跃次数到达数组的最后一个位置。
+
+
+说明:
+假设你总是可以到达数组的最后一个位置
+方法：贪婪法
+我们这里贪的是一个能到达的最远范围，我们遍历当前能跳到的位置，然后根据该位置上的跳力来预测下一步能跳到的最远距离，
+贪出一个最远的范围，一旦当这个范围到达末尾时，当前所用的步数一定是最小步数
+class Solution {
+public:
+    int jump(vector<int>& nums) {
+        if(nums.empty())
+            return -1;
+        int n = nums.size();
+        int res = 0;
+        int cur = 0, next = 0;  //cur和next分别表示当前和之后能到达的最远位置
+        int i = 0;
+        while(next < n-1)
+        {
+            cur = next;
+            for(; i<=cur; i++)
+            {
+                next = max(next, i + nums[i]);
+            }
+            if(cur == next)  // 如果相等说明next没有更新，即无法越过cur，返回-1
+                return -1;
+            else
+                res++;  //跳的步数加1（一个for循环，next的更新代表一次跳跃）
+        }//退出循环时，next >= n-1，代表最后一次跳跃
+        return res;
+    }
+};
+
+322. 零钱兑换
+给定不同面额的硬币 coins 和一个总金额 amount。编写一个函数来计算可以凑成总金额所需的最少的硬币个数。
+如果没有任何一种硬币组合能组成总金额，返回?-1
+
+
+说明:
+你可以认为每种硬币的数量是无限的
+方法：动态规划-自底向上法
+dp[i]表示钱数为i时的最小硬币数，
+?
+
+递推式为：dp[i] = min(dp[i], dp[i - coins[j]] + 1);
+类似完全背包问题（硬币数不受限制，不同i时可以多次用到某个coin），剪绳子问题
+遍历所有硬币，选择一个硬币使dp[i]最小
+?
+
+其中coins[j]为第j个硬币，而i - coins[j]为钱数i减去其中一个硬币的值，剩余的钱数在dp数组中找到值，然后加1和当前dp数组中的值做比较，取较小的那个更新dp数组。
+class Solution {
+public:
+    int coinChange(vector<int>& coins, int amount) {
+        if(amount < 1)
+            return 0;
+        vector<int> dp(amount+1, amount+1);
+        dp[0] = 0;
+        for(int coin : coins)
+        {
+            for(int i=coin; i<=amount; i++)//遍历钱数，i=coin~amount 金额大于当前硬币时才进行更新 
+                dp[i] = min(dp[i], dp[i - coin] + 1);//遍历所有硬币，选择一个硬币使dp[i]最小
+        }
+        return dp[amount] > amount ? -1 : dp[amount];
+    }
+};
+
+518. 零钱兑换 II
+给定不同面额的硬币和一个总金额。写出函数来计算可以凑成总金额的硬币组合数。假设每一种面额的硬币有无限个。
+你可以假设：
+
+
+0 <= amount (总金额) <= 5000
+
+1 <= coin (硬币面额)?<= 5000
+
+硬币种类不超过 500 种
+
+结果符合 32 位符号整数
+方法:动态规划
+
+dp[i][j]表示用前i个硬币组成钱数为j的不同组合方法
+
+dp[i][j] = dp[i - 1][j] + (j >= coins[i - 1] ? dp[i][j - coins[i - 1]] : 0)
+
+空间优化：
+dp[i]表示组成钱数i的不同方法数
+
+dp[i] = dp[i] + dp[i - coin] (i>coin时才加后面一项)
+分别为选择coin或者不选择coin
+class Solution {
+public:
+    int change(int amount, vector<int>& coins) {
+        vector<int> dp(amount+1, 0);
+        dp[0] = 1;
+        for(int coin : coins)
+        {
+            for(int i=coin; i<=amount; i++)
+                dp[i] = dp[i] + dp[i-coin];
+        }
+        return dp[amount];
+    }
+};

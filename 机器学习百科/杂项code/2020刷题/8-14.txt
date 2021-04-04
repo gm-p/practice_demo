@@ -1,0 +1,214 @@
+300. 最长上升子序列
+给定一个无序的整数数组，找到其中最长上升子序列的长度。
+说明:
+可能会有多种最长上升子序列的组合，你只需要输出对应的长度即可。
+你算法的时间复杂度应该为 O(n2) 。
+方法：动态规划
+dp[i]表示以nums[i]为结尾的最长递增子串的长度
+dp[i] = max(dp[i], dp[j] + 1)
+class Solution {
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        int n = nums.size();
+        if(n < 1)
+            return 0;
+        vector<int> dp(n, 1);
+        int res = dp[0];
+        for(int i=1; i<n; i++)
+        {
+            for(int j=0; j<i; j++)
+            {
+                if(nums[i] > nums[j])
+                    dp[i] = max(dp[i], dp[j]+1);
+            }
+            res = max(res, dp[i]);
+        }
+        return res;
+    }
+};
+* 方法二：动态规划+二分查找
+* 具体过程：dp存最长递增子序列
+//lower_bound返回第一个大于等于ai的位置,函数参数为（first,last） last指向区间末尾位置
+??????????? 
+//在dp[first,last)序列中寻找ai可以满足增序插入的位置，如果找不到，说明ai比区间所有值大，返回last
+?? ??? ?? ? 
+//因为dp维护成一个增序数组，故可用二分查找法
+int lengthOfLIS(vector<int>& nums) {
+        if(nums.empty())
+            return 0;
+        vector<int> dp;
+        for(int i : nums)
+        {
+            auto it = lower_bound(dp.begin(), dp.end(), i);
+            if(it == dp.end())
+                dp.push_back(i);
+            else
+                *it = i;
+        }
+        return dp.size();
+    }
+
+
+121. 买卖股票的最佳时机
+给定一个数组，它的第?i 个元素是一支给定股票第 i 天的价格。
+
+如果你最多只允许完成一笔交易（即买入和卖出一支股票），
+设计一个算法来计算你所能获取的最大利润。
+
+注意你不能在买入股票前卖出股票。
+
+
+class Solution {  //一次遍历，找最大值和最小值
+public:
+    int maxProfit(vector<int>& prices) {
+        if(prices.empty())
+            return 0;
+        int minPrice = prices[0];
+        int res = 0;
+        for(int p : prices)
+        {
+            if(p < minPrice)
+                minPrice = p;
+            else if(p - minPrice > res)
+                res = p - minPrice;
+        }
+        return res;
+    }
+};
+
+122. 买卖股票的最佳时机 II
+给定一个数组，它的第?i 个元素是一支给定股票第 i 天的价格。
+
+设计一个算法来计算你所能获取的最大利润。
+你可以尽可能地完成更多的交易（多次买卖一支股票）。
+
+注意：你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。
+//方法：可以转成涨跌数组，将所有正数相加(或者直接判断相邻数大小，算上a[i]>a[i-1]的情况)
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        if(prices.empty())
+            return 0;
+        int res = 0;
+        for(int i=1; i<prices.size(); i++)
+            if(prices[i] > prices[i-1])
+                res += (prices[i] - prices[i-1]);
+        return res;
+    }
+};
+
+123. 买卖股票的最佳时机 III
+给定一个数组，它的第 i 个元素是一支给定的股票在第 i 天的价格。
+
+设计一个算法来计算你所能获取的最大利润。你最多可以完成?两笔?交易。
+
+
+注意:?你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        if(prices.empty())
+            return 0;
+        int buy1 = INT_MIN, sel1 = 0;
+        int buy2 = INT_MIN, sel2 = 0;
+        for(int p : prices)
+        {
+            buy1 = max(buy1, -p);
+            sel1 = max(sel1, p+buy1);
+            buy2 = max(buy2, sel1-p);
+            sel2 = max(sel2, p+buy2);
+        }
+        return sel2;
+    }
+};
+
+188. 买卖股票的最佳时机 IV
+给定一个数组，它的第 i 个元素是一支给定的股票在第 i 天的价格。
+
+设计一个算法来计算你所能获取的最大利润。你最多可以完成 k 笔交易。
+
+
+注意:?你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。
+ 方法：DP法(找递推公式)
+* 解释：与问题3的方法类似，每次操作与上次操作有关，确保每次操作的收益最大
+? 
+如果k >= len/2，则和问题1一样，相当于买卖次数没有限制，直接用求全局最优即可
+?
+
+buy[i][j-1]表示对于j-1天，第i次买入后的最大收益，为了节省空间可写成单变量buy
+
+sell[i][j] 表示对于j天，第i次卖出后的最大收益
+递推公式：
+
+buy = max( buy,? sell[i-1][j-1] - a[j-1] )
+?//j-1天,第i次买入（承接j-1天，第i-1次卖出,sell[i-1][j-1]），对应第j-1天不买，或者买（则减去a[j-1]）
+
+sell[i][j] = max( sell[i][j-1],? buy + a[j] )?
+//j天,第i次卖出（承接j-1天第i次买入），对应第j天不卖（sell[i][j-1]）或者卖(则加上a[j])
+class Solution {
+public:
+    int maxProfit(int k, vector<int>& prices) {
+        if(prices.empty())
+            return 0;
+        int n = prices.size();
+        if(k >= n / 2)
+        {
+            int res = 0;
+            for(int i=1; i<n; i++)
+                if(prices[i] > prices[i-1])
+                    res += prices[i] - prices[i-1];
+            return res;
+        }
+        vector<vector<int>> sell(k+1, vector<int>(n));
+        for(int i=1; i<=k; i++)
+        {
+            int buy = sell[i-1][0] - prices[0];
+            for(int j=1; j<n; j++)
+            {
+                buy = max(buy, sell[i-1][j-1] - prices[j]);
+                sell[i][j] = max(sell[i][j-1], buy + prices[j]);
+            }
+        }
+        return sell[k][n-1];
+    }
+};
+
+309. 最佳买卖股票时机含冷冻期
+给定一个整数数组，其中第?i?个元素代表了第?i?天的股票价格 。?
+
+设计一个算法计算出最大利润。
+在满足以下约束条件下，你可以尽可能地完成更多的交易（多次买卖一支股票）:
+
+你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。
+
+卖出股票后，你无法在第二天买入股票 (即冷冻期为 1 天)。
+
+
+方法：动态规划
+
+buy[i]表示在第i天之前最后一个操作是买，此时的最大收益
+
+sell[i]表示在第i天之前最后一个操作是卖，此时的最大收益
+
+则有递推式：
+buy[i]? = max(sell[i-2] - price, buy[i-1]) i天，买入收益，第i天买（由于存在一天的冷冻期，承接i-2天的卖出收益sell[i-2]）或者不买（承接buy[i-1]）
+
+sell[i] = max(buy[i-1] + price, sell[i-1]) i天，卖出收益，第i天卖（承接buy[i-1）,或者不卖（承接sell[i-1]）
+
+由于i只依赖于i-1和i-2，所以我们可以在O(1)的空间复杂度完成算法
+
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int buy = INT_MIN, preBuy = 0;
+        int sell = 0, preSell = 0;
+        for(int p : prices)
+        {
+            preBuy = buy;
+            buy = max(preSell - p, preBuy);
+            preSell = sell;
+            sell = max(preSell, preBuy + p);
+        }
+        return sell;
+    }
+};

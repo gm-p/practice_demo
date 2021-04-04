@@ -1,0 +1,77 @@
+124. 二叉树中的最大路径和
+给定一个非空二叉树，返回其最大路径和。
+本题中，路径被定义为一条从树中任意节点出发，达到任意节点的序列。该路径至少包含一个节点，且不一定经过根节点。
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int maxPathSum(TreeNode* root) {
+        int res = INT_MIN;
+        findPath(root, res);
+        return res;
+    }
+    int findPath(TreeNode* root, int& res)
+    {
+        if(root == NULL)
+            return 0;
+        int left = max(findPath(root->left, res), 0);
+        int right = max(findPath(root->right, res), 0);
+        res = max(res, left + right + root->val);
+        return max(left, right) + root->val;
+    }
+};
+
+297. 二叉树的序列化与反序列化
+序列化是将一个数据结构或者对象转换为连续的比特位的操作，进而可以将转换后的数据存储在一个文件或者内存中，同时也可以通过网络传输到另一个计算机环境，采取相反方式重构得到原数据。
+
+
+请设计一个算法来实现二叉树的序列化与反序列化。这里不限定你的序列 / 反序列化算法执行逻辑，你只需要保证一个二叉树可以被序列化为一个字符串并且将这个字符串反序列化为原始的树结构。
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Codec {
+public:
+
+    // Encodes a tree to a single string.
+    string serialize(TreeNode* root) {
+        if(root == NULL)
+            return "$";
+        return to_string(root->val) + "," + serialize(root->left) + "," + serialize(root->right);
+    }
+
+    // Decodes your encoded data to tree.
+    TreeNode* deserialize(string data) {
+        if(data == "$")
+            return NULL;
+        stringstream ss(data);
+        return deser(ss);
+    }
+    TreeNode* deser(stringstream& ss)
+    {
+        string str;
+        getline(ss, str, ',');
+        if(str == "$")
+            return NULL;
+        TreeNode* root = new TreeNode(stoi(str));
+        root->left = deser(ss);
+        root->right = deser(ss);
+        return root;
+    }
+};
+
+// Your Codec object will be instantiated and called as such:
+// Codec codec;
+// codec.deserialize(codec.serialize(root));

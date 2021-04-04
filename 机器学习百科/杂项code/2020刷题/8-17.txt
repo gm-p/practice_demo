@@ -1,0 +1,95 @@
+46. 全排列
+给定一个没有重复数字的序列，返回其所有可能的全排列。
+class Solution {
+public:
+    vector<vector<int>> permute(vector<int>& nums) {
+        vector<vector<int>> res;
+        if(nums.empty())
+            return res;
+        sort(nums.begin(), nums.end());
+        vector<int> path;
+        dfs(nums, path, res);
+        return res;
+    }
+    void dfs(vector<int>& nums, vector<int>& path, vector<vector<int>>& res)
+    {
+        if(path.size() == nums.size())
+        {
+            res.push_back(path);
+            return ;
+        }
+        for(int n: nums)
+        {
+            if(find(path.begin(), path.end(), n) == path.end())
+            {
+                path.push_back(n);
+                dfs(nums, path, res);
+                path.pop_back();
+            }
+        }
+    }
+};
+
+47. 全排列 II
+给定一个可包含重复数字的序列，返回所有不重复的全排列。
+class Solution {
+public:
+    vector<vector<int>> permuteUnique(vector<int>& nums) {
+        vector<vector<int>> res;
+        if(nums.empty())
+            return res;
+        map<int, int> mCount;
+        for(int n: nums)
+            mCount[n]++;
+        vector<int> path;
+        dfs(nums.size(), mCount, path, res);
+        return res;
+    }
+    void dfs(int n, map<int, int>& mCount, vector<int>& path, vector<vector<int>>& res)
+    {
+        if(n == path.size())
+        {
+            res.push_back(path);
+            return ;
+        }
+        for(auto& m : mCount)
+        {
+            if(m.second)
+            {
+                path.push_back(m.first);
+                m.second--;
+                dfs(n, mCount, path, res);
+                path.pop_back();
+                m.second++;
+            }
+        }
+    }
+};
+
+77. 组合
+给定两个整数 n 和 k，返回 1 ... n 中所有可能的 k 个数的组合。
+class Solution {
+public:
+    vector<vector<int>> combine(int n, int k) {
+        if(n <= 0 || k <= 0)
+            return vector<vector<int>>{};
+        vector<vector<int>> res;
+        vector<int> path;
+        dfs(1, n, k, path, res);
+        return res;
+    }
+    void dfs(int start, int n, int k, vector<int>& path, vector<vector<int>>& res)
+    {
+        if(k == path.size())
+        {
+            res.push_back(path);
+            return ;
+        }
+        for(int i=start; i<=n; i++)
+        {
+            path.push_back(i);
+            dfs(i+1, n, k, path, res);
+            path.pop_back();
+        }
+    }
+};

@@ -1,0 +1,101 @@
+287.寻找重复数
+给定一个包含?n + 1 个整数的数组?nums，其数字都在 1 到 n?之间（包括 1 和 n），可知至少存在一个重复的整数。假设只有一个重复的整数，找出这个重复的数。
+说明：
+
+不能更改原数组（假设数组是只读的）。
+只能使用额外的 O(1) 的空间。
+时间复杂度小于 O(n2) 。
+数组中只有一个重复的数字，但它可能不止重复出现一次。
+class Solution {
+public:
+    int findDuplicate(vector<int>& nums) {
+        int left = 0;
+        int right = nums.size() - 1;
+        while(left < right)
+        {
+            int mid = left + (right - left + 1) / 2;
+            int count = 0;
+            for(int n : nums)
+            {
+                if(n < mid)
+                   count++; 
+            }
+            if(count >= mid)
+                right = mid - 1;
+            else
+                left = mid;
+        }
+        return left;
+    }
+};
+还可以使用快慢指针法
+
+26.删除排序数组中的重复项
+给定一个排序数组，你需要在原地删除重复出现的元素，使得每个元素只出现一次，返回移除后数组的新长度。
+
+不要使用额外的数组空间，你必须在原地修改输入数组并在使用 O(1) 额外空间的条件下完成。
+
+
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        int n = nums.size();
+        if(n < 2)
+            return n;
+        int i = 0, j = 1;
+        while(j < n)
+        {
+            if(nums[j] == nums[i])
+                j++;
+            else
+            {
+                i++;
+                nums[i] = nums[j];
+                j++;
+            }
+        }
+        return i + 1;
+    }
+};
+
+80.删除排序数组中的重复项II
+给定一个排序数组，你需要在原地删除重复出现的元素，使得每个元素最多出现两次，返回移除后数组的新长度。
+
+不要使用额外的数组空间，你必须在原地修改输入数组并在使用 O(1) 额外空间的条件下完成。
+
+
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        int n = nums.size();
+        if(n <= 2)
+            return n;
+        int i = 0, j = 1;
+        int count = 1;
+        while(j < n)
+        {
+            if(nums[i] == nums[j])
+            {
+		if(count < 2)
+		{
+		   nums[++i] = nums[j];
+		}
+                count++;
+                j++;
+            }
+            /*else if(count >= 2)
+            {
+                nums[++i] = nums[j];
+                j++;
+                count = 1;
+            }*/
+            else
+            {
+                nums[++i] = nums[j];
+                j++;
+                count = 1;
+            }
+        }
+        return i+1;
+    }
+};

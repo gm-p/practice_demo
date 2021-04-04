@@ -1,0 +1,125 @@
+8. 字符串转换整数 (atoi)
+请你来实现一个?atoi?函数，使其能将字符串转换成整数。
+
+首先，该函数会根据需要丢弃无用的开头空格字符，直到寻找到第一个非空格的字符为止。
+
+
+当我们寻找到的第一个非空字符为正或者负号时，则将该符号与之后面尽可能多的连续数字组合起来，作为该整数的正负号；假如第一个非空字符是数字，
+则直接将其与之后连续的数字字符组合起来，形成整数。
+
+该字符串除了有效的整数部分之后也可能会存在多余的字符，这些字符可以被忽略，它们对于函数不应该造成影响。
+
+
+注意：假如该字符串中的第一个非空格字符不是一个有效整数字符、字符串为空或字符串仅包含空白字符时，则你的函数不需要进行转换。
+
+
+在任何情况下，若函数不能进行有效的转换时，请返回 0。
+
+
+说明：
+
+假设我们的环境只能存储 32 位大小的有符号整数，那么其数值范围为?[?231,? 231?? 1]。如果数值超过这个范围，qing返回 ?INT_MAX (231?? 1) 或?INT_MIN (?231) 。
+class Solution {
+public:
+    int myAtoi(string str) {
+        if(str.empty())
+            return 0;
+        int i = 0, n = str.size();
+        while(i < n && str[i] == ' ')
+        {
+            i++;
+        }
+        if(i == n || (!isdigit(str[i]) && str[i] != '+' && str[i] != '-'))
+            return 0;
+        bool flag = false;
+        if(!isdigit(str[i]))
+        {
+            if(str[i] == '-')
+                flag = true;
+            i++;
+        }
+        long long res = 0;
+        for(; i<n; i++)
+        {
+            if(isdigit(str[i]))
+            {
+                res = res * 10 + (str[i] - '0');
+                if(res > INT_MAX)
+                {
+                    return flag ? INT_MIN : INT_MAX;
+                }
+            }
+            else
+                break;
+        }
+        if(flag)
+            res *= -1;
+        return res;
+    }
+};
+
+28. 实现strStr()
+实现?strStr()?函数。
+
+给定一个?haystack 字符串和一个 needle 字符串，在 haystack 字符串中找出 needle 字符串出现的第一个位置 (从0开始)。如果不存在，则返回? -1。
+
+
+示例 1:
+
+输入: haystack = "hello", needle = "ll"
+输出: 2
+
+示例 2:
+
+输入: haystack = "aaaaa", needle = "bba"
+输出: -1
+
+说明:
+
+当?needle?是空字符串时，我们应当返回什么值呢？这是一个在面试中很好的问题。
+
+对于本题而言，当?needle?是空字符串时我们应当返回 0 。
+这与C语言的?strstr()?以及 Java的?indexOf()?定义相符。
+class Solution {
+public:
+    int strStr(string haystack, string needle) {
+        if(needle.empty())
+            return 0;
+        int hlen = haystack.size(), nlen = needle.size();
+        if(hlen < nlen)
+            return -1;
+        vector<int> next(nlen, 0);
+        getNext(needle, next);
+        int i = 0, j = 0;
+        while(i < hlen && j < nlen)
+        {
+            if(haystack[i] == needle[j])
+            {
+                i++;
+                j++;
+            }
+            else if(next[j] == -1)
+                i++;
+            else
+                j = next[j];
+        }
+        return j == nlen ? i-j : -1;
+    }
+    void getNext(string& match, vector<int>& next)
+    {
+        next[0] = -1;
+        int n = match.size();
+        if(n < 2)
+            return;
+        next[1] = 0;
+        int i = 2, j = 0;
+        while(i < n)
+        {
+            if(j == -1 || match[i-1] == match[j])
+                next[i++] = ++j;
+            else
+                j = next[j];
+        }
+    }
+};
+https://blog.csdn.net/hubeidaxuesanqi3012/article/details/66472535

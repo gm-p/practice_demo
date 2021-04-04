@@ -1,0 +1,107 @@
+翻转单词顺序列
+牛客最近来了一个新员工Fish，每天早晨总是会拿着一本英文杂志，写些句子在本子上。同事Cat对Fish写的内容颇感兴趣，有一天他向Fish借来翻看，但却读不懂它的意思。
+例如，“student. a am I”。后来才意识到，这家伙原来把句子单词的顺序翻转了，正确的句子应该是“I am a student.”。Cat对一一的翻转这些单词顺序可不在行，你能帮助他么？
+class Solution {
+public:
+    string ReverseSentence(string str) {
+        int n = str.size();
+        if(n < 2)
+            return str;
+        reverse(str, 0, n-1);
+        int i=0, j=0;
+        while(i < n)
+        {
+            if(str[i] == ' ')
+            {
+                reverse(str, j, i-1);
+                i++;
+                j = i;
+            }
+            else if(i == n-1)
+            {
+                reverse(str, j, i);
+                break;
+            }
+            else
+                i++;
+        }
+        return str;
+    }
+    void reverse(string& s, int begin, int end)
+    {
+        while(begin < end)
+        {
+            swap(s[begin], s[end]);
+            begin++;
+            end--;
+        }
+    }
+};
+
+左旋转字符串
+汇编语言中有一种移位指令叫做循环左移（ROL），现在有个简单的任务，就是用字符串模拟这个指令的运算结果。
+对于一个给定的字符序列S，请你把其循环左移K位后的序列输出。例如，字符序列S=”abcXYZdef”,要求输出循环左移3位后的结果，即“XYZdefabc”。是不是很简单？OK，搞定它！
+class Solution {
+public:
+    string LeftRotateString(string str, int n) {
+        int len = str.size();
+        if(len < 2)
+            return str;
+        n = n % len;
+        reverse(str, 0, n-1);
+        reverse(str, n, len-1);
+        reverse(str, 0, len-1);
+        return str;
+    }
+    void reverse(string& str, int begin, int end)
+    {
+        while(begin < end)
+        {
+            swap(str[begin], str[end]);
+            begin++;
+            end--;
+        }
+    }
+};
+
+
+把字符串转换成整数
+
+
+将一个字符串转换成一个整数(实现Integer.valueOf(string)的功能，但是string不符合数字要求时返回0)，
+要求不能使用字符串转换整数的库函数。 数值为0或者字符串不是一个合法的数值则返回0
+输入描述:
+输入一个字符串,包括数字字母符号,可以为空
+输出描述:
+如果是合法的数值表达则返回该数字，否则返回0
+class Solution {
+public:
+    int StrToInt(string str) {
+        int res = 0;
+        int n = str.size();
+        bool flag = false;
+        if(n < 1)
+            return res;
+        int i=0;
+        if(str[i] == '-')
+        {
+            flag = true;
+            i++;
+        }
+        else if(str[i] == '+')
+        {
+            flag = false;
+            i++;
+        }
+        for(; i<n; i++)
+        {
+            if(isdigit(str[i]))
+                res = res * 10 + (str[i] - '0');
+            else
+                return 0;
+        }
+        if(flag)
+            res *= -1;
+        return res;
+    }
+};

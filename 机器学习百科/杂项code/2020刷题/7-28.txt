@@ -1,0 +1,89 @@
+110. 平衡二叉树
+给定一个二叉树，判断它是否是高度平衡的二叉树。
+本题中，一棵高度平衡二叉树定义为：一个二叉树每个节点 的左右两个子树的高度差的绝对值不超过1
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool isBalanced(TreeNode* root) {
+        if(root == NULL)
+            return true;
+        bool left = isBalanced(root->left);
+        if(!left)
+            return false;
+        bool right = isBalanced(root->right);
+        if(!right)
+            return false;
+        int len1 = treeDepth(root->left);
+        int len2 = treeDepth(root->right);
+        if(abs(len1 - len2) <= 1)
+            return true;
+        return false;
+    }
+    int treeDepth(TreeNode* root)
+    {
+        if(root == NULL)
+            return 0;
+        return max(treeDepth(root->left), treeDepth(root->right)) + 1;
+    }
+};
+// 方法二：
+class Solution {
+public:
+    bool isBalanced(TreeNode* root) {
+        if(checkDepth(root) == -1)
+            return false;
+        return true;
+    }
+    int checkDepth(TreeNode* root)
+    {
+        if(root == NULL)
+            return 0;
+        int left = checkDepth(root->left);
+        if(left == -1)
+            return -1;
+        int right = checkDepth(root->right);
+        if(right == -1)
+            return -1;
+        if(abs(left - right) > 1)
+            return -1;
+        return 1 + max(left, right);
+    }
+};
+
+101. 对称二叉树
+给定一个二叉树，检查它是否是镜像对称的。
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool isSymmetric(TreeNode* root) {
+        if(root == NULL)
+            return true;
+        return isMirror(root->left, root->right);
+    }
+    bool isMirror(TreeNode* t1, TreeNode* t2)
+    {
+        if(t1 == NULL && t2 == NULL)
+            return true;
+        if(t1 == NULL || t2 == NULL)
+            return false;
+        if(t1->val == t2->val)
+            return isMirror(t1->left, t2->right) && isMirror(t1->right, t2->left);
+        return false;
+    }
+};

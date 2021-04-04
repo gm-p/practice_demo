@@ -1,0 +1,129 @@
+155. 最小栈
+设计一个支持 push，pop，top 操作，并能在常数时间内检索到最小元素的栈
+push(x) -- 将元素 x 推入栈中。
+pop() -- 删除栈顶的元素。
+top() -- 获取栈顶元素。
+getMin() -- 检索栈中的最小元素
+class MinStack {
+public:
+    /** initialize your data structure here. */
+    stack<int> s;
+    stack<int> minS;
+    MinStack() {
+        
+    }
+    
+    void push(int x) {
+        s.push(x);
+        if(minS.empty() || x < minS.top())
+            minS.push(x);
+        else
+            minS.push(minS.top());
+    }
+    
+    void pop() {
+        s.pop();
+        minS.pop();
+    }
+    
+    int top() {
+        return s.top();
+    }
+    
+    int getMin() {
+        return minS.top();
+    }
+};
+
+/**
+ * Your MinStack object will be instantiated and called as such:
+ * MinStack* obj = new MinStack();
+ * obj->push(x);
+ * obj->pop();
+ * int param_3 = obj->top();
+ * int param_4 = obj->getMin();
+ */
+
+栈的压入、弹出序列
+
+
+输入两个整数序列，第一个序列表示栈的压入顺序，请判断第二个序列是否可能为该栈的弹出顺序。
+假设压入栈的所有数字均不相等。例如序列1,2,3,4,5是某栈的压入顺序，序列4,5,3,2,1是该压栈序列对应的一个弹出序列，但4,3,5,1,2就不可能是该压栈序列的弹出序列。（注意：这两个序列的长度是相等的）
+class Solution {
+public:
+    bool IsPopOrder(vector<int> pushV,vector<int> popV) {
+        int nu = pushV.size(), no = popV.size();
+        if(nu != no)
+            return false;
+        stack<int> s;
+        int j = 0;
+        for(int i=0; i<nu; i++)
+        {
+            s.push(pushV[i]);
+            while(!s.empty() && s.top() == popV[j])
+            {
+                s.pop();
+                j++;
+            }
+        }
+        return s.empty();
+    }
+};
+
+
+滑动窗口的最大值
+给定一个数组和滑动窗口的大小，找出所有滑动窗口里数值的最大值。
+例如，如果输入数组{2,3,4,2,6,2,5,1}及滑动窗口的大小3，那么一共存在6个滑动窗口，他们的最大值分别为{4,4,6,6,6,5}； 
+针对数组{2,3,4,2,6,2,5,1}的滑动窗口有以下6个： {[2,3,4],2,6,2,5,1}， {2,[3,4,2],6,2,5,1}， {2,3,[4,2,6],2,5,1}， {2,3,4,[2,6,2],5,1}， {2,3,4,2,[6,2,5],1}， {2,3,4,2,6,[2,5,1]}。
+class Solution {
+public:
+    vector<int> maxInWindows(const vector<int>& num, unsigned int size)
+    {
+        vector<int> res;
+        int n = num.size();
+        if(size < 1 || n < size)
+            return res;
+        deque<int> dq;
+        for(int i=0; i<size && i<n; i++)
+        {
+            while(!dq.empty() && num[dq.back()] < num[i])
+            {
+                dq.pop_back();
+            }
+            if(dq.empty() || num[dq.back()] >= num[i])
+                dq.push_back(i);
+        }
+        res.push_back(num[dq.front()]);
+        for(int i=size; i<n; i++)
+        {
+            while(!dq.empty() && num[dq.back()] < num[i])
+            {
+                dq.pop_back();
+            }
+            if(dq.empty() || num[dq.back()] >= num[i])
+                dq.push_back(i);
+            while(i - dq.front() >= size)
+                dq.pop_front();
+            res.push_back(num[dq.front()]);
+        }
+        return res;
+    }
+};
+
+
+队列的最大值
+请定义一个队列并实现函数max得到队列里的最大值，要求函数max、push_back和pop_front的时间复杂度都是O(1)。
+
+思路：
+同上一题相同，我们要寻找队列的最大值，相当与将滑动窗口设置为整个队列。
+这里需要使用两个队列，一个队列用来保存入队的数据，一个队列用来保存队列的当前最大值。
+
+同时需要注意出队操作，数据队列出队的同时需要判断其索引是否和当前最大值队列首部索引相同，如果相同则同时也将最大值队列头部出队。
+
+比较：
+	
+min栈的实现：队列中是尾部插入，首部删除（滑动窗口是这种情况，故用队列较好），
+	而min栈较方便，在一端插入和删除
+最大值队列在push当前值之前，需将之前较小的值出队处理（从队尾开始判断），队首元素即为当前队列的最大值
+
+原文：https://blog.csdn.net/kk55guang2/article/details/86183220 

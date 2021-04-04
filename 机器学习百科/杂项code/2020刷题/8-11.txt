@@ -1,0 +1,100 @@
+把数字翻译成字符串
+给定一个数字，我们按照如下规则把它翻译为字符串：0翻译成“a”，1翻译成“b”，……，11翻译成“1”,……，25翻译成“z”。
+一个数字可能有多个翻译。例如：12258有5种不同的翻译，分别是“bccfi”、“bwfi”、“bczi”、“mcfi”和“mzi”。
+请编程实现一个函数，用来计算一个数字有多少种不同的翻译方法。
+
+方法：动态规划
+dp[i]表示以s[0~i]的数字翻译成字符串的方法数
+则有dp[i] = dp[i - 1] + g*dp[i - 2] （当s[i-1,i]能组合在一起翻译成有效字符时，g=1,否则g=0）
+上式右边分别对应两种分隔方法：
+s[0~i-1] + s[i]（共dp[i-1]种）
+s[0~i-2] + s[i-1,i]（如果g=1,该分隔有效，共dp[i-2]种）
+#include <bits/stdc++.h>
+using namespace std;
+
+int translation(int number)
+{
+	if(number < 0)
+		return 0;
+	string s = to_string(number);
+	int n = s.size();
+	if(n == 1)
+		return 1;
+	vector<int> dp(n, 0);
+	dp[0] = 1;
+	int tmp = (s[0] - '0') * 10 + s[1] - '0';
+	if(tmp >= 10 && tmp < 25)
+		dp[1] = 2;
+	else
+		dp[1] = 1;
+	int g = 0;
+	for(int i=2; i<n; i++)
+	{
+		tmp = (s[i-1] - '0') * 10 + s[i] - '0';
+		if(tmp >= 10 && tmp <= 25)
+			g = 1;
+		else
+			g = 0;
+		dp[i] = dp[i-1] + g * dp[i-2];
+	}
+	return dp[n-1];
+}
+
+Maximum Subarray
+Given an integer array nums, find the contiguous subarray (containing at least one number) which has the largest sum and return its sum.
+方法一：动态规划
+class Solution
+{
+public:
+	int maxSubArray(vector<int>& nums)
+	{
+		int res = INT_MIN, sum = 0;
+		for(int i=0; i<nums.size(); i++)
+		{
+			sum = max(sum + nums[i], nums[i]);
+			res = max(res, sum);
+		}
+		return res;
+	}
+};
+
+方法二：分治法
+将数组分为左子数组、右子数组、跨越中点的子数组问题
+class Solution
+{
+public:
+	int maxSubArray(vector<int>& nums)
+	{
+		return findMaxSubArray(nums, 0, nums.size()-1);
+	}
+	//递归函数：找a[left...right]的最大子数组（归并排序和快速排序中也用到了分治法，可以类比一下）
+	int findMaxSubArray(vector<int>& nums, int left, int right)
+	{
+		if(left == right)
+			return nums[left];
+		int mid = (left + right) / 2;
+		int left_sum = findMaxSubArray(nums, left, mid);
+		int right_sum = findMaxSubArray(nums, mid+1, right);
+		int corss_sum = findCrossMaxSubArray(nums, left, mid, right);
+		return max(max(left_sum, right_sum), corss_sum);
+	}
+	//找跨中点的最大子数组，我们只需找出形如A[i.. mid] 和A[mid+ 1. .j] 的最大子数组，然后将其合并即可。
+	int findCrossMaxSubArray(vector<int>& nums, int left, int mid, int right)
+	{
+		int left_sum = nums[mid];
+		int sum = 0;
+		for(int i=mid; i>=left; i--)
+		{
+			sum += nums[i];
+			left_sum = max(left_sum, sum);
+		}
+		int right_sum = nums[mid+1];
+		sum = 0;
+		for(int i=mid+1; i<=right; i++)
+		{
+			sum += nums[i];
+			right_sum = max(right_sum, sum);
+		}
+		return left_sum + right_sum;
+	}
+};

@@ -1,0 +1,166 @@
+20. 有效的括号
+给定一个只包括 '('，')'，'{'，'}'，'['，']'?的字符串，判断字符串是否有效。
+
+
+有效字符串需满足：
+
+左括号必须用相同类型的右括号闭合。
+左括号必须以正确的顺序闭合。
+
+注意空字符串可被认为是有效字符串。
+class Solution {
+public:
+    bool isValid(string s) {
+        if(s.empty())
+            return true;
+        stack<char> st;
+        int n = s.size();
+        for(int i=0; i<n; i++)
+        {
+            if(s[i] == '(' || s[i] == '[' || s[i] == '{')
+                st.push(s[i]);
+            else
+            {
+                if(s[i] == ')')
+                {
+                    if(!st.empty() && st.top() == '(')
+                        st.pop();
+                    else
+                        return false;
+                }
+                else if(s[i] == ']')
+                {
+                    if(!st.empty() && st.top() == '[')
+                        st.pop();
+                    else
+                        return false;
+                }
+                else if(s[i] == '}')
+                {
+                    if(!st.empty() && st.top() == '{')
+                        st.pop();
+                    else
+                        return false;
+                }
+            }
+        }
+        if(st.empty())
+            return true;
+        return false;
+    }
+};
+
+125.验证回文串
+给定一个字符串，验证它是否是回文串，只考虑字母和数字字符，可以忽略字母的大小写。
+说明：本题中，我们将空字符串定义为有效的回文串。
+示例 1:
+
+输入: "A man, a plan, a canal: Panama"
+  输出: true
+
+示例 2:
+
+输入: "race a car"  
+输出: false
+
+
+class Solution {
+public:
+    bool isPalindrome(string s) {
+        if(s.empty())
+            return true;
+        int n = s.size();
+        /*string str = "";
+        for(int i=0; i<n; i++)
+        {
+            if(isalnum(s[i]))
+            {
+                str += tolower(s[i]);
+            }
+        }
+        if(str.empty())
+            return true;
+        int i = 0, j = str.size()-1;
+        while(i < j)
+        {
+            if(str[i] != str[j])
+                return false;
+            i++;
+            j--;
+        }
+        return true;*/
+        int i = 0, j = n-1;
+        while(i < j)
+        {
+            while(!isalnum(s[i]) && i < j)
+                i++;
+            while(!isalnum(s[j]) && i < j)
+                j--;
+            if(tolower(s[i]) != tolower(s[j]))
+                return false;
+            i++;
+            j--;
+        }
+        return true;
+    }
+};
+
+680. 验证回文字符串 Ⅱ
+给定一个非空字符串 s，最多删除一个字符。判断是否能成为回文字符串。
+示例 1:
+输入: "aba"
+输出: True
+
+示例 2:
+输入: "abca"
+输出: True
+解释: 你可以删除c字符。
+class Solution {
+public:
+    bool validPalindrome(string s) {
+        int n = s.size();
+        if(n <= 1)
+            return true;
+        int i = 0, j = n-1;
+        while(i < j)
+        {
+            if(s[i] != s[j])
+            {
+                int i1 = i, j1 = j-1;
+                while(i1 < j1)
+                {
+                    if(s[i1] == s[j1])
+                    {
+                        i1++;
+                        j1--;
+                    }
+                    else
+                        break;
+                }
+                if(i1 >= j1)
+                    return true;
+                else
+                {
+                    int i2 = i+1, j2 = j;
+                    while(i2 < j2)
+                    {
+                        if(s[i2] == s[j2])
+                        {
+                            i2++;
+                            j2--;
+                        }
+                        else
+                            break;
+                    }
+                    if(i2 >= j2)
+                        return true;
+                    else
+                        return false;
+                }
+            }
+            i++;
+            j--;
+        }
+        return true;
+    }
+};

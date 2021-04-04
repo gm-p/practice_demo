@@ -1,0 +1,82 @@
+79. 单词搜索
+给定一个二维网格和一个单词，找出该单词是否存在于网格中。
+
+单词必须按照字母顺序，通过相邻的单元格内的字母构成，
+其中“相邻”单元格是那些水平相邻或垂直相邻的单元格。同一个单元格内的字母不允许被重复使用。
+
+
+class Solution {
+    int m, n;
+public:
+    bool exist(vector<vector<char>>& board, string word) {
+        m = board.size();
+        n = board[0].size();
+        vector<vector<bool>> visit(m, vector<bool>(n, false));
+        for(int i=0; i<m; i++)
+        {
+            for(int j=0; j<n; j++)
+                if(search(board, word, visit, i, j, 0))
+                    return true;
+        }
+        return false;
+    }
+    bool search(vector<vector<char>>& board, string& word, vector<vector<bool>>& visit, int i, int j, int index)
+    {
+        if(index == word.size())
+            return true;
+        if(i < 0 || i >= m || j < 0 || j >= n || visit[i][j] || board[i][j] != word[index])
+            return false;
+        else
+            visit[i][j] = true;
+        if(search(board, word, visit, i, j-1, index+1)
+           || search(board, word, visit, i, j+1, index+1)
+           || search(board, word, visit, i-1, j, index+1)
+           || search(board, word, visit, i+1, j, index+1))
+            return true;
+        else
+        {
+            visit[i][j] = false;
+            return false;
+        }
+    }
+};
+
+
+机器人的运动范围
+地上有一个m行和n列的方格。一个机器人从坐标0,0的格子开始移动，每一次只能向左，右，上，下四个方向移动一格，但是不能进入行坐标和列坐标的数位之和大于k的格子。 
+例如，当k为18时，机器人能够进入方格（35,37），因为3+5+3+7 = 18。但是，它不能进入方格（35,38），因为3+5+3+8 = 19。请问该机器人能够达到多少个格子？
+class Solution {
+public:
+    int movingCount(int threshold, int rows, int cols)
+    {
+        if(threshold < 0 || rows <= 0 || cols <= 0)
+            return 0;
+        vector<vector<bool>> visit(rows, vector<bool>(cols, false));
+        return helper(threshold, rows, cols, 0, 0, visit);
+    }
+    int helper(int threshold, int rows, int cols, int i, int j, vector<vector<bool>>& visit)
+    {
+        if(i < 0 || i >= rows || j < 0 || j >= cols || sum(i, j) > threshold || visit[i][j])
+            return 0;
+        visit[i][j] = true;
+        return 1 + helper(threshold, rows, cols, i, j-1, visit)
+                + helper(threshold, rows, cols, i, j+1, visit)
+                + helper(threshold, rows, cols, i-1, j, visit)
+                + helper(threshold, rows, cols, i+1, j, visit);
+    }
+    int sum(int a, int b)
+    {
+        int res = 0;
+        while(a)
+        {
+            res += (a % 10);
+            a /= 10;
+        }
+        while(b)
+        {
+            res += (b % 10);
+            b /= 10;
+        }
+        return res;
+    }
+};
