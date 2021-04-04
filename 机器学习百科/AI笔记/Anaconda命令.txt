@@ -1,0 +1,49 @@
+﻿https://mirrors.ustc.edu.cn/help/anaconda.html
+1.Anaconda更新命令：
+    conda update conda
+    conda update anaconda
+
+2.安装包  conda install <some package>
+3.更新包  conda update <some package>
+4.卸载包  conda remove <some package>
+
+5.在安装或更新时可以指定安装的版本号，例如需要使用numpy 1.8.1:
+   conda install numpy=1.8.1
+   conda update numpy=1.8.1
+   
+6.查看conda的信息：conda info
+
+7.conda产生一个新的环境：(默认2.7下，想使用3.4)
+   conda create -n py34 python=3.4
+这个环境被命名为py34，可以根据喜好将py34改成其他名字
+使用这个环境时，只需要在命令行下输入：
+   activate py34  #(windows)
+   source activate py34  #(linux, mac)
+
+deactive 
+
+添加清华镜像源
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
+
+conda config --set show_channel_urls yes
+
+
+移除镜像
+conda config --remove channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/
+
+显示镜像
+conda config --show channels
+
+搜索graphviz包：
+anaconda search -t conda graphviz
+选择合适的包alubbock/pygraphviz
+显示安装命令：
+anaconda show alubbock/pygraphviz
+使用安装命令安装：
+conda install --channel https://conda.anaconda.org/alubbock pygraphviz
+
+conda常用命令详解
+https://www.jianshu.com/p/484cfbf45ed3
+https://blog.csdn.net/fyuanfena/article/details/52080270

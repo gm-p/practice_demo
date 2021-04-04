@@ -1,0 +1,13 @@
+https://blog.csdn.net/weixin_30323631/article/details/97097135
+
+https://blog.csdn.net/FontThrone/article/details/85063218
+https://www.jianshu.com/p/1100e333fcab
+https://www.jianshu.com/p/017b7b1c505d
+https://blog.csdn.net/u012735708/article/details/83749703
+https://www.cnblogs.com/bjwu/p/9307344.html
+
+best:  {'bagging_fraction': 0.9, 'learning_rate': 0.054082258303378206, 'max_depth': 11, 'num_leaves': 22, 'num_trees': 436}
+best param after transform: 
+{'bagging_fraction': 0.59, 'learning_rate': 0.051081645166067564, 'max_depth': 16, 'num_leaves': 76, 'num_trees': 586}
+rmse of the best lightgbm:  1.3326979633367255
+

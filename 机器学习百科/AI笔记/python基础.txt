@@ -1,0 +1,71 @@
+
+template = '{0:.2f} {1:s} are worth US${2:d}'  # 第一个参数为float，取小数点后2位，第二个位string，第三个位整型
+template.formate(4.5560, 'Argentine Pesos', 1)
+
+在python的object中，lists, dicts, NumPy arrays, 以及用户自定义的类型(classes), 都是可以更改的。
+而string和tuple是不可以更改的
+
+append和extend的区别
+    append是把元素添加到一个list里
+    extend是把两个list结合在一起
+extend和+的区别 
+    +是创建了一个新的list并返回，运算量大
+    extend是在原本的list上做了更改，运算量小
+
+seq[::-1]   用-1能反转一个list或tuple：[1, 0, 6, 5, 3, 6, 3, 2, 7]
+
+enumerate（枚举）能返回一个(i, value)的tuple：
+for i, value in enumerate(collection):
+    # do something with value
+
+sorted函数返回一个新的排好序的序列，而之前提到的.sort方法是直接更改原有的序列，不产生新序列：
+
+zip用于"pairs"(成对)。把多个序列中每个对应的元素变成一对，最后返回一个含有tuple的list：
+zip可以接收任意长度的序列，最后返回的结果取决于最短的序列：
+zip的一个常见用法是同时迭代多个序列，可以和enumerate搭配起来用：
+for i, (a, b) in enumerate(zip(seq1, seq2)):
+    print('{0}: {1}, {2}'.format(i, a, b))
+如果给我们一个压缩过的序列，我们可以将其解压：
+pitchers = [('Nolan', 'Ryan'), ('Roger', 'Clemens'), 
+            ('Schilling', 'Curt')]
+first_names, last_names = zip(*pitchers)
+[9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+reverse可以倒叙迭代序列：list(reversed(range(10)))
+注意，revered是一个generator（生成器，之后会详细讲），所以必须需要list来具现化
+
+字典
+可以用del或pop删除值：del d1[5]          d1.pop('dummy')
+keys和values方法能返回dict中key-value组合的迭代器，不过并不按什么顺序。如果想让keys和values每次打印的顺序相同的话：
+可以用update来合并两个dict：d1.update({'b': 'foo', 'c': 12})
+dict其实就是2-tuple的组合，所以dict函数能接受一组2-tuple：mapping = dict(zip(range(5), reversed(range(5))))
+dict中的get和pop方法能设置默认值
+value = some_dict.get(key, default_value)如果key不存在的话，get方法默认会返回None，而pop则会引发一个错误。
+使用setdefault() 初始化字典键值. 使用字典的时候经常会遇到这样一种应用场景：动态更新字典，像如上面代码，如果key不在dictionary 中那么就添加它并把它对应的值初始为空列表[] ，然后把元素append到空列表中
+
+set是无序且元素不重复的。就像是key唯一，且没有value的字典。两种方式可以创建，一个是用set函数，一个是用花括号：
+# 并集
+a.union(b)
+a | b
+
+# 交集
+a.intersection(b)
+a & b
+上面这些逻辑操作都是直接更改set本身。如果是一个很大的set，下面的操作会更有效率：
+c = a.copy()
+c |= b
+
+查看一个子集与父集的关系：{1, 2, 3}.issubset(a_set)     a_set.issuperset({1, 2, 3})
+
+list comprehension(列表推导式）
+[expr for val in collection if condiction]
+[x.upper() for x in strings if len(x) > 2]
+
+dict推导式：
+
+dict_comp = {key-expr: value-expr for value in collection if condition}
+
+set的推导式：
+
+set_comp = {expr for value in collection if condition}
+
+函数的参数顺序为，位置参数在前，关键字参数在后
