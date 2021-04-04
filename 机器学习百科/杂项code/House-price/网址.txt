@@ -1,0 +1,13 @@
+https://www.kaggle.com/wkevin/house-prices
+https://www.kaggle.com/xirudieyi/house-prices
+https://www.kaggle.com/onestar/kernel-xgboost-stacking
+https://www.kaggle.com/johnwill225/6-predictions-using-blending-models-top-6
+https://www.kaggle.com/jesucristo/1-house-prices-solution-top-1
+https://www.kaggle.com/marsggbo/kaggle
+
+
+
+
+https://www.kaggle.com/kanncaa1/pytorch-tutorial-for-deep-learning-lovers
+https://www.kaggle.com/dansbecker/running-kaggle-kernels-with-a-gpu
+https://blog.csdn.net/maomaona/article/details/90143587
