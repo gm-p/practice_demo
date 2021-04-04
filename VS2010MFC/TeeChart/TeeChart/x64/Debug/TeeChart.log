@@ -1,0 +1,54 @@
+﻿生成启动时间为 2017/7/20 18:29:54。
+     1>项目“E:\MFC项目\TeeChart\TeeChart\TeeChart.vcxproj”在节点 2 上(build 个目标)。
+     1>PrepareForBuild:
+         正在创建目录“E:\MFC项目\TeeChart\x64\Debug\”。
+       InitializeBuildStatus:
+         正在创建“x64\Debug\TeeChart.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+       ClCompile:
+         D:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\x86_amd64\CL.exe /c /Zi /nologo /W3 /WX- /Od /D WIN32 /D _WINDOWS /D _DEBUG /D _MBCS /D _AFXDLL /Gm /EHsc /RTC1 /MD /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yc"StdAfx.h" /Fp"x64\Debug\TeeChart.pch" /Fo"x64\Debug\\" /Fd"x64\Debug\vc100.pdb" /Gd /TP /errorReport:prompt stdafx.cpp
+         stdafx.cpp
+         D:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\x86_amd64\CL.exe /c /Zi /nologo /W3 /WX- /Od /D WIN32 /D _WINDOWS /D _DEBUG /D _MBCS /D _AFXDLL /Gm /EHsc /RTC1 /MD /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"StdAfx.h" /Fp"x64\Debug\TeeChart.pch" /Fo"x64\Debug\\" /Fd"x64\Debug\vc100.pdb" /Gd /TP /errorReport:prompt ChartClass\ChartAxis.cpp ChartClass\ChartAxisLabel.cpp ChartClass\ChartBarSerie.cpp ChartClass\ChartCandlestickSerie.cpp ChartClass\ChartCrossHairCursor.cpp ChartClass\ChartCtrl.cpp ChartClass\ChartCursor.cpp ChartClass\ChartDateTimeAxis.cpp ChartClass\ChartDragLineCursor.cpp ChartClass\ChartFont.cpp ChartClass\ChartGanttSerie.cpp ChartClass\ChartGradient.cpp ChartClass\ChartGrid.cpp ChartClass\ChartLegend.cpp ChartClass\ChartLineSerie.cpp ChartClass\ChartLogarithmicAxis.cpp ChartClass\ChartPointsSerie.cpp ChartClass\ChartScrollBar.cpp ChartClass\ChartSerie.cpp ChartClass\ChartStandardAxis.cpp ChartClass\ChartSurfaceSerie.cpp ChartClass\ChartTitle.cpp ChartClass\ChartXYSerie.cpp TeeChart.cpp TeeChartDlg.cpp
+         TeeChartDlg.cpp
+     1>TeeChartDlg.cpp(208): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 D:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(234) : 参见“fopen”的声明
+     1>TeeChartDlg.cpp(215): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 D:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(253) : 参见“fscanf”的声明
+     1>TeeChartDlg.cpp(223): warning C4267: “=”: 从“size_t”转换到“long”，可能丢失数据
+         TeeChart.cpp
+         ChartXYSerie.cpp
+         ChartTitle.cpp
+     1>ChartClass\ChartTitle.cpp(122): warning C4267: “参数”: 从“size_t”转换到“const int”，可能丢失数据
+     1>ChartClass\ChartTitle.cpp(176): warning C4267: “参数”: 从“size_t”转换到“const int”，可能丢失数据
+         ChartSurfaceSerie.cpp
+         ChartStandardAxis.cpp
+         ChartSerie.cpp
+         ChartScrollBar.cpp
+         ChartPointsSerie.cpp
+         ChartLogarithmicAxis.cpp
+         ChartLineSerie.cpp
+         ChartLegend.cpp
+         ChartGrid.cpp
+         ChartGradient.cpp
+         ChartGanttSerie.cpp
+         ChartFont.cpp
+         ChartDragLineCursor.cpp
+         ChartDateTimeAxis.cpp
+         ChartCursor.cpp
+         ChartCtrl.cpp
+     1>ChartClass\ChartCtrl.cpp(621): error C2511: “CChartSerie *CChartCtrl::GetSerie(size_t) const”:“CChartCtrl”中没有找到重载的成员函数
+                 e:\mfc项目\teechart\teechart\chartclass\ChartCtrl.h(66) : 参见“CChartCtrl”的声明
+         Generating Code...
+         Compiling...
+         ChartCrossHairCursor.cpp
+         ChartCandlestickSerie.cpp
+         ChartBarSerie.cpp
+         ChartAxisLabel.cpp
+         ChartAxis.cpp
+     1>ChartClass\ChartAxis.cpp(305): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+     1>ChartClass\ChartAxis.cpp(315): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+         Generating Code...
+     1>已完成生成项目“E:\MFC项目\TeeChart\TeeChart\TeeChart.vcxproj”(build 个目标)的操作 - 失败。
+
+生成失败。
+
+已用时间 00:00:26.49
