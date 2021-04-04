@@ -1,0 +1,65 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: Ex_SplitSDI - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating command line "rc.exe /l 0x804 /fo"Debug/Ex_SplitSDI.res" /d "_DEBUG" /d "_AFXDLL" "C:\Users\asus\Desktop\visual c++\µÚÆßÕÂ\Ex_SplitSDI\Ex_SplitSDI.rc"" 
+Creating temporary file "C:\Users\asus\AppData\Local\Temp\RSPFC9F.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Fp"Debug/Ex_SplitSDI.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ   /c 
+"C:\Users\asus\Desktop\visual c++\µÚÆßÕÂ\Ex_SplitSDI\Ex_SplitSDI.cpp"
+"C:\Users\asus\Desktop\visual c++\µÚÆßÕÂ\Ex_SplitSDI\MainFrm.cpp"
+"C:\Users\asus\Desktop\visual c++\µÚÆßÕÂ\Ex_SplitSDI\Ex_SplitSDIDoc.cpp"
+"C:\Users\asus\Desktop\visual c++\µÚÆßÕÂ\Ex_SplitSDI\Ex_SplitSDIView.cpp"
+"C:\Users\asus\Desktop\visual c++\µÚÆßÕÂ\Ex_SplitSDI\DemoView.cpp"
+]
+Creating command line "cl.exe @C:\Users\asus\AppData\Local\Temp\RSPFC9F.tmp" 
+Creating temporary file "C:\Users\asus\AppData\Local\Temp\RSPFCA0.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Fp"Debug/Ex_SplitSDI.pch" /Yc"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ   /c 
+"C:\Users\asus\Desktop\visual c++\µÚÆßÕÂ\Ex_SplitSDI\StdAfx.cpp"
+]
+Creating command line "cl.exe @C:\Users\asus\AppData\Local\Temp\RSPFCA0.tmp" 
+Creating temporary file "C:\Users\asus\AppData\Local\Temp\RSPFCA1.tmp" with contents
+[
+/nologo /subsystem:windows /incremental:yes /pdb:"Debug/Ex_SplitSDI.pdb" /debug /machine:I386 /out:"Debug/Ex_SplitSDI.exe" /pdbtype:sept 
+".\Debug\Ex_SplitSDI.obj"
+".\Debug\StdAfx.obj"
+".\Debug\MainFrm.obj"
+".\Debug\Ex_SplitSDIDoc.obj"
+".\Debug\Ex_SplitSDIView.obj"
+".\Debug\Ex_SplitSDI.res"
+".\Debug\DemoView.obj"
+]
+Creating command line "link.exe @C:\Users\asus\AppData\Local\Temp\RSPFCA1.tmp"
+<h3>Output Window</h3>
+Compiling resources...
+Compiling...
+StdAfx.cpp
+Compiling...
+Ex_SplitSDI.cpp
+Generating Code...
+Compiling...
+MainFrm.cpp
+Generating Code...
+Compiling...
+Ex_SplitSDIDoc.cpp
+Generating Code...
+Compiling...
+Ex_SplitSDIView.cpp
+Generating Code...
+Compiling...
+DemoView.cpp
+Generating Code...
+Linking...
+
+
+
+<h3>Results</h3>
+Ex_SplitSDI.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

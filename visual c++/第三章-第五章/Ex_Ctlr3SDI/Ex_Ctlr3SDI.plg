@@ -1,0 +1,38 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: Ex_Ctlr3SDI - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\Users\asus\AppData\Local\Temp\RSP1803.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Fp"Debug/Ex_Ctlr3SDI.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ   /c 
+"C:\Users\asus\Desktop\visual c++\ตฺศýีย\Ex_Ctlr3SDI\CityZoneDlg.cpp"
+]
+Creating command line "cl.exe @C:\Users\asus\AppData\Local\Temp\RSP1803.tmp" 
+Creating temporary file "C:\Users\asus\AppData\Local\Temp\RSP1804.tmp" with contents
+[
+/nologo /subsystem:windows /incremental:yes /pdb:"Debug/Ex_Ctlr3SDI.pdb" /debug /machine:I386 /out:"Debug/Ex_Ctlr3SDI.exe" /pdbtype:sept 
+".\Debug\Ex_Ctlr3SDI.obj"
+".\Debug\StdAfx.obj"
+".\Debug\MainFrm.obj"
+".\Debug\Ex_Ctlr3SDIDoc.obj"
+".\Debug\Ex_Ctlr3SDIView.obj"
+".\Debug\Ex_Ctlr3SDI.res"
+".\Debug\CityZoneDlg.obj"
+]
+Creating command line "link.exe @C:\Users\asus\AppData\Local\Temp\RSP1804.tmp"
+<h3>Output Window</h3>
+Compiling...
+CityZoneDlg.cpp
+Linking...
+
+
+
+<h3>Results</h3>
+Ex_Ctlr3SDI.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

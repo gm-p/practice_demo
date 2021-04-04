@@ -1,0 +1,43 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: Ex_SDIArchive - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\Users\asus\AppData\Local\Temp\RSPC5EF.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Fp"Debug/Ex_SDIArchive.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ   /c 
+"C:\Users\asus\Desktop\visual c++\µÚÆßÕÂ\Ex_SDIArchive\Ex_SDIArchive.cpp"
+"C:\Users\asus\Desktop\visual c++\µÚÆßÕÂ\Ex_SDIArchive\Ex_SDIArchiveDoc.cpp"
+"C:\Users\asus\Desktop\visual c++\µÚÆßÕÂ\Ex_SDIArchive\Ex_SDIArchiveView.cpp"
+]
+Creating command line "cl.exe @C:\Users\asus\AppData\Local\Temp\RSPC5EF.tmp" 
+Creating temporary file "C:\Users\asus\AppData\Local\Temp\RSPC5F0.tmp" with contents
+[
+/nologo /subsystem:windows /incremental:yes /pdb:"Debug/Ex_SDIArchive.pdb" /debug /machine:I386 /out:"Debug/Ex_SDIArchive.exe" /pdbtype:sept 
+".\Debug\Ex_SDIArchive.obj"
+".\Debug\StdAfx.obj"
+".\Debug\MainFrm.obj"
+".\Debug\Ex_SDIArchiveDoc.obj"
+".\Debug\Ex_SDIArchiveView.obj"
+".\Debug\Ex_SDIArchive.res"
+]
+Creating command line "link.exe @C:\Users\asus\AppData\Local\Temp\RSPC5F0.tmp"
+<h3>Output Window</h3>
+Compiling...
+Ex_SDIArchiveDoc.cpp
+Generating Code...
+Skipping... (no relevant changes detected)
+Ex_SDIArchive.cpp
+Ex_SDIArchiveView.cpp
+Linking...
+
+
+
+<h3>Results</h3>
+Ex_SDIArchive.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

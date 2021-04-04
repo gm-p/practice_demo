@@ -1,0 +1,57 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: Ex_Ctrl1SDI - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating command line "rc.exe /l 0x804 /fo"Debug/Ex_Ctrl1SDI.res" /d "_DEBUG" /d "_AFXDLL" "C:\Users\asus\Desktop\visual c++\第三章\Ex_Ctrl1SDI\Ex_Ctrl1SDI.rc"" 
+Creating temporary file "C:\Users\asus\AppData\Local\Temp\RSPFF77.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Fp"Debug/Ex_Ctrl1SDI.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ   /c 
+"C:\Users\asus\Desktop\visual c++\第三章\Ex_Ctrl1SDI\Ex_Ctrl1SDI.cpp"
+"C:\Users\asus\Desktop\visual c++\第三章\Ex_Ctrl1SDI\MainFrm.cpp"
+"C:\Users\asus\Desktop\visual c++\第三章\Ex_Ctrl1SDI\Ex_Ctrl1SDIDoc.cpp"
+"C:\Users\asus\Desktop\visual c++\第三章\Ex_Ctrl1SDI\Ex_Ctrl1SDIView.cpp"
+"C:\Users\asus\Desktop\visual c++\第三章\Ex_Ctrl1SDI\InputDlg.cpp"
+]
+Creating command line "cl.exe @C:\Users\asus\AppData\Local\Temp\RSPFF77.tmp" 
+Creating temporary file "C:\Users\asus\AppData\Local\Temp\RSPFF78.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Fp"Debug/Ex_Ctrl1SDI.pch" /Yc"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ   /c 
+"C:\Users\asus\Desktop\visual c++\第三章\Ex_Ctrl1SDI\StdAfx.cpp"
+]
+Creating command line "cl.exe @C:\Users\asus\AppData\Local\Temp\RSPFF78.tmp" 
+Creating temporary file "C:\Users\asus\AppData\Local\Temp\RSPFF79.tmp" with contents
+[
+/nologo /subsystem:windows /incremental:yes /pdb:"Debug/Ex_Ctrl1SDI.pdb" /debug /machine:I386 /out:"Debug/Ex_Ctrl1SDI.exe" /pdbtype:sept 
+".\Debug\Ex_Ctrl1SDI.obj"
+".\Debug\StdAfx.obj"
+".\Debug\MainFrm.obj"
+".\Debug\Ex_Ctrl1SDIDoc.obj"
+".\Debug\Ex_Ctrl1SDIView.obj"
+".\Debug\Ex_Ctrl1SDI.res"
+".\Debug\InputDlg.obj"
+]
+Creating command line "link.exe @C:\Users\asus\AppData\Local\Temp\RSPFF79.tmp"
+<h3>Output Window</h3>
+Compiling resources...
+Compiling...
+StdAfx.cpp
+Compiling...
+Ex_Ctrl1SDI.cpp
+MainFrm.cpp
+Ex_Ctrl1SDIDoc.cpp
+Ex_Ctrl1SDIView.cpp
+InputDlg.cpp
+Generating Code...
+Linking...
+
+
+
+<h3>Results</h3>
+Ex_Ctrl1SDI.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: Ex_ContextMenu - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating command line "rc.exe /l 0x804 /fo"Debug/Ex_ContextMenu.res" /d "_DEBUG" /d "_AFXDLL" "C:\Users\asus\Desktop\visual c++\ตฺม๙ีย\Ex_ContextMenu\Ex_ContextMenu.rc"" 
+Creating temporary file "C:\Users\asus\AppData\Local\Temp\RSP781D.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Fp"Debug/Ex_ContextMenu.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ   /c 
+"C:\Users\asus\Desktop\visual c++\ตฺม๙ีย\Ex_ContextMenu\Ex_ContextMenu.cpp"
+"C:\Users\asus\Desktop\visual c++\ตฺม๙ีย\Ex_ContextMenu\MainFrm.cpp"
+"C:\Users\asus\Desktop\visual c++\ตฺม๙ีย\Ex_ContextMenu\Ex_ContextMenuDoc.cpp"
+"C:\Users\asus\Desktop\visual c++\ตฺม๙ีย\Ex_ContextMenu\Ex_ContextMenuView.cpp"
+]
+Creating command line "cl.exe @C:\Users\asus\AppData\Local\Temp\RSP781D.tmp" 
+Creating temporary file "C:\Users\asus\AppData\Local\Temp\RSP781E.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Fp"Debug/Ex_ContextMenu.pch" /Yc"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ   /c 
+"C:\Users\asus\Desktop\visual c++\ตฺม๙ีย\Ex_ContextMenu\StdAfx.cpp"
+]
+Creating command line "cl.exe @C:\Users\asus\AppData\Local\Temp\RSP781E.tmp" 
+Creating temporary file "C:\Users\asus\AppData\Local\Temp\RSP781F.tmp" with contents
+[
+/nologo /subsystem:windows /incremental:yes /pdb:"Debug/Ex_ContextMenu.pdb" /debug /machine:I386 /out:"Debug/Ex_ContextMenu.exe" /pdbtype:sept 
+".\Debug\Ex_ContextMenu.obj"
+".\Debug\StdAfx.obj"
+".\Debug\MainFrm.obj"
+".\Debug\Ex_ContextMenuDoc.obj"
+".\Debug\Ex_ContextMenuView.obj"
+".\Debug\Ex_ContextMenu.res"
+]
+Creating command line "link.exe @C:\Users\asus\AppData\Local\Temp\RSP781F.tmp"
+<h3>Output Window</h3>
+Compiling resources...
+Compiling...
+StdAfx.cpp
+Compiling...
+Ex_ContextMenu.cpp
+MainFrm.cpp
+Ex_ContextMenuDoc.cpp
+Ex_ContextMenuView.cpp
+Generating Code...
+Linking...
+
+
+
+<h3>Results</h3>
+Ex_ContextMenu.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: Ex_Text - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating command line "rc.exe /l 0x804 /fo"Debug/Ex_Text.res" /d "_DEBUG" /d "_AFXDLL" "C:\Users\asus\Desktop\visual c++\╣з╟куб\Ex_Text\Ex_Text.rc"" 
+Creating temporary file "C:\Users\asus\AppData\Local\Temp\RSPD57A.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Fp"Debug/Ex_Text.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ   /c 
+"C:\Users\asus\Desktop\visual c++\╣з╟куб\Ex_Text\Ex_Text.cpp"
+"C:\Users\asus\Desktop\visual c++\╣з╟куб\Ex_Text\MainFrm.cpp"
+"C:\Users\asus\Desktop\visual c++\╣з╟куб\Ex_Text\Ex_TextDoc.cpp"
+"C:\Users\asus\Desktop\visual c++\╣з╟куб\Ex_Text\Ex_TextView.cpp"
+]
+Creating command line "cl.exe @C:\Users\asus\AppData\Local\Temp\RSPD57A.tmp" 
+Creating temporary file "C:\Users\asus\AppData\Local\Temp\RSPD57B.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Fp"Debug/Ex_Text.pch" /Yc"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ   /c 
+"C:\Users\asus\Desktop\visual c++\╣з╟куб\Ex_Text\StdAfx.cpp"
+]
+Creating command line "cl.exe @C:\Users\asus\AppData\Local\Temp\RSPD57B.tmp" 
+Creating temporary file "C:\Users\asus\AppData\Local\Temp\RSPD57C.tmp" with contents
+[
+/nologo /subsystem:windows /incremental:yes /pdb:"Debug/Ex_Text.pdb" /debug /machine:I386 /out:"Debug/Ex_Text.exe" /pdbtype:sept 
+".\Debug\Ex_Text.obj"
+".\Debug\StdAfx.obj"
+".\Debug\MainFrm.obj"
+".\Debug\Ex_TextDoc.obj"
+".\Debug\Ex_TextView.obj"
+".\Debug\Ex_Text.res"
+]
+Creating command line "link.exe @C:\Users\asus\AppData\Local\Temp\RSPD57C.tmp"
+<h3>Output Window</h3>
+Compiling resources...
+Compiling...
+StdAfx.cpp
+Compiling...
+Ex_Text.cpp
+MainFrm.cpp
+Ex_TextDoc.cpp
+Ex_TextView.cpp
+Generating Code...
+Linking...
+
+
+
+<h3>Results</h3>
+Ex_Text.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

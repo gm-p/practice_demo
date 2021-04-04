@@ -1,0 +1,32 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: Ex_Member - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\Users\asus\AppData\Local\Temp\RSPB2FC.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Fp"Debug/Ex_Member.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ   /c 
+"C:\Users\asus\Desktop\visual c++\第三章\Ex_Member\Ex_Member.cpp"
+"C:\Users\asus\Desktop\visual c++\第三章\Ex_Member\Ex_MemberDlg.cpp"
+]
+Creating command line "cl.exe @C:\Users\asus\AppData\Local\Temp\RSPB2FC.tmp" 
+Creating command line "link.exe /nologo /subsystem:windows /incremental:yes /pdb:"Debug/Ex_Member.pdb" /debug /machine:I386 /out:"Debug/Ex_Member.exe" /pdbtype:sept  ".\Debug\Ex_Member.obj" ".\Debug\Ex_MemberDlg.obj" ".\Debug\StdAfx.obj" ".\Debug\Ex_Member.res" "
+<h3>Output Window</h3>
+Compiling...
+Ex_MemberDlg.cpp
+Generating Code...
+Compiling...
+Ex_Member.cpp
+Generating Code...
+Linking...
+
+
+
+<h3>Results</h3>
+Ex_Member.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

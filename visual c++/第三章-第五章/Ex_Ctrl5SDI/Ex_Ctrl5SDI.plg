@@ -1,0 +1,57 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: Ex_Ctrl5SDI - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating command line "rc.exe /l 0x804 /fo"Debug/Ex_Ctrl5SDI.res" /d "_DEBUG" /d "_AFXDLL" "C:\Users\asus\Desktop\visual c++\第三章\Ex_Ctrl5SDI\Ex_Ctrl5SDI.rc"" 
+Creating temporary file "C:\Users\asus\AppData\Local\Temp\RSP28B.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Fp"Debug/Ex_Ctrl5SDI.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ   /c 
+"C:\Users\asus\Desktop\visual c++\第三章\Ex_Ctrl5SDI\Ex_Ctrl5SDI.cpp"
+"C:\Users\asus\Desktop\visual c++\第三章\Ex_Ctrl5SDI\MainFrm.cpp"
+"C:\Users\asus\Desktop\visual c++\第三章\Ex_Ctrl5SDI\Ex_Ctrl5SDIDoc.cpp"
+"C:\Users\asus\Desktop\visual c++\第三章\Ex_Ctrl5SDI\Ex_Ctrl5SDIView.cpp"
+"C:\Users\asus\Desktop\visual c++\第三章\Ex_Ctrl5SDI\BkColorDlg.cpp"
+]
+Creating command line "cl.exe @C:\Users\asus\AppData\Local\Temp\RSP28B.tmp" 
+Creating temporary file "C:\Users\asus\AppData\Local\Temp\RSP28C.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Fp"Debug/Ex_Ctrl5SDI.pch" /Yc"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ   /c 
+"C:\Users\asus\Desktop\visual c++\第三章\Ex_Ctrl5SDI\StdAfx.cpp"
+]
+Creating command line "cl.exe @C:\Users\asus\AppData\Local\Temp\RSP28C.tmp" 
+Creating temporary file "C:\Users\asus\AppData\Local\Temp\RSP28D.tmp" with contents
+[
+/nologo /subsystem:windows /incremental:yes /pdb:"Debug/Ex_Ctrl5SDI.pdb" /debug /machine:I386 /out:"Debug/Ex_Ctrl5SDI.exe" /pdbtype:sept 
+".\Debug\Ex_Ctrl5SDI.obj"
+".\Debug\StdAfx.obj"
+".\Debug\MainFrm.obj"
+".\Debug\Ex_Ctrl5SDIDoc.obj"
+".\Debug\Ex_Ctrl5SDIView.obj"
+".\Debug\Ex_Ctrl5SDI.res"
+".\Debug\BkColorDlg.obj"
+]
+Creating command line "link.exe @C:\Users\asus\AppData\Local\Temp\RSP28D.tmp"
+<h3>Output Window</h3>
+Compiling resources...
+Compiling...
+StdAfx.cpp
+Compiling...
+Ex_Ctrl5SDI.cpp
+MainFrm.cpp
+Ex_Ctrl5SDIDoc.cpp
+Ex_Ctrl5SDIView.cpp
+BkColorDlg.cpp
+Generating Code...
+Linking...
+
+
+
+<h3>Results</h3>
+Ex_Ctrl5SDI.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

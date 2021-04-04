@@ -1,0 +1,38 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: Ex_Student - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\Users\asus\AppData\Local\Temp\RSP6C93.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Fp"Debug/Ex_Student.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ   /c 
+"C:\Users\asus\Desktop\visual c++\µÚÆßÕÂ\Ex_Student\InputDlg.cpp"
+]
+Creating command line "cl.exe @C:\Users\asus\AppData\Local\Temp\RSP6C93.tmp" 
+Creating temporary file "C:\Users\asus\AppData\Local\Temp\RSP6C94.tmp" with contents
+[
+/nologo /subsystem:windows /incremental:yes /pdb:"Debug/Ex_Student.pdb" /debug /machine:I386 /out:"Debug/Ex_Student.exe" /pdbtype:sept 
+".\Debug\Ex_Student.obj"
+".\Debug\StdAfx.obj"
+".\Debug\MainFrm.obj"
+".\Debug\Ex_StudentDoc.obj"
+".\Debug\Ex_StudentView.obj"
+".\Debug\Ex_Student.res"
+".\Debug\InputDlg.obj"
+]
+Creating command line "link.exe @C:\Users\asus\AppData\Local\Temp\RSP6C94.tmp"
+<h3>Output Window</h3>
+Compiling...
+InputDlg.cpp
+Linking...
+
+
+
+<h3>Results</h3>
+Ex_Student.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

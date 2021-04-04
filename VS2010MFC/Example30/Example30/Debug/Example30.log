@@ -1,0 +1,33 @@
+﻿生成启动时间为 2015/11/8 20:08:18。
+     1>项目“E:\编程文档\VS2010MFC\Example30\Example30\Example30.vcxproj”在节点 2 上(build 个目标)。
+     1>InitializeBuildStatus:
+         正在创建“Debug\Example30.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+       ClCompile:
+         所有输出均为最新。
+         所有输出均为最新。
+       ResourceCompile:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /D _DEBUG /D _UNICODE /D UNICODE /D _AFXDLL /l"0x0804" /IDebug\ /nologo /fo"Debug\Example30.res" Example30.rc 
+       ManifestResourceCompile:
+         所有输出均为最新。
+       Link:
+         d:\Program Files (x86)\VS2010\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\编程文档\VS2010MFC\Example30\Debug\Example30.exe" /INCREMENTAL /NOLOGO opencv_ml249.lib opencv_calib3d249.lib opencv_contrib249.lib opencv_core249.lib opencv_features2d249.lib opencv_flann249.lib opencv_gpu249.lib opencv_highgui249.lib opencv_imgproc249.lib opencv_legacy249.lib opencv_objdetect249.lib opencv_ts249.lib opencv_video249.lib opencv_nonfree249.lib opencv_ocl249.lib opencv_photo249.lib opencv_stitching249.lib opencv_superres249.lib opencv_videostab249.lib /MANIFEST /ManifestFile:"Debug\Example30.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"E:\编程文档\VS2010MFC\Example30\Debug\Example30.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /ENTRY:"wWinMainCRTStartup" /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\编程文档\VS2010MFC\Example30\Debug\Example30.lib" /MACHINE:X86 Debug\Example30.res
+         Debug\Example30.exe.embed.manifest.res
+         Debug\AndroidDlg.obj
+         Debug\Example30.obj
+         Debug\Example30Dlg.obj
+         Debug\JzmDlg.obj
+         Debug\stdafx.obj
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:"Debug\Example30.exe.embed.manifest" /manifest Debug\Example30.exe.intermediate.manifest "d:\Program Files (x86)\VS2010\VC\Include\Manifest\dpiaware.manifest"
+         所有输出均为最新。
+       LinkEmbedManifest:
+         所有输出均为最新。
+         Example30.vcxproj -> E:\编程文档\VS2010MFC\Example30\Debug\Example30.exe
+       FinalizeBuildStatus:
+         正在删除文件“Debug\Example30.unsuccessfulbuild”。
+         正在对“Debug\Example30.lastbuildstate”执行 Touch 任务。
+     1>已完成生成项目“E:\编程文档\VS2010MFC\Example30\Example30\Example30.vcxproj”(build 个目标)的操作。
+
+生成成功。
+
+已用时间 00:00:00.74

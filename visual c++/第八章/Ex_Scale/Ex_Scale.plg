@@ -1,0 +1,54 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: Ex_Scale - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating command line "rc.exe /l 0x804 /fo"Debug/Ex_Scale.res" /d "_DEBUG" /d "_AFXDLL" "C:\Users\asus\Desktop\visual c++\╣з╟куб\Ex_Scale\Ex_Scale.rc"" 
+Creating temporary file "C:\Users\asus\AppData\Local\Temp\RSPC9F.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Fp"Debug/Ex_Scale.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ   /c 
+"C:\Users\asus\Desktop\visual c++\╣з╟куб\Ex_Scale\Ex_Scale.cpp"
+"C:\Users\asus\Desktop\visual c++\╣з╟куб\Ex_Scale\MainFrm.cpp"
+"C:\Users\asus\Desktop\visual c++\╣з╟куб\Ex_Scale\Ex_ScaleDoc.cpp"
+"C:\Users\asus\Desktop\visual c++\╣з╟куб\Ex_Scale\Ex_ScaleView.cpp"
+]
+Creating command line "cl.exe @C:\Users\asus\AppData\Local\Temp\RSPC9F.tmp" 
+Creating temporary file "C:\Users\asus\AppData\Local\Temp\RSPCA0.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Fp"Debug/Ex_Scale.pch" /Yc"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ   /c 
+"C:\Users\asus\Desktop\visual c++\╣з╟куб\Ex_Scale\StdAfx.cpp"
+]
+Creating command line "cl.exe @C:\Users\asus\AppData\Local\Temp\RSPCA0.tmp" 
+Creating temporary file "C:\Users\asus\AppData\Local\Temp\RSPCA1.tmp" with contents
+[
+/nologo /subsystem:windows /incremental:yes /pdb:"Debug/Ex_Scale.pdb" /debug /machine:I386 /out:"Debug/Ex_Scale.exe" /pdbtype:sept 
+".\Debug\Ex_Scale.obj"
+".\Debug\StdAfx.obj"
+".\Debug\MainFrm.obj"
+".\Debug\Ex_ScaleDoc.obj"
+".\Debug\Ex_ScaleView.obj"
+".\Debug\Ex_Scale.res"
+]
+Creating command line "link.exe @C:\Users\asus\AppData\Local\Temp\RSPCA1.tmp"
+<h3>Output Window</h3>
+Compiling resources...
+Compiling...
+StdAfx.cpp
+Compiling...
+Ex_Scale.cpp
+MainFrm.cpp
+Ex_ScaleDoc.cpp
+Ex_ScaleView.cpp
+Generating Code...
+Linking...
+
+
+
+<h3>Results</h3>
+Ex_Scale.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>
