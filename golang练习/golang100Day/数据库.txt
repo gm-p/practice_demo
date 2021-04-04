@@ -1,0 +1,108 @@
+1. 创建数据库
+create database my1905 character set utf8;
+
+2. 显示有哪些数据库
+show databases;
+
+3. 切换到数据库
+use my1905;
+
+4. 查看当前数据库有哪些数据表
+show tables
+
+5. 创建表
+create table users(
+    id int(4) primary key auto_increment,
+    username varchar(20),
+    pwd varchar(30)
+)
+
+6. 查看表结构：desc --> describe
+desc users;
+
+7. 显示检索语句
+show create table users;
+
+8. 插入一条数据
+insert into users(id, username, pwd) values(1, 'admin', '123456');
+
+9. 查询数据
+select * from users;
+
+10. 修改表结构
+alter table 表名 xxx
+    添加字段 add
+    alter table users add(
+        age int(4),
+        birthday date 
+    );
+    修改已有字段的数据类型：modify
+    alter table users modify age float(4, 1);
+    更改列名
+    alter table users change pwd password varchar(30);
+    删除某列：drop
+    alter table users drop birthday 
+    表重命名：rename to
+    alter table users rename to user2;
+    rename table users2 to user3;
+    删除表
+    drop table user3 
+
+11. 插入数据 
+insert into 表名（列1, 列2， 列3, 。。 ） values(值1，值2，值3...)
+
+12. 修改数据 
+update 表名 set 列1=值1，列2=值2.。。。[where 条件]
+
+运算符： =   数值相等
+        !=, <>  数值不等
+        between... and  区间
+        >
+        <
+        >=
+        <=
+        or
+        and
+        in（值1，值2，值3.。。）
+
+
+1.修改学号为1006的同学姓名为陈聪
+update student set name='陈聪' where no=1006;
+
+2. 年龄小于19岁的同学，性别改为女
+update sudent set sex='女' where age <19;
+
+3. 年龄大于等于19岁，并且小于等于19岁的同学姓名改为马冬梅
+update student set name='马冬梅' where age >= 18 and age <= 19;
+
+4.修改年龄19到20岁之间的同学姓名为马冬梅
+update student set name='马冬梅' where age between 19 and 20;
+
+
+SQL (结构化查询语言)
+DDL 数据定义语言
+    穿件数据表 create table 表名
+    修改数据表 alter table 表名
+    删除数据表 drop table 表名
+
+DML 数据操纵语言
+    添加数据：insert
+    修改数据：update
+    删除数据：delete
+
+DQL：数据查询语言
+    查询语言：select
+
+DCL：数据控制语言
+     grant 权限 to scott, 
+     revote 权限 from scott
+
+DCL 事务控制语言：commit, rollback, rollback to savepoint
+
+
+select {columns}
+   from {table|views|other select}
+   [where 查询条件]
+   [group by 分组条件]
+   [having 分组后再限定]
+   [order by 排序]
